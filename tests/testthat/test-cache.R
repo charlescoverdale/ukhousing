@@ -1,0 +1,31 @@
+test_that("ukh_cache_info returns correct shape on empty cache", {
+  op <- options(ukhousing.cache_dir = tempfile("ukh_cache_"))
+  on.exit(options(op))
+  info <- ukh_cache_info()
+  expect_named(info, c("dir", "n_files", "size_bytes", "size_human", "files"))
+  expect_equal(info$n_files, 0L)
+  expect_equal(info$size_bytes, 0)
+})
+
+test_that("ukh_cache_info lists files", {
+  tmp <- tempfile("ukh_cache_")
+  op <- options(ukhousing.cache_dir = tmp)
+  on.exit(options(op))
+  dir.create(tmp, recursive = TRUE)
+  writeLines("test", file.path(tmp, "test.csv"))
+  info <- ukh_cache_info()
+  expect_equal(info$n_files, 1L)
+  expect_true(info$size_bytes > 0)
+  expect_true("test.csv" %in% info$files$name)
+})
+
+test_that("ukh_clear_cache empties the cache", {
+  tmp <- tempfile("ukh_cache_")
+  op <- options(ukhousing.cache_dir = tmp)
+  on.exit(options(op))
+  dir.create(tmp, recursive = TRUE)
+  writeLines("test", file.path(tmp, "test.csv"))
+  expect_true(file.exists(file.path(tmp, "test.csv")))
+  ukh_clear_cache()
+  expect_false(file.exists(file.path(tmp, "test.csv")))
+})
