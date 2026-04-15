@@ -4,12 +4,20 @@
 \alias{ukh_epc_summary}
 \title{EPC rating distribution for a local authority}
 \usage{
-ukh_epc_summary(la, from = NULL, to = NULL)
+ukh_epc_summary(
+  la,
+  from = NULL,
+  to = NULL,
+  type = c("domestic", "non-domestic", "display")
+)
 }
 \arguments{
 \item{la}{Character. Local authority GSS code.}
 
 \item{from, to}{Optional. Lodgement date range.}
+
+\item{type}{Character. Register: \code{"domestic"} (default),
+\code{"non-domestic"}, or \code{"display"}.}
 }
 \value{
 A data frame with one row per rating (A-G) and columns
@@ -30,6 +38,7 @@ ukh_epc_summary(la = "E09000033")
 Other energy performance certificates: 
 \code{\link{ukh_epc_bulk}()},
 \code{\link{ukh_epc_certificate}()},
+\code{\link{ukh_epc_recommendations_summary}()},
 \code{\link{ukh_epc_search}()}
 }
 \concept{energy performance certificates}

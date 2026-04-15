@@ -34,4 +34,8 @@ ukh_regions(tier = "region")
 # Country-level series
 ukh_regions(tier = "country")
 }
+\seealso{
+Other helpers: 
+\code{\link{ukh_sparql}()}
+}
 \concept{helpers}

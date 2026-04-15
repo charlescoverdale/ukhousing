@@ -4,12 +4,19 @@
 \alias{ukh_epc_bulk}
 \title{Download a bulk EPC ZIP for a local authority}
 \usage{
-ukh_epc_bulk(la, refresh = FALSE)
+ukh_epc_bulk(
+  la,
+  refresh = FALSE,
+  type = c("domestic", "non-domestic", "display")
+)
 }
 \arguments{
 \item{la}{Character. Local authority GSS code (e.g. \code{"E09000033"}).}
 
 \item{refresh}{Logical. Re-download even if cached? Default \code{FALSE}.}
+
+\item{type}{Character. Register: \code{"domestic"} (default),
+\code{"non-domestic"}, or \code{"display"}.}
 }
 \value{
 A list with elements \code{certificates} and \code{recommendations},
@@ -30,6 +37,7 @@ certs <- read.csv(paths$certificates)
 \seealso{
 Other energy performance certificates: 
 \code{\link{ukh_epc_certificate}()},
+\code{\link{ukh_epc_recommendations_summary}()},
 \code{\link{ukh_epc_search}()},
 \code{\link{ukh_epc_summary}()}
 }

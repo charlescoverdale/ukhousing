@@ -8,7 +8,7 @@ ukh_planning(
   dataset,
   la = NULL,
   limit = 1000L,
-  format = c("data.frame", "raw")
+  format = c("data.frame", "raw", "sf")
 )
 }
 \arguments{

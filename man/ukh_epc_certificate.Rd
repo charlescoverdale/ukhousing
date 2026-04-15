@@ -4,11 +4,14 @@
 \alias{ukh_epc_certificate}
 \title{Fetch a single EPC by LMK key}
 \usage{
-ukh_epc_certificate(lmk_key)
+ukh_epc_certificate(lmk_key, type = c("domestic", "non-domestic", "display"))
 }
 \arguments{
 \item{lmk_key}{Character. The certificate's LMK key (found in the
 \code{lmk_key} column of \code{\link[=ukh_epc_search]{ukh_epc_search()}} results).}
+
+\item{type}{Character. Register: \code{"domestic"} (default),
+\code{"non-domestic"}, or \code{"display"}.}
 }
 \value{
 A list with two elements:
@@ -32,6 +35,7 @@ cert$recommendations
 \seealso{
 Other energy performance certificates: 
 \code{\link{ukh_epc_bulk}()},
+\code{\link{ukh_epc_recommendations_summary}()},
 \code{\link{ukh_epc_search}()},
 \code{\link{ukh_epc_summary}()}
 }

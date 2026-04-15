@@ -1,3 +1,52 @@
+# ukhousing 0.2.0
+
+## New functions
+
+### Land Registry
+
+* `ukh_transactions()` returns monthly transaction volumes for a
+  region (shortcut over `ukh_hpi()`, noting the ~5-month sales-volume
+  lag).
+* `ukh_ppd_years()` fetches Price Paid Data across multiple years in
+  one call and row-binds.
+* `ukh_ppd_transaction()` looks up a single transaction by its GUID
+  via the Land Registry linked-data REST API.
+* `ukh_ppd_address()` looks up transactions by postcode via the
+  address lookup endpoint, avoiding the yearly bulk download.
+* `ukh_ppd_bulk()` now falls back to split part files
+  (`pp-YYYY-part1.csv`, `pp-YYYY-part2.csv`, ...) when the single
+  yearly file is unavailable.
+
+### Energy Performance Certificates
+
+* `ukh_epc_search()`, `ukh_epc_certificate()`, `ukh_epc_summary()`,
+  and `ukh_epc_bulk()` now accept a `type` argument:
+  `"domestic"` (default), `"non-domestic"`, or `"display"`.
+* `ukh_epc_recommendations_summary()` aggregates improvement
+  recommendations across a local authority's certificates.
+
+### ONS
+
+* `ukh_pipr()` fetches the ONS Price Index of Private Rents (monthly,
+  UK and regional, from January 2015) via the ONS Beta API.
+
+### Advanced
+
+* `ukh_sparql()` runs an arbitrary SPARQL query against the Land
+  Registry endpoint (HPI + PPD) or the Open Data Communities endpoint
+  (300+ MHCLG housing-market datasets).
+
+### Planning
+
+* `ukh_planning()` now supports `format = "sf"` to return simple
+  features for GeoJSON-capable datasets (requires the `sf` package
+  as a soft suggest).
+
+## Other changes
+
+* Added `jsonlite` to Imports (required by `ukh_pipr()`).
+* Added `sf` to Suggests.
+
 # ukhousing 0.1.0
 
 * Initial release.

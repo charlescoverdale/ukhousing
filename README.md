@@ -5,7 +5,25 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 <!-- badges: end -->
 
-Access UK housing data from official sources in R. House prices, individual property transactions, energy performance certificates, and planning data.
+Access UK housing data from official sources in R. House prices, individual property transactions, energy performance certificates, planning data, and rental price indices.
+
+
+## The UK has world-class housing data. It is also a mess.
+
+The UK publishes some of the richest housing data anywhere in the world. Every residential transaction in England and Wales since 1995 is public. Every Energy Performance Certificate since 2008 is queryable by postcode. Planning applications, brownfield land registers, affordability ratios, rental price indices, and stamp duty receipts are all available at no cost, with long back-series, and at local authority resolution.
+
+The catch is that this data is scattered across roughly ten institutions, each with its own format, access pattern, and quirks:
+
+- **HM Land Registry** publishes the UK House Price Index via a linked-data SPARQL endpoint plus a REST API, and Price Paid Data as multi-gigabyte bulk CSVs with no header row
+- **MHCLG's EPC Open Data service** requires a free registered API key with HTTP Basic Auth, paginates using `search-after` tokens, and has 90+ hyphenated fields per record
+- **planning.data.gov.uk** (Digital Land) has a clean REST API with JSON and GeoJSON output
+- **ONS** publishes rental price indices via the Beta API, but affordability ratios only as Excel workbooks with multi-row headers
+- **DLUHC** publishes housing supply data as ODS live tables with hash-based URLs that change on every republication
+- **HMRC** publishes Stamp Duty Land Tax statistics as ODS/XLSX
+- **VOA** publishes private rental market data separately, also as ODS
+- **Registers of Scotland** and **NI Land & Property Services** hold equivalent data for those jurisdictions in different formats
+
+`ukhousing` wraps the four stable API-based sources (Land Registry HPI, Land Registry Price Paid, EPC, planning.data.gov.uk) plus ONS PIPR rental prices, and exposes them through a consistent R interface. The flaky Excel/ODS scraping sources are deliberately out of scope: they change format too often to maintain reliably.
 
 
 ## Installation
@@ -16,19 +34,16 @@ devtools::install_github("charlescoverdale/ukhousing")
 ```
 
 
-## Why this package?
+## Data sources covered
 
-The only previous CRAN package for UK housing data (`uklr`) was archived in March 2026. It covered only part of the Land Registry and never supported Energy Performance Certificates or planning data.
-
-`ukhousing` pulls from three official data sources and exposes them through a consistent R interface:
-
-| Source | What it provides |
+| Source | Coverage |
 |---|---|
-| [HM Land Registry](https://landregistry.data.gov.uk/) | UK House Price Index + Price Paid Data |
-| [MHCLG EPC Open Data](https://epc.opendatacommunities.org/) | 25 million Energy Performance Certificates |
-| [planning.data.gov.uk](https://www.planning.data.gov.uk/) | Planning applications, brownfield land, local plans |
+| [HM Land Registry](https://landregistry.data.gov.uk/) | UK HPI (441+ regions) + Price Paid Data (28M+ transactions since 1995) |
+| [MHCLG EPC Open Data](https://epc.opendatacommunities.org/) | 25M+ domestic certificates, plus non-domestic and display certificates |
+| [planning.data.gov.uk](https://www.planning.data.gov.uk/) | 100+ datasets: planning applications, brownfield land, local plans, listed buildings, conservation areas, flood risk zones |
+| [ONS Beta API](https://developer.ons.gov.uk/) | Price Index of Private Rents (UK and regional, from January 2015) |
 
-All three are free to use. EPC requires a free registration for an API key.
+All sources are free. EPC requires a free registration for an API key. A SPARQL escape hatch (`ukh_sparql()`) is provided for queries the dedicated helpers don't cover.
 
 
 ## Quick start
@@ -123,11 +138,17 @@ datasets <- ukh_planning_datasets()
 |---|---|
 | `ukh_hpi()` | UK HPI time series for a region |
 | `ukh_hpi_compare()` | One measure across multiple regions |
+| `ukh_transactions()` | Monthly transaction volumes (shortcut) |
 | `ukh_ppd()` | Individual property transactions |
-| `ukh_ppd_bulk()` | Download a bulk PPD CSV |
+| `ukh_ppd_bulk()` | Download a bulk PPD CSV (yearly or complete) |
 | `ukh_ppd_summary()` | Aggregated PPD statistics |
+| `ukh_ppd_years()` | PPD across multiple years, row-bound |
+| `ukh_ppd_transaction()` | Look up a single transaction by ID |
+| `ukh_ppd_address()` | Look up transactions by postcode |
 
 ### EPC
+
+All EPC functions accept `type = c("domestic", "non-domestic", "display")`.
 
 | Function | Description |
 |---|---|
@@ -136,13 +157,26 @@ datasets <- ukh_planning_datasets()
 | `ukh_epc_certificate()` | Fetch a single certificate |
 | `ukh_epc_summary()` | Rating distribution for an LA |
 | `ukh_epc_bulk()` | Download bulk ZIP for an LA |
+| `ukh_epc_recommendations_summary()` | Most common improvement recommendations |
 
 ### Planning
 
 | Function | Description |
 |---|---|
-| `ukh_planning()` | Query planning entities |
+| `ukh_planning()` | Query planning entities (supports `format = "sf"`) |
 | `ukh_planning_datasets()` | List available datasets |
+
+### ONS
+
+| Function | Description |
+|---|---|
+| `ukh_pipr()` | Price Index of Private Rents (monthly, UK and regions) |
+
+### Advanced
+
+| Function | Description |
+|---|---|
+| `ukh_sparql()` | Raw SPARQL query against Land Registry or Open Data Communities |
 
 ### Helpers
 

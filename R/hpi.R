@@ -227,3 +227,31 @@ ukh_hpi_compare <- function(regions, measure = "avg_price",
   }
   cli_abort("Could not parse date column in UK HPI response (first value: {.val {x[1L]}}).")
 }
+
+#' Transaction volumes for a region
+#'
+#' Returns monthly residential transaction counts for a UK region.
+#' This is a thin wrapper over [ukh_hpi()] that extracts the
+#' `sales_volume` column with its date. Transaction volumes lag the
+#' headline index by approximately five months because the Land
+#' Registry needs the full transaction set to settle.
+#'
+#' @param region Character. Region slug, GSS code, or common name.
+#' @param from,to Optional. Date range (YYYY-MM-DD).
+#' @param refresh Logical. Re-download? Default `FALSE`.
+#'
+#' @return A data frame with `date`, `region`, and `sales_volume`.
+#'
+#' @family house price index
+#' @export
+#' @examples
+#' \donttest{
+#' op <- options(ukhousing.cache_dir = tempdir())
+#' tx <- ukh_transactions("england", from = "2020-01-01")
+#' head(tx)
+#' options(op)
+#' }
+ukh_transactions <- function(region, from = NULL, to = NULL, refresh = FALSE) {
+  df <- ukh_hpi(region, from = from, to = to, refresh = refresh)
+  df[, c("date", "region", "sales_volume"), drop = FALSE]
+}

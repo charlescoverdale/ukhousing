@@ -48,6 +48,7 @@ options(op)
 }
 \seealso{
 Other house price index: 
-\code{\link{ukh_hpi}()}
+\code{\link{ukh_hpi}()},
+\code{\link{ukh_transactions}()}
 }
 \concept{house price index}

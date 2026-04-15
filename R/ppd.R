@@ -156,10 +156,48 @@ ukh_ppd_bulk <- function(year = as.integer(format(Sys.Date(), "%Y")),
       "!" = "Downloading the complete Price Paid file (~5.3 GB).",
       "i" = "This may take several minutes."
     ))
-  } else {
-    cli_inform(c("i" = "Downloading {.file {filename}} from HM Land Registry..."))
+    ukh_download(url, cache_path)
+    return(cache_path)
   }
-  ukh_download(url, cache_path)
+
+  cli_inform(c("i" = "Downloading {.file {filename}} from HM Land Registry..."))
+  # Try single-file first; some years are split into parts for larger volumes.
+  ok <- tryCatch({
+    ukh_download(url, cache_path)
+    TRUE
+  }, error = function(e) FALSE)
+  if (ok) return(cache_path)
+
+  # Fallback: split part files pp-YYYY-part1.csv, pp-YYYY-part2.csv, ...
+  cli_inform(c("i" = "Single yearly file not available; trying split part files..."))
+  yr <- as.integer(year)
+  parts <- character(0)
+  part_num <- 1L
+  repeat {
+    part_name <- sprintf("pp-%d-part%d.csv", yr, part_num)
+    part_url <- paste0("https://price-paid-data.publicdata.landregistry.gov.uk/", part_name)
+    part_path <- file.path(ukh_cache_dir(), part_name)
+    got <- tryCatch({
+      ukh_download(part_url, part_path)
+      TRUE
+    }, error = function(e) FALSE)
+    if (!got) break
+    parts <- c(parts, part_path)
+    part_num <- part_num + 1L
+    if (part_num > 10L) break  # safety cap
+  }
+  if (length(parts) == 0L) {
+    cli_abort(c(
+      "No Price Paid file found for year {.val {yr}}.",
+      "i" = "Tried {.url {url}} and part-file fallback."
+    ))
+  }
+  # Concatenate part files into the single yearly cache path
+  con <- file(cache_path, "wb")
+  on.exit(close(con), add = TRUE)
+  for (p in parts) {
+    writeBin(readBin(p, what = "raw", n = file.info(p)$size), con)
+  }
   cache_path
 }
 
@@ -254,5 +292,129 @@ ukh_ppd_summary <- function(year = as.integer(format(Sys.Date(), "%Y")),
     out$total_value[i] <- sum(subset, na.rm = TRUE)
   }
   names(out)[1L] <- by_label
+  out
+}
+
+#' Look up a single Price Paid transaction by ID
+#'
+#' Fetches the full metadata for one transaction from the Land
+#' Registry linked data service by its transaction unique identifier.
+#'
+#' @param id Character. A transaction unique identifier (GUID,
+#'   with or without curly braces).
+#'
+#' @return A one-row data frame with the transaction fields, or an
+#'   empty data frame if the transaction is not found.
+#'
+#' @family price paid data
+#' @export
+#' @examples
+#' \donttest{
+#' op <- options(ukhousing.cache_dir = tempdir())
+#' tx <- ukh_ppd_transaction("{A4C5B0C6-4D5D-47E2-E053-6C04A8C07E7C}")
+#' tx
+#' options(op)
+#' }
+ukh_ppd_transaction <- function(id) {
+  if (!is.character(id) || length(id) != 1L || !nzchar(id)) {
+    cli_abort("{.arg id} must be a non-empty character string.")
+  }
+  clean <- gsub("[{}]", "", id)
+  url <- paste0("http://landregistry.data.gov.uk/data/ppi/transaction/",
+                utils::URLencode(clean, reserved = TRUE), ".json")
+  req <- ukh_request(url)
+  req <- httr2::req_headers(req, Accept = "application/json")
+  resp <- tryCatch(httr2::req_perform(req), error = function(e) {
+    cli_abort(c("Failed to query the Land Registry API.",
+                "x" = conditionMessage(e)))
+  })
+  if (httr2::resp_status(resp) == 404L) return(data.frame())
+  if (httr2::resp_status(resp) >= 400L) {
+    cli_abort("Land Registry API returned HTTP {httr2::resp_status(resp)}.")
+  }
+  body <- httr2::resp_body_json(resp)
+  items <- body$result$items %||% body$items %||% list(body$result %||% body)
+  ukh_list_to_df(items)
+}
+
+#' Look up Price Paid transactions by postcode address
+#'
+#' Uses the Land Registry linked data address lookup to find all
+#' transactions at a given postcode. Faster than downloading the
+#' yearly bulk file when you only want a single postcode.
+#'
+#' @param postcode Character. Full UK postcode (e.g. `"SW1A 1AA"`).
+#'
+#' @return A data frame of transactions at addresses matching the
+#'   postcode.
+#'
+#' @family price paid data
+#' @export
+#' @examples
+#' \donttest{
+#' op <- options(ukhousing.cache_dir = tempdir())
+#' tx <- ukh_ppd_address("SW1A 1AA")
+#' head(tx)
+#' options(op)
+#' }
+ukh_ppd_address <- function(postcode) {
+  if (!is.character(postcode) || length(postcode) != 1L || !nzchar(postcode)) {
+    cli_abort("{.arg postcode} must be a non-empty character string.")
+  }
+  pc <- toupper(gsub("[[:space:]]+", " ", trimws(postcode)))
+  pc_enc <- utils::URLencode(pc, reserved = TRUE)
+  url <- paste0("http://landregistry.data.gov.uk/data/ppi/address.json?postcode=", pc_enc)
+  req <- ukh_request(url)
+  req <- httr2::req_headers(req, Accept = "application/json")
+  resp <- tryCatch(httr2::req_perform(req), error = function(e) {
+    cli_abort(c("Failed to query the Land Registry API.",
+                "x" = conditionMessage(e)))
+  })
+  if (httr2::resp_status(resp) == 404L) return(data.frame())
+  if (httr2::resp_status(resp) >= 400L) {
+    cli_abort("Land Registry API returned HTTP {httr2::resp_status(resp)}.")
+  }
+  body <- httr2::resp_body_json(resp)
+  items <- body$result$items %||% body$items %||% list()
+  ukh_list_to_df(items)
+}
+
+#' Price Paid Data across multiple years
+#'
+#' Convenience wrapper that calls [ukh_ppd()] for each year in a
+#' vector and row-binds the results. Caches each year independently.
+#'
+#' @param years Integer vector. Years to fetch.
+#' @param ... Additional arguments passed to [ukh_ppd()] (e.g. `la`,
+#'   `postcode`, `property_type`).
+#'
+#' @return A single data frame combining transactions from all
+#'   requested years.
+#'
+#' @family price paid data
+#' @export
+#' @examples
+#' \donttest{
+#' op <- options(ukhousing.cache_dir = tempdir())
+#' five_year <- ukh_ppd_years(2020:2024, la = "Westminster",
+#'                            property_type = "flat")
+#' nrow(five_year)
+#' options(op)
+#' }
+ukh_ppd_years <- function(years, ...) {
+  if (!is.numeric(years) || length(years) == 0L) {
+    cli_abort("{.arg years} must be a non-empty numeric vector.")
+  }
+  dfs <- lapply(as.integer(years), function(y) ukh_ppd(year = y, ...))
+  # Align columns (they should all match since they come from the same
+  # bulk schema)
+  cols <- unique(unlist(lapply(dfs, names)))
+  dfs <- lapply(dfs, function(df) {
+    missing <- setdiff(cols, names(df))
+    for (m in missing) df[[m]] <- NA
+    df[, cols, drop = FALSE]
+  })
+  out <- do.call(rbind, dfs)
+  rownames(out) <- NULL
   out
 }

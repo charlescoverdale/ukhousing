@@ -13,7 +13,8 @@ ukh_epc_search(
   from = NULL,
   to = NULL,
   size = 1000L,
-  max_records = 10000L
+  max_records = 10000L,
+  type = c("domestic", "non-domestic", "display")
 )
 }
 \arguments{
@@ -38,6 +39,10 @@ ukh_epc_search(
 
 \item{max_records}{Integer. Maximum total records to fetch across
 pages. Default 10000. Set higher for bulk analysis.}
+
+\item{type}{Character. Register to query: \code{"domestic"} (default,
+housing), \code{"non-domestic"} (commercial buildings), or \code{"display"}
+(DECs for public buildings).}
 }
 \value{
 A data frame of certificates. Columns include \code{lmk_key},
@@ -74,6 +79,7 @@ wm <- ukh_epc_search(
 Other energy performance certificates: 
 \code{\link{ukh_epc_bulk}()},
 \code{\link{ukh_epc_certificate}()},
+\code{\link{ukh_epc_recommendations_summary}()},
 \code{\link{ukh_epc_summary}()}
 }
 \concept{energy performance certificates}

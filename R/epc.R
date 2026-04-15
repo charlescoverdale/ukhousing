@@ -74,6 +74,9 @@ ukh_epc_set_key <- function(email, key) {
 #' @param size Integer. Results per page, max 5000. Default 1000.
 #' @param max_records Integer. Maximum total records to fetch across
 #'   pages. Default 10000. Set higher for bulk analysis.
+#' @param type Character. Register to query: `"domestic"` (default,
+#'   housing), `"non-domestic"` (commercial buildings), or `"display"`
+#'   (DECs for public buildings).
 #'
 #' @return A data frame of certificates. Columns include `lmk_key`,
 #'   `address`, `postcode`, `uprn`, `local_authority`, `constituency`,
@@ -99,7 +102,9 @@ ukh_epc_set_key <- function(email, key) {
 ukh_epc_search <- function(postcode = NULL, la = NULL, property_type = NULL,
                           rating = NULL, built_form = NULL,
                           from = NULL, to = NULL,
-                          size = 1000L, max_records = 10000L) {
+                          size = 1000L, max_records = 10000L,
+                          type = c("domestic", "non-domestic", "display")) {
+  type <- match.arg(type)
   auth <- .epc_auth()
 
   if (!is.numeric(size) || size < 1L || size > 5000L) {
@@ -127,7 +132,7 @@ ukh_epc_search <- function(postcode = NULL, la = NULL, property_type = NULL,
     p <- params
     if (!is.null(search_after)) p[["search-after"]] <- search_after
 
-    req <- ukh_request(paste0(.epc_base, "/domestic/search"))
+    req <- ukh_request(paste0(.epc_base, "/", type, "/search"))
     req <- httr2::req_auth_basic(req, auth$user, auth$password)
     req <- httr2::req_headers(req, Accept = "application/json")
     req <- httr2::req_url_query(req, !!!p)
@@ -174,6 +179,8 @@ ukh_epc_search <- function(postcode = NULL, la = NULL, property_type = NULL,
 #'
 #' @param lmk_key Character. The certificate's LMK key (found in the
 #'   `lmk_key` column of [ukh_epc_search()] results).
+#' @param type Character. Register: `"domestic"` (default),
+#'   `"non-domestic"`, or `"display"`.
 #'
 #' @return A list with two elements:
 #' \describe{
@@ -190,7 +197,9 @@ ukh_epc_search <- function(postcode = NULL, la = NULL, property_type = NULL,
 #' cert$certificate
 #' cert$recommendations
 #' }
-ukh_epc_certificate <- function(lmk_key) {
+ukh_epc_certificate <- function(lmk_key,
+                                type = c("domestic", "non-domestic", "display")) {
+  type <- match.arg(type)
   if (!is.character(lmk_key) || length(lmk_key) != 1L) {
     cli_abort("{.arg lmk_key} must be a single character string.")
   }
@@ -212,8 +221,8 @@ ukh_epc_certificate <- function(lmk_key) {
     httr2::resp_body_json(resp)
   }
 
-  cert <- fetch_one(paste0(.epc_base, "/domestic/certificate/", lmk_enc))
-  recs <- fetch_one(paste0(.epc_base, "/domestic/recommendations/", lmk_enc))
+  cert <- fetch_one(paste0(.epc_base, "/", type, "/certificate/", lmk_enc))
+  recs <- fetch_one(paste0(.epc_base, "/", type, "/recommendations/", lmk_enc))
 
   cert_df <- if (is.null(cert)) data.frame() else ukh_list_to_df(list(cert$rows[[1L]] %||% cert))
   rec_df <- if (is.null(recs)) data.frame() else ukh_list_to_df(recs$rows %||% list())
@@ -229,6 +238,8 @@ ukh_epc_certificate <- function(lmk_key) {
 #'
 #' @param la Character. Local authority GSS code.
 #' @param from,to Optional. Lodgement date range.
+#' @param type Character. Register: `"domestic"` (default),
+#'   `"non-domestic"`, or `"display"`.
 #'
 #' @return A data frame with one row per rating (A-G) and columns
 #'   `rating`, `count`, `percentage`, `mean_floor_area`,
@@ -240,11 +251,13 @@ ukh_epc_certificate <- function(lmk_key) {
 #' \dontrun{
 #' ukh_epc_summary(la = "E09000033")
 #' }
-ukh_epc_summary <- function(la, from = NULL, to = NULL) {
+ukh_epc_summary <- function(la, from = NULL, to = NULL,
+                            type = c("domestic", "non-domestic", "display")) {
+  type <- match.arg(type)
   if (missing(la) || !is.character(la) || length(la) != 1L) {
     cli_abort("{.arg la} must be a single GSS code.")
   }
-  df <- ukh_epc_search(la = la, from = from, to = to, max_records = 100000L)
+  df <- ukh_epc_search(la = la, from = from, to = to, max_records = 100000L, type = type)
   if (nrow(df) == 0L) {
     return(data.frame(rating = character(0), count = integer(0),
                       percentage = numeric(0), mean_floor_area = numeric(0),
@@ -281,6 +294,8 @@ ukh_epc_summary <- function(la, from = NULL, to = NULL) {
 #'
 #' @param la Character. Local authority GSS code (e.g. `"E09000033"`).
 #' @param refresh Logical. Re-download even if cached? Default `FALSE`.
+#' @param type Character. Register: `"domestic"` (default),
+#'   `"non-domestic"`, or `"display"`.
 #'
 #' @return A list with elements `certificates` and `recommendations`,
 #'   each giving the path to the extracted CSV.
@@ -292,20 +307,28 @@ ukh_epc_summary <- function(la, from = NULL, to = NULL) {
 #' paths <- ukh_epc_bulk("E09000033")
 #' certs <- read.csv(paths$certificates)
 #' }
-ukh_epc_bulk <- function(la, refresh = FALSE) {
+ukh_epc_bulk <- function(la, refresh = FALSE,
+                         type = c("domestic", "non-domestic", "display")) {
+  type <- match.arg(type)
   if (missing(la) || !is.character(la) || length(la) != 1L) {
     cli_abort("{.arg la} must be a single GSS code.")
   }
   auth <- .epc_auth()
 
-  zip_path <- file.path(ukh_cache_dir(), paste0("epc_", la, ".zip"))
-  extract_dir <- file.path(ukh_cache_dir(), paste0("epc_", la))
+  type_slug <- switch(type,
+    "domestic" = "all-domestic-certificates",
+    "non-domestic" = "all-non-domestic-certificates",
+    "display" = "all-display-certificates"
+  )
+
+  zip_path <- file.path(ukh_cache_dir(), paste0("epc_", type, "_", la, ".zip"))
+  extract_dir <- file.path(ukh_cache_dir(), paste0("epc_", type, "_", la))
 
   if (file.exists(zip_path) && dir.exists(extract_dir) && !refresh) {
     cli_inform(c("i" = "Loading EPC bulk for {.val {la}} from cache."))
   } else {
-    url <- paste0("https://epc.opendatacommunities.org/files/all-domestic-certificates/", la, ".zip")
-    cli_inform(c("i" = "Downloading EPC bulk for {.val {la}}..."))
+    url <- paste0("https://epc.opendatacommunities.org/files/", type_slug, "/", la, ".zip")
+    cli_inform(c("i" = "Downloading EPC {type} bulk for {.val {la}}..."))
     ukh_download(url, zip_path, auth = auth)
     if (dir.exists(extract_dir)) unlink(extract_dir, recursive = TRUE)
     utils::unzip(zip_path, exdir = extract_dir)
@@ -395,4 +418,88 @@ ukh_epc_bulk <- function(la, refresh = FALSE) {
   }
 
   df
+}
+
+#' Summarise EPC improvement recommendations for a local authority
+#'
+#' Aggregates the improvement recommendations across certificates in a
+#' local authority, returning the frequency of each recommendation and
+#' the mean estimated cost and savings where available.
+#'
+#' This uses the bulk per-LA ZIP download rather than the paginated
+#' API, which is much faster for this aggregation. Requires EPC API
+#' credentials.
+#'
+#' @param la Character. Local authority GSS code.
+#' @param type Character. `"domestic"` (default), `"non-domestic"`, or
+#'   `"display"`.
+#' @param refresh Logical. Re-download bulk ZIP? Default `FALSE`.
+#'
+#' @return A data frame with columns `improvement_id`,
+#'   `improvement_summary`, `count`, `mean_indicative_cost` (where
+#'   numeric costs are reported), ordered by `count` descending.
+#'
+#' @family energy performance certificates
+#' @export
+#' @examples
+#' \dontrun{
+#' recs <- ukh_epc_recommendations_summary("E09000033")
+#' head(recs)
+#' }
+ukh_epc_recommendations_summary <- function(la, type = c("domestic", "non-domestic", "display"),
+                                            refresh = FALSE) {
+  type <- match.arg(type)
+  paths <- ukh_epc_bulk(la = la, refresh = refresh, type = type)
+  if (!file.exists(paths$recommendations)) {
+    cli_abort("Recommendations file not found at {.path {paths$recommendations}}.")
+  }
+  recs <- utils::read.csv(paths$recommendations, stringsAsFactors = FALSE)
+  if (nrow(recs) == 0L) {
+    return(data.frame(improvement_id = character(0),
+                      improvement_summary = character(0),
+                      count = integer(0),
+                      mean_indicative_cost = numeric(0),
+                      stringsAsFactors = FALSE))
+  }
+
+  id_col <- .pick_col(recs, c("IMPROVEMENT_ID", "improvement_id"))
+  text_col <- .pick_col(recs, c("IMPROVEMENT_SUMMARY_TEXT", "improvement_summary_text",
+                                "IMPROVEMENT_DESCR_TEXT", "improvement_descr_text"))
+  cost_col <- .pick_col(recs, c("INDICATIVE_COST", "indicative_cost"))
+
+  if (is.na(id_col)) {
+    cli_abort("Could not find improvement identifier column in recommendations file.")
+  }
+
+  ids <- recs[[id_col]]
+  uniq <- sort(unique(ids))
+  out <- data.frame(
+    improvement_id = uniq,
+    improvement_summary = vapply(uniq, function(u) {
+      if (is.na(text_col)) return(NA_character_)
+      txt <- recs[[text_col]][ids == u]
+      txt <- txt[!is.na(txt) & nzchar(txt)]
+      if (length(txt) == 0L) NA_character_ else txt[1L]
+    }, character(1L)),
+    count = vapply(uniq, function(u) sum(ids == u), integer(1L)),
+    mean_indicative_cost = vapply(uniq, function(u) {
+      if (is.na(cost_col)) return(NA_real_)
+      costs <- suppressWarnings(as.numeric(
+        gsub("[^0-9.-]", "", recs[[cost_col]][ids == u])
+      ))
+      if (all(is.na(costs))) NA_real_ else mean(costs, na.rm = TRUE)
+    }, numeric(1L)),
+    stringsAsFactors = FALSE
+  )
+  out <- out[order(-out$count), , drop = FALSE]
+  rownames(out) <- NULL
+  out
+}
+
+#' @noRd
+.pick_col <- function(df, candidates) {
+  for (c in candidates) {
+    if (c %in% names(df)) return(c)
+  }
+  NA_character_
 }

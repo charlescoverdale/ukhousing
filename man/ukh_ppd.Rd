@@ -71,7 +71,10 @@ options(op)
 }
 \seealso{
 Other price paid data: 
+\code{\link{ukh_ppd_address}()},
 \code{\link{ukh_ppd_bulk}()},
-\code{\link{ukh_ppd_summary}()}
+\code{\link{ukh_ppd_summary}()},
+\code{\link{ukh_ppd_transaction}()},
+\code{\link{ukh_ppd_years}()}
 }
 \concept{price paid data}

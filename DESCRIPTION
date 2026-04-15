@@ -1,6 +1,6 @@
 Package: ukhousing
 Title: Access UK Housing Data from Land Registry, EPC, and Planning
-Version: 0.1.0
+Version: 0.2.0
 Authors@R:
     person("Charles", "Coverdale", , "charlesfcoverdale@gmail.com", role = c("aut", "cre"))
 Description: Fetch UK housing data from official sources. Access the UK House
@@ -22,9 +22,11 @@ RoxygenNote: 7.3.3
 Imports:
     cli (>= 3.6.0),
     httr2 (>= 1.0.0),
+    jsonlite,
     tools,
     utils
 Suggests:
+    sf,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 URL: https://github.com/charlescoverdale/ukhousing

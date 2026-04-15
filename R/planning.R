@@ -31,7 +31,7 @@
 #' options(op)
 #' }
 ukh_planning <- function(dataset, la = NULL, limit = 1000L,
-                        format = c("data.frame", "raw")) {
+                        format = c("data.frame", "raw", "sf")) {
   format <- match.arg(format)
   if (!is.character(dataset) || length(dataset) != 1L) {
     cli_abort("{.arg dataset} must be a single character string.")
@@ -40,7 +40,8 @@ ukh_planning <- function(dataset, la = NULL, limit = 1000L,
     cli_abort("{.arg limit} must be a positive integer.")
   }
 
-  url <- paste0(.planning_base, "/entity.json")
+  ext <- if (format == "sf") "geojson" else "json"
+  url <- paste0(.planning_base, "/entity.", ext)
   params <- list(dataset = dataset, limit = as.integer(limit))
   if (!is.null(la)) {
     params[["organisation-entity"]] <- la
@@ -54,6 +55,17 @@ ukh_planning <- function(dataset, la = NULL, limit = 1000L,
   })
   if (httr2::resp_status(resp) >= 400L) {
     cli_abort("planning.data.gov.uk returned HTTP {httr2::resp_status(resp)}.")
+  }
+
+  if (format == "sf") {
+    if (!requireNamespace("sf", quietly = TRUE)) {
+      cli_abort(c(
+        "The {.pkg sf} package is required for {.code format = \"sf\"}.",
+        "i" = "Install it with {.code install.packages(\"sf\")}."
+      ))
+    }
+    txt <- httr2::resp_body_string(resp)
+    return(sf::st_read(txt, quiet = TRUE))
   }
 
   body <- httr2::resp_body_json(resp)
