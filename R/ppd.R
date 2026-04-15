@@ -22,9 +22,13 @@
 #'
 #' The full yearly CSV is ~150 MB (about 900,000 transactions). This
 #' function downloads the yearly file, caches it, and then filters in
-#' memory. Subsequent queries against the same year use the cache.
-#' For multi-year queries, call the function once per year and bind
-#' the results.
+#' memory. Memory footprint during the call is roughly 1 GB because R
+#' data frames are considerably larger than the source CSV; on
+#' memory-constrained machines, prefer [ukh_ppd_address()] for
+#' postcode lookups or [ukh_ppd_summary()] for aggregated stats.
+#' Subsequent queries against the same year use the cache. For
+#' multi-year queries, call the function once per year or use
+#' [ukh_ppd_years()].
 #'
 #' @param year Integer. Year of transactions to fetch. Defaults to the
 #'   current calendar year.

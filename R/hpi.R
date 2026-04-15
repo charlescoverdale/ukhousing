@@ -64,6 +64,15 @@ ukh_hpi <- function(region, from = NULL, to = NULL, refresh = FALSE) {
   }
 
   raw <- utils::read.csv(cache_path, stringsAsFactors = FALSE, check.names = FALSE)
+  if (nrow(raw) == 0L) {
+    cli_warn(c(
+      "!" = "UK HPI returned no data for region {.val {slug}}.",
+      "i" = "Check the slug is valid. See {.fn ukh_regions} for common slugs.",
+      "i" = "Try {.val city-of-westminster} (not {.val westminster})."
+    ))
+    return(data.frame(date = as.Date(character(0)), region = character(0),
+                      stringsAsFactors = FALSE))
+  }
   .hpi_tidy(raw, slug)
 }
 
@@ -117,12 +126,10 @@ ukh_hpi_compare <- function(regions, measure = "avg_price",
   # Merge on date
   out <- results[[1L]]
   names(out)[2L] <- ukh_region_slug(regions[1L])
-  if (length(regions) > 1L) {
-    for (i in 2:length(regions)) {
-      r <- results[[i]]
-      names(r)[2L] <- ukh_region_slug(regions[i])
-      out <- merge(out, r, by = "date", all = TRUE)
-    }
+  for (i in seq_along(regions)[-1L]) {
+    r <- results[[i]]
+    names(r)[2L] <- ukh_region_slug(regions[i])
+    out <- merge(out, r, by = "date", all = TRUE)
   }
   out[order(out$date), , drop = FALSE]
 }
