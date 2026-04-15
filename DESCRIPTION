@@ -1,6 +1,6 @@
 Package: ukhousing
 Title: Access UK Housing Data from Land Registry, EPC, and Planning
-Version: 0.2.0
+Version: 0.1.0
 Authors@R:
     person("Charles", "Coverdale", , "charlesfcoverdale@gmail.com", role = c("aut", "cre"))
 Description: Fetch UK housing data from official sources. Access the UK House

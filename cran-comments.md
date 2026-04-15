@@ -1,4 +1,4 @@
-# CRAN submission comments — ukhousing 0.2.0
+# CRAN submission comments — ukhousing 0.1.0
 
 ## New submission
 
@@ -10,11 +10,6 @@ four official sources:
   non-domestic, and display certificates)
 * planning.data.gov.uk (Digital Land planning data, 100+ datasets)
 * ONS Beta API (Price Index of Private Rents)
-
-An earlier v0.1.0 was released on GitHub only; this submission is
-v0.2.0 after adding non-domestic EPC support, the ONS PIPR series,
-a SPARQL escape hatch, several Land Registry REST helpers, and
-optional sf integration for GeoJSON planning datasets.
 
 ## R CMD check results
 
@@ -44,7 +39,7 @@ Tests requiring the 150 MB yearly PPD download are guarded with
   `options(ukhousing.cache_dir = ...)` so that no files are written
   to the user's home filespace.
 * `\dontrun` is used only for examples that require EPC API
-  credentials, which we cannot safely demonstrate in automated
+  credentials, which cannot safely be demonstrated in automated
   checks without a key.
 
 ## Downstream dependencies
