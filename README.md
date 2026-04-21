@@ -1,8 +1,7 @@
 # ukhousing
 
 <!-- badges: start -->
-[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![CRAN status](https://www.r-pkg.org/badges/version/ukhousing)](https://CRAN.R-project.org/package=ukhousing) [![CRAN downloads](https://cranlogs.r-pkg.org/badges/ukhousing)](https://cran.r-project.org/package=ukhousing) [![Total Downloads](https://cranlogs.r-pkg.org/badges/grand-total/ukhousing)](https://CRAN.R-project.org/package=ukhousing) [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 <!-- badges: end -->
 
 Access UK housing data from official sources in R. House prices, individual property transactions, energy performance certificates, planning data, and rental price indices.
@@ -29,6 +28,9 @@ The catch is that this data is scattered across roughly ten institutions, each w
 ## Installation
 
 ```r
+install.packages("ukhousing")
+
+# Or install the development version from GitHub
 # install.packages("devtools")
 devtools::install_github("charlescoverdale/ukhousing")
 ```
