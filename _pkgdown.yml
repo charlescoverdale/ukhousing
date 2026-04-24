@@ -51,3 +51,7 @@ reference:
       - ukh_cache_info
       - ukh_clear_cache
 
+
+  - title: "Package"
+    contents:
+      - ukhousing-package
