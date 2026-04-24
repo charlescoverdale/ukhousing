@@ -1,0 +1,37 @@
+# ukhousing
+
+> Fetch UK housing data from official sources. Install with `install.packages("ukhousing")`.
+
+Version: 0.1.0. License: MIT.
+
+## Functions
+
+- [`ukh_cache_info()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_cache_info.html): Inspect the local ukhousing cache
+- [`ukh_clear_cache()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_clear_cache.html): Clear the ukhousing cache
+- [`ukh_epc_bulk()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_epc_bulk.html): Download a bulk EPC ZIP for a local authority
+- [`ukh_epc_certificate()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_epc_certificate.html): Fetch a single EPC by LMK key
+- [`ukh_epc_recommendations_summary()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_epc_recommendations_summary.html): Summarise EPC improvement recommendations for a local authority
+- [`ukh_epc_search()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_epc_search.html): Search domestic Energy Performance Certificates
+- [`ukh_epc_set_key()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_epc_set_key.html): Set EPC API credentials
+- [`ukh_epc_summary()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_epc_summary.html): EPC rating distribution for a local authority
+- [`ukh_hpi()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_hpi.html): UK House Price Index
+- [`ukh_hpi_compare()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_hpi_compare.html): Compare UK HPI across multiple regions
+- [`ukh_pipr()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_pipr.html): ONS Index of Private Housing Rental Prices / Price Index of Private Rents
+- [`ukh_planning()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_planning.html): Query planning.data.gov.uk
+- [`ukh_planning_datasets()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_planning_datasets.html): List available planning datasets
+- [`ukh_ppd()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_ppd.html): Price Paid Data
+- [`ukh_ppd_address()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_ppd_address.html): Look up Price Paid transactions by postcode address
+- [`ukh_ppd_bulk()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_ppd_bulk.html): Download a Price Paid Data bulk file
+- [`ukh_ppd_summary()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_ppd_summary.html): Price Paid Data summary
+- [`ukh_ppd_transaction()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_ppd_transaction.html): Look up a single Price Paid transaction by ID
+- [`ukh_ppd_years()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_ppd_years.html): Price Paid Data across multiple years
+- [`ukh_regions()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_regions.html): List valid UK HPI region slugs
+- [`ukh_sparql()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_sparql.html): Run a SPARQL query
+- [`ukh_transactions()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_transactions.html): Transaction volumes for a region
+
+## Documentation
+
+- [Full reference](https://charlescoverdale.github.io/ukhousing/reference/)
+- [GitHub](https://github.com/charlescoverdale/ukhousing)
+- [CRAN](https://CRAN.R-project.org/package=ukhousing)
+

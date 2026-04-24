@@ -1,0 +1,53 @@
+url: https://charlescoverdale.github.io/ukhousing/
+
+template:
+  bootstrap: 5
+
+navbar:
+  structure:
+    left:  [intro, reference, articles, news]
+    right: [search, github]
+
+reference:
+  - title: "House Price Index"
+    desc: "UK HPI from HM Land Registry"
+    contents:
+      - ukh_hpi
+      - ukh_hpi_compare
+
+  - title: "Price Paid Data"
+    desc: "Individual property transactions"
+    contents:
+      - ukh_ppd
+      - ukh_ppd_bulk
+      - ukh_ppd_address
+      - ukh_ppd_transaction
+      - ukh_ppd_summary
+      - ukh_ppd_years
+
+  - title: "EPC Ratings"
+    desc: "Energy Performance Certificates"
+    contents:
+      - ukh_epc_search
+      - ukh_epc_certificate
+      - ukh_epc_summary
+      - ukh_epc_recommendations_summary
+      - ukh_epc_bulk
+      - ukh_epc_set_key
+
+  - title: "Planning and PIPR"
+    desc: "Planning decisions and private rented sector"
+    contents:
+      - ukh_planning
+      - ukh_planning_datasets
+      - ukh_pipr
+
+  - title: "Utilities"
+    desc: "Regions, SPARQL, and cache"
+    contents:
+      - ukh_regions
+      - ukh_sparql
+      - ukh_transactions
+      - ukh_cache_info
+      - ukh_clear_cache
+
