@@ -25,7 +25,7 @@ Other configuration:
 # \donttest{
 op <- options(ukhousing.cache_dir = tempdir())
 ukh_clear_cache()
-#> Removed 2 cached files from /tmp/Rtmpib18yc.
+#> Removed 2 cached files from /tmp/Rtmpf2tQa3.
 options(op)
 # }
 ```
