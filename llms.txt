@@ -2,6 +2,8 @@
 
 > Fetch UK housing data from official sources. Install with `install.packages("ukhousing")`.
 
+Full API reference (for agents): https://raw.githubusercontent.com/charlescoverdale/ukhousing/main/llms-full.txt
+
 Version: 0.1.0. License: MIT.
 
 ## Functions
