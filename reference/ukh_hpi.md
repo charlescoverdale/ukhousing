@@ -102,34 +102,34 @@ head(uk)
 london <- ukh_hpi("london", from = "2016-01-01")
 #> ℹ Downloading UK HPI for "london"...
 tail(london)
-#>           date region  hpi avg_price pct_change_monthly pct_change_annual
-#> 117 2025-09-01 london 99.0    565404                 NA                NA
-#> 118 2025-10-01 london 97.2    554713                 NA                NA
-#> 119 2025-11-01 london 97.2    554726                 NA                NA
-#> 120 2025-12-01 london 96.0    548193                 NA                NA
-#> 121 2026-01-01 london 96.9    553066                 NA                NA
-#> 122 2026-02-01 london 95.0    542304                 NA                NA
+#>           date region hpi avg_price pct_change_monthly pct_change_annual
+#> 117 2025-09-01 london  NA        NA                 NA                NA
+#> 118 2025-10-01 london  NA        NA                 NA                NA
+#> 119 2025-11-01 london  NA        NA                 NA                NA
+#> 120 2025-12-01 london  NA        NA                 NA                NA
+#> 121 2026-01-01 london  NA        NA                 NA                NA
+#> 122 2026-02-01 london  NA        NA                 NA                NA
 #>     sales_volume avg_price_detached avg_price_semi avg_price_terraced
-#> 117         6032            1174549         726573             651795
-#> 118         6097            1164536         721600             640030
-#> 119         4361            1156870         720605             640685
-#> 120         4386            1146891         714155             632537
-#> 121           NA            1152149         720797             644842
-#> 122           NA            1139541         711970             628230
+#> 117         6032                 NA             NA                 NA
+#> 118         6097                 NA             NA                 NA
+#> 119         4361                 NA             NA                 NA
+#> 120         4386                 NA             NA                 NA
+#> 121           NA                 NA             NA                 NA
+#> 122           NA                 NA             NA                 NA
 #>     avg_price_flat avg_price_cash avg_price_mortgage avg_price_new_build
-#> 117         443032         605218             557081              498647
-#> 118         432409         588291             548013              511780
-#> 119         432643         586234             548583              529862
-#> 120         427271         579798             541996              490886
-#> 121         428747         587389             546158                  NA
-#> 122         420635         572371             536426                  NA
+#> 117             NA             NA                 NA                  NA
+#> 118             NA             NA                 NA                  NA
+#> 119             NA             NA                 NA                  NA
+#> 120             NA             NA                 NA                  NA
+#> 121             NA             NA                 NA                  NA
+#> 122             NA             NA                 NA                  NA
 #>     avg_price_existing avg_price_first_time_buyer avg_price_former_owner
-#> 117             568463                         NA                 710847
-#> 118             556614                         NA                 695731
-#> 119             555781                         NA                 694427
-#> 120             550791                         NA                 686453
-#> 121                 NA                         NA                 697108
-#> 122                 NA                         NA                 680234
+#> 117                 NA                         NA                     NA
+#> 118                 NA                         NA                     NA
+#> 119                 NA                         NA                     NA
+#> 120                 NA                         NA                     NA
+#> 121                 NA                         NA                     NA
+#> 122                 NA                         NA                     NA
 
 options(op)
 # }
