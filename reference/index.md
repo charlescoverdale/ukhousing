@@ -69,3 +69,10 @@ Regions, SPARQL, and cache
   : Inspect the local ukhousing cache
 - [`ukh_clear_cache()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_clear_cache.md)
   : Clear the ukhousing cache
+
+## Package
+
+- [`ukhousing`](https://charlescoverdale.github.io/ukhousing/reference/ukhousing-package.md)
+  [`ukhousing-package`](https://charlescoverdale.github.io/ukhousing/reference/ukhousing-package.md)
+  : ukhousing: Access UK Housing Data from Land Registry, EPC, and
+  Planning

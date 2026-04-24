@@ -62,12 +62,12 @@ prices <- ukh_hpi_compare(
 #> ℹ Downloading UK HPI for "newcastle-upon-tyne"...
 head(prices)
 #>         date london manchester newcastle-upon-tyne
-#> 1 2015-01-01     NA     128873              142419
-#> 2 2015-02-01     NA     128736              143341
-#> 3 2015-03-01     NA     128771              144666
-#> 4 2015-04-01     NA     128869              147495
-#> 5 2015-05-01     NA     131114              148367
-#> 6 2015-06-01     NA     131653              150261
+#> 1 2015-01-01     NA     128873                  NA
+#> 2 2015-02-01     NA     128736                  NA
+#> 3 2015-03-01     NA     128771                  NA
+#> 4 2015-04-01     NA     128869                  NA
+#> 5 2015-05-01     NA     131114                  NA
+#> 6 2015-06-01     NA     131653                  NA
 
 options(op)
 # }
