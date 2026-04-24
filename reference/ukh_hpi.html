@@ -104,41 +104,34 @@ because the Land Registry needs the full transaction set to settle.</p>
 <span class="r-in"><span><span class="va">uk</span> <span class="op">&lt;-</span> <span class="fu">ukh_hpi</span><span class="op">(</span><span class="st">"united-kingdom"</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Downloading UK HPI for <span style="color: #0000BB;">"united-kingdom"</span>...</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">uk</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         date         region   hpi avg_price pct_change_monthly</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 2025-03-01 united-kingdom 102.8    268205                 NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 2025-04-01 united-kingdom  99.9    260615                 NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 2025-05-01 united-kingdom 101.2    263981                 NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 2025-06-01 united-kingdom 102.3    267004                 NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 2025-07-01 united-kingdom 103.2    269373                 NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 2025-08-01 united-kingdom 104.1    271690                 NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   pct_change_annual sales_volume avg_price_detached avg_price_semi</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1                NA       133663             430697         269829</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                NA        43449             429276         262652</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3                NA        63511             431436         265852</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                NA        69621             434868         269348</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5                NA        72184             438688         272360</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6                NA        73443             443724         275866</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   avg_price_terraced avg_price_flat avg_price_cash avg_price_mortgage</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1             227302         198905             NA                 NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2             216495         191988             NA                 NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3             221867         193460             NA                 NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4             224773         195615             NA                 NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5             227505         195868             NA                 NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6             229519         195619             NA                 NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   avg_price_new_build avg_price_existing avg_price_first_time_buyer</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1              342321             264661                         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2              342940             256522                         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3              341677             260191                         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4              339143             263580                         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5              344611             265762                         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6              350751             267847                         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   avg_price_former_owner</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1                     NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                     NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3                     NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                     NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5                     NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6                     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         date         region hpi avg_price pct_change_monthly pct_change_annual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 2025-03-01 united-kingdom  NA        NA                 NA                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 2025-04-01 united-kingdom  NA        NA                 NA                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 2025-05-01 united-kingdom  NA        NA                 NA                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 2025-06-01 united-kingdom  NA        NA                 NA                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 2025-07-01 united-kingdom  NA        NA                 NA                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 2025-08-01 united-kingdom  NA        NA                 NA                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   sales_volume avg_price_detached avg_price_semi avg_price_terraced</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1       133663                 NA             NA                 NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2        43449                 NA             NA                 NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3        63511                 NA             NA                 NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4        69621                 NA             NA                 NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5        72184                 NA             NA                 NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6        73443                 NA             NA                 NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   avg_price_flat avg_price_cash avg_price_mortgage avg_price_new_build</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1             NA             NA                 NA                  NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2             NA             NA                 NA                  NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3             NA             NA                 NA                  NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4             NA             NA                 NA                  NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5             NA             NA                 NA                  NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6             NA             NA                 NA                  NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   avg_price_existing avg_price_first_time_buyer avg_price_former_owner</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                 NA                         NA                     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                 NA                         NA                     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                 NA                         NA                     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                 NA                         NA                     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                 NA                         NA                     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                 NA                         NA                     NA</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># London, last 10 years</span></span></span>
 <span class="r-in"><span><span class="va">london</span> <span class="op">&lt;-</span> <span class="fu">ukh_hpi</span><span class="op">(</span><span class="st">"london"</span>, from <span class="op">=</span> <span class="st">"2016-01-01"</span><span class="op">)</span></span></span>

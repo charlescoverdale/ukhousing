@@ -62,41 +62,34 @@ op <- options(ukhousing.cache_dir = tempdir())
 uk <- ukh_hpi("united-kingdom")
 #> ℹ Downloading UK HPI for "united-kingdom"...
 head(uk)
-#>         date         region   hpi avg_price pct_change_monthly
-#> 1 2025-03-01 united-kingdom 102.8    268205                 NA
-#> 2 2025-04-01 united-kingdom  99.9    260615                 NA
-#> 3 2025-05-01 united-kingdom 101.2    263981                 NA
-#> 4 2025-06-01 united-kingdom 102.3    267004                 NA
-#> 5 2025-07-01 united-kingdom 103.2    269373                 NA
-#> 6 2025-08-01 united-kingdom 104.1    271690                 NA
-#>   pct_change_annual sales_volume avg_price_detached avg_price_semi
-#> 1                NA       133663             430697         269829
-#> 2                NA        43449             429276         262652
-#> 3                NA        63511             431436         265852
-#> 4                NA        69621             434868         269348
-#> 5                NA        72184             438688         272360
-#> 6                NA        73443             443724         275866
-#>   avg_price_terraced avg_price_flat avg_price_cash avg_price_mortgage
-#> 1             227302         198905             NA                 NA
-#> 2             216495         191988             NA                 NA
-#> 3             221867         193460             NA                 NA
-#> 4             224773         195615             NA                 NA
-#> 5             227505         195868             NA                 NA
-#> 6             229519         195619             NA                 NA
-#>   avg_price_new_build avg_price_existing avg_price_first_time_buyer
-#> 1              342321             264661                         NA
-#> 2              342940             256522                         NA
-#> 3              341677             260191                         NA
-#> 4              339143             263580                         NA
-#> 5              344611             265762                         NA
-#> 6              350751             267847                         NA
-#>   avg_price_former_owner
-#> 1                     NA
-#> 2                     NA
-#> 3                     NA
-#> 4                     NA
-#> 5                     NA
-#> 6                     NA
+#>         date         region hpi avg_price pct_change_monthly pct_change_annual
+#> 1 2025-03-01 united-kingdom  NA        NA                 NA                NA
+#> 2 2025-04-01 united-kingdom  NA        NA                 NA                NA
+#> 3 2025-05-01 united-kingdom  NA        NA                 NA                NA
+#> 4 2025-06-01 united-kingdom  NA        NA                 NA                NA
+#> 5 2025-07-01 united-kingdom  NA        NA                 NA                NA
+#> 6 2025-08-01 united-kingdom  NA        NA                 NA                NA
+#>   sales_volume avg_price_detached avg_price_semi avg_price_terraced
+#> 1       133663                 NA             NA                 NA
+#> 2        43449                 NA             NA                 NA
+#> 3        63511                 NA             NA                 NA
+#> 4        69621                 NA             NA                 NA
+#> 5        72184                 NA             NA                 NA
+#> 6        73443                 NA             NA                 NA
+#>   avg_price_flat avg_price_cash avg_price_mortgage avg_price_new_build
+#> 1             NA             NA                 NA                  NA
+#> 2             NA             NA                 NA                  NA
+#> 3             NA             NA                 NA                  NA
+#> 4             NA             NA                 NA                  NA
+#> 5             NA             NA                 NA                  NA
+#> 6             NA             NA                 NA                  NA
+#>   avg_price_existing avg_price_first_time_buyer avg_price_former_owner
+#> 1                 NA                         NA                     NA
+#> 2                 NA                         NA                     NA
+#> 3                 NA                         NA                     NA
+#> 4                 NA                         NA                     NA
+#> 5                 NA                         NA                     NA
+#> 6                 NA                         NA                     NA
 
 # London, last 10 years
 london <- ukh_hpi("london", from = "2016-01-01")

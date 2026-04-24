@@ -29,7 +29,7 @@ Other configuration:
 op <- options(ukhousing.cache_dir = tempdir())
 ukh_cache_info()
 #> $dir
-#> [1] "/tmp/RtmpOaPbPr"
+#> [1] "/tmp/RtmpbOUQAH"
 #> 
 #> $n_files
 #> [1] 2
@@ -42,8 +42,8 @@ ukh_cache_info()
 #> 
 #> $files
 #>                                     name size_bytes            modified
-#> 1 bslib-246362e7e3ff6191071d5f9b40ba8d62       4096 2026-04-24 07:43:22
-#> 2                                downlit       4096 2026-04-24 07:43:24
+#> 1 bslib-246362e7e3ff6191071d5f9b40ba8d62       4096 2026-04-24 08:18:11
+#> 2                                downlit       4096 2026-04-24 08:18:13
 #> 
 options(op)
 # }
