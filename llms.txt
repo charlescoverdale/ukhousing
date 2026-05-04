@@ -43,6 +43,7 @@ change format too often to maintain reliably.
 ## Installation
 
 ``` r
+
 install.packages("ukhousing")
 
 # Or install the development version from GitHub
@@ -52,12 +53,12 @@ devtools::install_github("charlescoverdale/ukhousing")
 
 ## Data sources covered
 
-| Source                                                      | Coverage                                                                                                                   |
-|-------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------|
-| [HM Land Registry](https://landregistry.data.gov.uk/)       | UK HPI (441+ regions) + Price Paid Data (28M+ transactions since 1995)                                                     |
-| [MHCLG EPC Open Data](https://epc.opendatacommunities.org/) | 25M+ domestic certificates, plus non-domestic and display certificates                                                     |
-| [planning.data.gov.uk](https://www.planning.data.gov.uk/)   | 100+ datasets: planning applications, brownfield land, local plans, listed buildings, conservation areas, flood risk zones |
-| [ONS Beta API](https://developer.ons.gov.uk/)               | Price Index of Private Rents (UK and regional, from January 2015)                                                          |
+| Source | Coverage |
+|----|----|
+| [HM Land Registry](https://landregistry.data.gov.uk/) | UK HPI (441+ regions) + Price Paid Data (28M+ transactions since 1995) |
+| [MHCLG EPC Open Data](https://epc.opendatacommunities.org/) | 25M+ domestic certificates, plus non-domestic and display certificates |
+| [planning.data.gov.uk](https://www.planning.data.gov.uk/) | 100+ datasets: planning applications, brownfield land, local plans, listed buildings, conservation areas, flood risk zones |
+| [ONS Beta API](https://developer.ons.gov.uk/) | Price Index of Private Rents (UK and regional, from January 2015) |
 
 All sources are free. EPC requires a free registration for an API key. A
 SPARQL escape hatch
@@ -67,6 +68,7 @@ is provided for queries the dedicated helpers don’t cover.
 ## Quick start
 
 ``` r
+
 library(ukhousing)
 
 # UK average house prices, monthly
@@ -89,6 +91,7 @@ ukh_epc_summary(la = "E09000033")
 ## House Price Index
 
 ``` r
+
 # Compare prices across regions
 prices <- ukh_hpi_compare(
   c("london", "manchester", "newcastle-upon-tyne"),
@@ -107,6 +110,7 @@ and Wales since 1995. The yearly file is about 150 MB and contains
 ~900,000 transactions.
 
 ``` r
+
 # Detached houses sold in Manchester for over GBP 1m during 2024
 manchester <- ukh_ppd(
   year = 2024,
@@ -123,6 +127,7 @@ plot(as.Date(paste0(summary$month, "-01")), summary$n, type = "l")
 ## Energy Performance Certificates
 
 ``` r
+
 # Search EPCs
 epcs <- ukh_epc_search(postcode = "SW1A 1AA")
 table(epcs$current_energy_rating)
@@ -138,6 +143,7 @@ ukh_epc_summary(la = "E09000033")
 ## Planning data
 
 ``` r
+
 # Brownfield land register
 bf <- ukh_planning("brownfield-land", limit = 500)
 
@@ -149,58 +155,58 @@ datasets <- ukh_planning_datasets()
 
 ### Land Registry
 
-| Function                                                                                                 | Description                                  |
-|----------------------------------------------------------------------------------------------------------|----------------------------------------------|
-| [`ukh_hpi()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_hpi.md)                         | UK HPI time series for a region              |
-| [`ukh_hpi_compare()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_hpi_compare.md)         | One measure across multiple regions          |
-| [`ukh_transactions()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_transactions.md)       | Monthly transaction volumes (shortcut)       |
-| [`ukh_ppd()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_ppd.md)                         | Individual property transactions             |
-| [`ukh_ppd_bulk()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_ppd_bulk.md)               | Download a bulk PPD CSV (yearly or complete) |
-| [`ukh_ppd_summary()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_ppd_summary.md)         | Aggregated PPD statistics                    |
-| [`ukh_ppd_years()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_ppd_years.md)             | PPD across multiple years, row-bound         |
-| [`ukh_ppd_transaction()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_ppd_transaction.md) | Look up a single transaction by ID           |
-| [`ukh_ppd_address()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_ppd_address.md)         | Look up transactions by postcode             |
+| Function | Description |
+|----|----|
+| [`ukh_hpi()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_hpi.md) | UK HPI time series for a region |
+| [`ukh_hpi_compare()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_hpi_compare.md) | One measure across multiple regions |
+| [`ukh_transactions()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_transactions.md) | Monthly transaction volumes (shortcut) |
+| [`ukh_ppd()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_ppd.md) | Individual property transactions |
+| [`ukh_ppd_bulk()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_ppd_bulk.md) | Download a bulk PPD CSV (yearly or complete) |
+| [`ukh_ppd_summary()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_ppd_summary.md) | Aggregated PPD statistics |
+| [`ukh_ppd_years()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_ppd_years.md) | PPD across multiple years, row-bound |
+| [`ukh_ppd_transaction()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_ppd_transaction.md) | Look up a single transaction by ID |
+| [`ukh_ppd_address()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_ppd_address.md) | Look up transactions by postcode |
 
 ### EPC
 
 All EPC functions accept
 `type = c("domestic", "non-domestic", "display")`.
 
-| Function                                                                                                                         | Description                             |
-|----------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------|
-| [`ukh_epc_set_key()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_epc_set_key.md)                                 | Set API credentials                     |
-| [`ukh_epc_search()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_epc_search.md)                                   | Search certificates with filters        |
-| [`ukh_epc_certificate()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_epc_certificate.md)                         | Fetch a single certificate              |
-| [`ukh_epc_summary()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_epc_summary.md)                                 | Rating distribution for an LA           |
-| [`ukh_epc_bulk()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_epc_bulk.md)                                       | Download bulk ZIP for an LA             |
+| Function | Description |
+|----|----|
+| [`ukh_epc_set_key()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_epc_set_key.md) | Set API credentials |
+| [`ukh_epc_search()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_epc_search.md) | Search certificates with filters |
+| [`ukh_epc_certificate()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_epc_certificate.md) | Fetch a single certificate |
+| [`ukh_epc_summary()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_epc_summary.md) | Rating distribution for an LA |
+| [`ukh_epc_bulk()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_epc_bulk.md) | Download bulk ZIP for an LA |
 | [`ukh_epc_recommendations_summary()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_epc_recommendations_summary.md) | Most common improvement recommendations |
 
 ### Planning
 
-| Function                                                                                                     | Description                                        |
-|--------------------------------------------------------------------------------------------------------------|----------------------------------------------------|
-| [`ukh_planning()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_planning.md)                   | Query planning entities (supports `format = "sf"`) |
-| [`ukh_planning_datasets()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_planning_datasets.md) | List available datasets                            |
+| Function | Description |
+|----|----|
+| [`ukh_planning()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_planning.md) | Query planning entities (supports `format = "sf"`) |
+| [`ukh_planning_datasets()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_planning_datasets.md) | List available datasets |
 
 ### ONS
 
-| Function                                                                           | Description                                            |
-|------------------------------------------------------------------------------------|--------------------------------------------------------|
+| Function | Description |
+|----|----|
 | [`ukh_pipr()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_pipr.md) | Price Index of Private Rents (monthly, UK and regions) |
 
 ### Advanced
 
-| Function                                                                               | Description                                                     |
-|----------------------------------------------------------------------------------------|-----------------------------------------------------------------|
+| Function | Description |
+|----|----|
 | [`ukh_sparql()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_sparql.md) | Raw SPARQL query against Land Registry or Open Data Communities |
 
 ### Helpers
 
-| Function                                                                                         | Description           |
-|--------------------------------------------------------------------------------------------------|-----------------------|
-| [`ukh_regions()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_regions.md)         | Region slug lookup    |
+| Function | Description |
+|----|----|
+| [`ukh_regions()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_regions.md) | Region slug lookup |
 | [`ukh_clear_cache()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_clear_cache.md) | Empty the local cache |
-| [`ukh_cache_info()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_cache_info.md)   | Show cached files     |
+| [`ukh_cache_info()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_cache_info.md) | Show cached files |
 
 ## Caching
 
@@ -216,6 +222,7 @@ The Energy Performance Certificate service requires a free API key.
 Register at <https://epc.opendatacommunities.org/> and then:
 
 ``` r
+
 ukh_epc_set_key("you@example.com", "your_api_key")
 
 # Or set env vars in .Renviron:
@@ -235,13 +242,15 @@ ukh_epc_set_key("you@example.com", "your_api_key")
 
 ## Related packages
 
-| Package                                                      | Description                            |
-|--------------------------------------------------------------|----------------------------------------|
-| [ons](https://github.com/charlescoverdale/ons)               | UK Office for National Statistics data |
-| [hmrc](https://github.com/charlescoverdale/hmrc)             | HM Revenue and Customs data            |
-| [obr](https://github.com/charlescoverdale/obr)               | Office for Budget Responsibility data  |
-| [boe](https://github.com/charlescoverdale/boe)               | Bank of England data                   |
-| [inequality](https://github.com/charlescoverdale/inequality) | Inequality and poverty measurement     |
+| Package | Description |
+|----|----|
+| [ons](https://github.com/charlescoverdale/ons) | UK Office for National Statistics data |
+| [hmrc](https://github.com/charlescoverdale/hmrc) | HM Revenue and Customs data (Stamp Duty Land Tax) |
+| [boe](https://github.com/charlescoverdale/boe) | Bank of England data (mortgage rates, lending) |
+| [obr](https://github.com/charlescoverdale/obr) | Office for Budget Responsibility forecasts |
+| [inflateR](https://github.com/charlescoverdale/inflateR) | Inflation adjustment for real-terms house prices |
+| [inflationkit](https://github.com/charlescoverdale/inflationkit) | Inflation analysis (housing component of CPI) |
+| [inequality](https://github.com/charlescoverdale/inequality) | Inequality and poverty measurement |
 
 ## Issues
 
