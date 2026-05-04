@@ -220,9 +220,11 @@ ukh_epc_set_key("you@example.com", "your_api_key")
 | Package | Description |
 |---------|-------------|
 | [ons](https://github.com/charlescoverdale/ons) | UK Office for National Statistics data |
-| [hmrc](https://github.com/charlescoverdale/hmrc) | HM Revenue and Customs data |
-| [obr](https://github.com/charlescoverdale/obr) | Office for Budget Responsibility data |
-| [boe](https://github.com/charlescoverdale/boe) | Bank of England data |
+| [hmrc](https://github.com/charlescoverdale/hmrc) | HM Revenue and Customs data (Stamp Duty Land Tax) |
+| [boe](https://github.com/charlescoverdale/boe) | Bank of England data (mortgage rates, lending) |
+| [obr](https://github.com/charlescoverdale/obr) | Office for Budget Responsibility forecasts |
+| [inflateR](https://github.com/charlescoverdale/inflateR) | Inflation adjustment for real-terms house prices |
+| [inflationkit](https://github.com/charlescoverdale/inflationkit) | Inflation analysis (housing component of CPI) |
 | [inequality](https://github.com/charlescoverdale/inequality) | Inequality and poverty measurement |
 
 
