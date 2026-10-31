@@ -10,7 +10,9 @@
 #' @examples
 #' \donttest{
 #' op <- options(ukhousing.cache_dir = tempdir())
-#' ukh_clear_cache()
+#' try({
+#'   ukh_clear_cache()
+#' })
 #' options(op)
 #' }
 ukh_clear_cache <- function() {
@@ -38,7 +40,9 @@ ukh_clear_cache <- function() {
 #' @examples
 #' \donttest{
 #' op <- options(ukhousing.cache_dir = tempdir())
-#' ukh_cache_info()
+#' try({
+#'   ukh_cache_info()
+#' })
 #' options(op)
 #' }
 ukh_cache_info <- function() {

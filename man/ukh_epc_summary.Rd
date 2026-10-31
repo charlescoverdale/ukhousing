@@ -35,10 +35,10 @@ ukh_epc_summary(la = "E09000033")
 }
 }
 \seealso{
-Other energy performance certificates: 
-\code{\link{ukh_epc_bulk}()},
-\code{\link{ukh_epc_certificate}()},
-\code{\link{ukh_epc_recommendations_summary}()},
-\code{\link{ukh_epc_search}()}
+Other energy performance certificates:
+\code{\link[=ukh_epc_bulk]{ukh_epc_bulk()}},
+\code{\link[=ukh_epc_certificate]{ukh_epc_certificate()}},
+\code{\link[=ukh_epc_recommendations_summary]{ukh_epc_recommendations_summary()}},
+\code{\link[=ukh_epc_search]{ukh_epc_search()}}
 }
 \concept{energy performance certificates}

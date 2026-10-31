@@ -21,17 +21,19 @@ yearly bulk file when you only want a single postcode.
 \examples{
 \donttest{
 op <- options(ukhousing.cache_dir = tempdir())
-tx <- ukh_ppd_address("SW1A 1AA")
-head(tx)
+try({
+  tx <- ukh_ppd_address("SW1A 1AA")
+  head(tx)
+})
 options(op)
 }
 }
 \seealso{
-Other price paid data: 
-\code{\link{ukh_ppd}()},
-\code{\link{ukh_ppd_bulk}()},
-\code{\link{ukh_ppd_summary}()},
-\code{\link{ukh_ppd_transaction}()},
-\code{\link{ukh_ppd_years}()}
+Other price paid data:
+\code{\link[=ukh_ppd]{ukh_ppd()}},
+\code{\link[=ukh_ppd_bulk]{ukh_ppd_bulk()}},
+\code{\link[=ukh_ppd_summary]{ukh_ppd_summary()}},
+\code{\link[=ukh_ppd_transaction]{ukh_ppd_transaction()}},
+\code{\link[=ukh_ppd_years]{ukh_ppd_years()}}
 }
 \concept{price paid data}

@@ -18,13 +18,15 @@ debugging stale results or deciding whether to call \code{\link[=ukh_clear_cache
 \examples{
 \donttest{
 op <- options(ukhousing.cache_dir = tempdir())
-ukh_cache_info()
+try({
+  ukh_cache_info()
+})
 options(op)
 }
 }
 \seealso{
-Other configuration: 
-\code{\link{ukh_clear_cache}()},
-\code{\link{ukh_epc_set_key}()}
+Other configuration:
+\code{\link[=ukh_clear_cache]{ukh_clear_cache()}},
+\code{\link[=ukh_epc_set_key]{ukh_epc_set_key()}}
 }
 \concept{configuration}

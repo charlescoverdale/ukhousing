@@ -35,10 +35,10 @@ certs <- read.csv(paths$certificates)
 }
 }
 \seealso{
-Other energy performance certificates: 
-\code{\link{ukh_epc_certificate}()},
-\code{\link{ukh_epc_recommendations_summary}()},
-\code{\link{ukh_epc_search}()},
-\code{\link{ukh_epc_summary}()}
+Other energy performance certificates:
+\code{\link[=ukh_epc_certificate]{ukh_epc_certificate()}},
+\code{\link[=ukh_epc_recommendations_summary]{ukh_epc_recommendations_summary()}},
+\code{\link[=ukh_epc_search]{ukh_epc_search()}},
+\code{\link[=ukh_epc_summary]{ukh_epc_summary()}}
 }
 \concept{energy performance certificates}

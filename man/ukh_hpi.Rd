@@ -42,21 +42,21 @@ because the Land Registry needs the full transaction set to settle.
 \examples{
 \donttest{
 op <- options(ukhousing.cache_dir = tempdir())
+try({
+  # All UK average house prices
+  uk <- ukh_hpi("united-kingdom")
+  head(uk)
 
-# All UK average house prices
-uk <- ukh_hpi("united-kingdom")
-head(uk)
-
-# London, last 10 years
-london <- ukh_hpi("london", from = "2016-01-01")
-tail(london)
-
+  # London, last 10 years
+  london <- ukh_hpi("london", from = "2016-01-01")
+  tail(london)
+})
 options(op)
 }
 }
 \seealso{
-Other house price index: 
-\code{\link{ukh_hpi_compare}()},
-\code{\link{ukh_transactions}()}
+Other house price index:
+\code{\link[=ukh_hpi_compare]{ukh_hpi_compare()}},
+\code{\link[=ukh_transactions]{ukh_transactions()}}
 }
 \concept{house price index}

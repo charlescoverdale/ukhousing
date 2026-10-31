@@ -1,47 +1,19 @@
-# CRAN submission comments — ukhousing 0.1.0
+# CRAN submission comments: ukhousing 0.2.0
 
-## New submission
+## Reason for this submission
 
-This is a new package providing R access to UK housing data from
-four official sources:
-
-* HM Land Registry (UK House Price Index + Price Paid Data)
-* MHCLG Energy Performance Certificate Open Data service (domestic,
-  non-domestic, and display certificates)
-* planning.data.gov.uk (Digital Land planning data, 100+ datasets)
-* ONS Beta API (Price Index of Private Rents)
+`ukh_pipr()` returned no data: the ONS withdrew the download format it
+used and stopped updating that copy of the series. It now reads the ONS
+monthly workbook. Cached monthly series also now expire after 7 days.
+Details in NEWS.md.
 
 ## R CMD check results
 
-0 errors | 0 warnings | 0 notes
+0 errors | 0 warnings | 0 notes (CRAN settings, R 4.5.2, macOS).
 
-## Test suite
-
-100+ expectations. Network-dependent tests are wrapped in
-`skip_on_cran()` and `skip_if_offline()`. Tests requiring the EPC
-API key are guarded with `skip_if_not(nzchar(Sys.getenv("EPC_EMAIL")))`.
-Tests requiring the 150 MB yearly PPD download are guarded with
-`skip_if_not(nzchar(Sys.getenv("UKHOUSING_LIVE_TESTS")))`.
-
-## Notes on data access
-
-* UK HPI and PPD data are downloaded from HM Land Registry
-  (https://landregistry.data.gov.uk/) and cached via
-  `tools::R_user_dir()`.
-* EPC API requires free user registration at
-  https://epc.opendatacommunities.org/. The package does not bundle
-  any certificates.
-* Planning data comes from https://www.planning.data.gov.uk/, an
-  open service with no auth.
-* ONS PIPR data comes from the ONS Beta API at
-  https://api.beta.ons.gov.uk/v1/, no auth.
-* All `\donttest` examples redirect the cache to `tempdir()` via
-  `options(ukhousing.cache_dir = ...)` so that no files are written
-  to the user's home filespace.
-* `\dontrun` is used only for examples that require EPC API
-  credentials, which cannot safely be demonstrated in automated
-  checks without a key.
+Tests that need the network are skipped on CRAN, and network examples
+are wrapped in `try()` inside `\donttest{}`.
 
 ## Downstream dependencies
 
-None.
+None on CRAN.

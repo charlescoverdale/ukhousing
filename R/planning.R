@@ -26,8 +26,10 @@
 #' @examples
 #' \donttest{
 #' op <- options(ukhousing.cache_dir = tempdir())
-#' bf <- ukh_planning("brownfield-land", limit = 100)
-#' head(bf)
+#' try({
+#'   bf <- ukh_planning("brownfield-land", limit = 100)
+#'   head(bf)
+#' })
 #' options(op)
 #' }
 ukh_planning <- function(dataset, la = NULL, limit = 1000L,
@@ -89,8 +91,10 @@ ukh_planning <- function(dataset, la = NULL, limit = 1000L,
 #' @examples
 #' \donttest{
 #' op <- options(ukhousing.cache_dir = tempdir())
-#' ds <- ukh_planning_datasets()
-#' head(ds)
+#' try({
+#'   ds <- ukh_planning_datasets()
+#'   head(ds)
+#' })
 #' options(op)
 #' }
 ukh_planning_datasets <- function() {

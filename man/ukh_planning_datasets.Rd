@@ -17,13 +17,15 @@ with their slugs, names, and descriptions.
 \examples{
 \donttest{
 op <- options(ukhousing.cache_dir = tempdir())
-ds <- ukh_planning_datasets()
-head(ds)
+try({
+  ds <- ukh_planning_datasets()
+  head(ds)
+})
 options(op)
 }
 }
 \seealso{
-Other planning: 
-\code{\link{ukh_planning}()}
+Other planning:
+\code{\link[=ukh_planning]{ukh_planning()}}
 }
 \concept{planning}

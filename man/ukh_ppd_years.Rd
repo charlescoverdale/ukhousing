@@ -23,18 +23,20 @@ vector and row-binds the results. Caches each year independently.
 \examples{
 \donttest{
 op <- options(ukhousing.cache_dir = tempdir())
-five_year <- ukh_ppd_years(2020:2024, la = "Westminster",
-                           property_type = "flat")
-nrow(five_year)
+try({
+  five_year <- ukh_ppd_years(2020:2024, la = "Westminster",
+                             property_type = "flat")
+  nrow(five_year)
+})
 options(op)
 }
 }
 \seealso{
-Other price paid data: 
-\code{\link{ukh_ppd}()},
-\code{\link{ukh_ppd_address}()},
-\code{\link{ukh_ppd_bulk}()},
-\code{\link{ukh_ppd_summary}()},
-\code{\link{ukh_ppd_transaction}()}
+Other price paid data:
+\code{\link[=ukh_ppd]{ukh_ppd()}},
+\code{\link[=ukh_ppd_address]{ukh_ppd_address()}},
+\code{\link[=ukh_ppd_bulk]{ukh_ppd_bulk()}},
+\code{\link[=ukh_ppd_summary]{ukh_ppd_summary()}},
+\code{\link[=ukh_ppd_transaction]{ukh_ppd_transaction()}}
 }
 \concept{price paid data}

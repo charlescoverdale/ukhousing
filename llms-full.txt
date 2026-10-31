@@ -2,7 +2,7 @@
 
 > Fetch UK housing data from official sources.
 
-- Version: 0.1.0
+- Version: 0.2.0
 - Install: `install.packages("ukhousing")`
 - CRAN: https://CRAN.R-project.org/package=ukhousing
 - GitHub: https://github.com/charlescoverdale/ukhousing

@@ -26,14 +26,16 @@ Registry needs the full transaction set to settle.
 \examples{
 \donttest{
 op <- options(ukhousing.cache_dir = tempdir())
-tx <- ukh_transactions("england", from = "2020-01-01")
-head(tx)
+try({
+  tx <- ukh_transactions("england", from = "2020-01-01")
+  head(tx)
+})
 options(op)
 }
 }
 \seealso{
-Other house price index: 
-\code{\link{ukh_hpi}()},
-\code{\link{ukh_hpi_compare}()}
+Other house price index:
+\code{\link[=ukh_hpi]{ukh_hpi()}},
+\code{\link[=ukh_hpi_compare]{ukh_hpi_compare()}}
 }
 \concept{house price index}

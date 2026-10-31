@@ -39,13 +39,15 @@ zones, and more.
 \examples{
 \donttest{
 op <- options(ukhousing.cache_dir = tempdir())
-bf <- ukh_planning("brownfield-land", limit = 100)
-head(bf)
+try({
+  bf <- ukh_planning("brownfield-land", limit = 100)
+  head(bf)
+})
 options(op)
 }
 }
 \seealso{
-Other planning: 
-\code{\link{ukh_planning_datasets}()}
+Other planning:
+\code{\link[=ukh_planning_datasets]{ukh_planning_datasets()}}
 }
 \concept{planning}

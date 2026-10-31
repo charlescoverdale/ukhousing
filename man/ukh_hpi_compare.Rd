@@ -35,20 +35,20 @@ change) as a column per region. Useful for regional comparison charts.
 \examples{
 \donttest{
 op <- options(ukhousing.cache_dir = tempdir())
-
-prices <- ukh_hpi_compare(
-  c("london", "manchester", "newcastle-upon-tyne"),
-  measure = "avg_price",
-  from = "2015-01-01"
-)
-head(prices)
-
+try({
+  prices <- ukh_hpi_compare(
+    c("london", "manchester", "newcastle-upon-tyne"),
+    measure = "avg_price",
+    from = "2015-01-01"
+  )
+  head(prices)
+})
 options(op)
 }
 }
 \seealso{
-Other house price index: 
-\code{\link{ukh_hpi}()},
-\code{\link{ukh_transactions}()}
+Other house price index:
+\code{\link[=ukh_hpi]{ukh_hpi()}},
+\code{\link[=ukh_transactions]{ukh_transactions()}}
 }
 \concept{house price index}

@@ -1,3 +1,34 @@
+# ukhousing 0.2.0
+
+## `ukh_pipr()` returns data again, and current data
+
+`ukh_pipr()` returned an empty data frame with a warning. The ONS stopped
+offering a JSON download for the rental index on its Beta API, so the
+function fell back to a metadata link that holds no observations. That
+API copy of the series also stopped at January 2024.
+
+The function now reads the ONS monthly workbook, Price Index of Private
+Rents, UK: monthly price statistics, which runs to the latest month.
+This is a richer source, and the output changes accordingly:
+
+* About 350 areas (UK, countries, English regions and local
+  authorities) instead of 15.
+* New columns `gss_code`, `parent_region`, `monthly_change_pct`,
+  `annual_change_pct` and `rental_price_gbp` (average monthly rent).
+* A new `property` argument selects a bedroom count or property type.
+  It comes before `refresh`, so pass `refresh` by name.
+* The index is on the ONS base, January 2023 = 100.
+* The workbook is read with \pkg{readxl}, now in Suggests.
+
+## Monthly series no longer go stale in the cache
+
+`ukh_hpi()`, `ukh_transactions()` and `ukh_pipr()` reused a cached
+download indefinitely, so a user who had called them once never saw a
+later monthly release unless they passed `refresh = TRUE`. A cached copy
+is now fetched again once it is more than 7 days old; set
+`options(ukhousing.cache_max_age = <days>)` to change this. Bulk EPC and
+Price Paid downloads are unchanged and still only re-fetched on request.
+
 # ukhousing 0.1.0
 
 * Initial CRAN release.

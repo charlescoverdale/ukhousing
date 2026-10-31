@@ -32,16 +32,18 @@ approximately 5.3 GB.
 \examples{
 \donttest{
 op <- options(ukhousing.cache_dir = tempdir())
-path <- ukh_ppd_bulk(2025)
+try({
+  path <- ukh_ppd_bulk(2025)
+})
 options(op)
 }
 }
 \seealso{
-Other price paid data: 
-\code{\link{ukh_ppd}()},
-\code{\link{ukh_ppd_address}()},
-\code{\link{ukh_ppd_summary}()},
-\code{\link{ukh_ppd_transaction}()},
-\code{\link{ukh_ppd_years}()}
+Other price paid data:
+\code{\link[=ukh_ppd]{ukh_ppd()}},
+\code{\link[=ukh_ppd_address]{ukh_ppd_address()}},
+\code{\link[=ukh_ppd_summary]{ukh_ppd_summary()}},
+\code{\link[=ukh_ppd_transaction]{ukh_ppd_transaction()}},
+\code{\link[=ukh_ppd_years]{ukh_ppd_years()}}
 }
 \concept{price paid data}

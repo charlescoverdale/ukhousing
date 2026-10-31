@@ -11,6 +11,7 @@ Fetch UK housing data from official sources. Access the UK House Price Index and
 \seealso{
 Useful links:
 \itemize{
+  \item \url{https://charlescoverdale.github.io/ukhousing/}
   \item \url{https://github.com/charlescoverdale/ukhousing}
   \item Report bugs at \url{https://github.com/charlescoverdale/ukhousing/issues}
 }
@@ -18,6 +19,11 @@ Useful links:
 }
 \author{
 \strong{Maintainer}: Charles Coverdale \email{charlesfcoverdale@gmail.com}
+
+Authors:
+\itemize{
+  \item Charles Coverdale \email{charlesfcoverdale@gmail.com}
+}
 
 }
 \keyword{internal}

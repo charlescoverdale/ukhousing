@@ -16,13 +16,15 @@ any data function will re-download fresh data.
 \examples{
 \donttest{
 op <- options(ukhousing.cache_dir = tempdir())
-ukh_clear_cache()
+try({
+  ukh_clear_cache()
+})
 options(op)
 }
 }
 \seealso{
-Other configuration: 
-\code{\link{ukh_cache_info}()},
-\code{\link{ukh_epc_set_key}()}
+Other configuration:
+\code{\link[=ukh_cache_info]{ukh_cache_info()}},
+\code{\link[=ukh_epc_set_key]{ukh_epc_set_key()}}
 }
 \concept{configuration}

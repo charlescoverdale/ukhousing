@@ -16,7 +16,7 @@ The catch is that this data is scattered across roughly ten institutions, each w
 - **HM Land Registry** publishes the UK House Price Index via a linked-data SPARQL endpoint plus a REST API, and Price Paid Data as multi-gigabyte bulk CSVs with no header row
 - **MHCLG's EPC Open Data service** requires a free registered API key with HTTP Basic Auth, paginates using `search-after` tokens, and has 90+ hyphenated fields per record
 - **planning.data.gov.uk** (Digital Land) has a clean REST API with JSON and GeoJSON output
-- **ONS** publishes rental price indices via the Beta API, but affordability ratios only as Excel workbooks with multi-row headers
+- **ONS** publishes the Price Index of Private Rents as a monthly workbook (its Beta API copy stopped at January 2024), and affordability ratios only as Excel workbooks with multi-row headers
 - **DLUHC** publishes housing supply data as ODS live tables with hash-based URLs that change on every republication
 - **HMRC** publishes Stamp Duty Land Tax statistics as ODS/XLSX
 - **VOA** publishes private rental market data separately, also as ODS
@@ -172,7 +172,7 @@ All EPC functions accept `type = c("domestic", "non-domestic", "display")`.
 
 | Function | Description |
 |---|---|
-| `ukh_pipr()` | Price Index of Private Rents (monthly, UK and regions) |
+| `ukh_pipr()` | Price Index of Private Rents and average rents (monthly, UK, regions and local authorities, by bedrooms or property type) |
 
 ### Advanced
 
@@ -191,7 +191,7 @@ All EPC functions accept `type = c("domestic", "non-domestic", "display")`.
 
 ## Caching
 
-Downloads are cached to `tools::R_user_dir("ukhousing", "cache")` by default. Subsequent calls are instant. Override the location with `options(ukhousing.cache_dir = "/path/to/dir")`. Use `ukh_clear_cache()` to remove all cached files.
+Downloads are cached to `tools::R_user_dir("ukhousing", "cache")` by default. Subsequent calls are instant. The monthly series (`ukh_hpi()`, `ukh_transactions()`, `ukh_pipr()`) are fetched again once the cached copy is more than 7 days old, so new monthly releases come through; change this with `options(ukhousing.cache_max_age = <days>)`. Bulk downloads (EPC and Price Paid) are only re-fetched with `refresh = TRUE`. Override the location with `options(ukhousing.cache_dir = "/path/to/dir")`. Use `ukh_clear_cache()` to remove all cached files.
 
 
 ## EPC API registration

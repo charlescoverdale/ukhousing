@@ -56,11 +56,11 @@
 #' @examples
 #' \donttest{
 #' op <- options(ukhousing.cache_dir = tempdir())
-#'
-#' # Westminster flats sold in 2024
-#' wm <- ukh_ppd(2024, la = "Westminster", property_type = "flat")
-#' head(wm)
-#'
+#' try({
+#'   # Westminster flats sold in 2024
+#'   wm <- ukh_ppd(2024, la = "Westminster", property_type = "flat")
+#'   head(wm)
+#' })
 #' options(op)
 #' }
 ukh_ppd <- function(year = as.integer(format(Sys.Date(), "%Y")),
@@ -135,7 +135,9 @@ ukh_ppd <- function(year = as.integer(format(Sys.Date(), "%Y")),
 #' @examples
 #' \donttest{
 #' op <- options(ukhousing.cache_dir = tempdir())
-#' path <- ukh_ppd_bulk(2025)
+#' try({
+#'   path <- ukh_ppd_bulk(2025)
+#' })
 #' options(op)
 #' }
 ukh_ppd_bulk <- function(year = as.integer(format(Sys.Date(), "%Y")),
@@ -226,9 +228,11 @@ ukh_ppd_bulk <- function(year = as.integer(format(Sys.Date(), "%Y")),
 #' @examples
 #' \donttest{
 #' op <- options(ukhousing.cache_dir = tempdir())
-#' # Monthly transaction counts and medians, nationally
-#' s <- ukh_ppd_summary(2025, by = "month")
-#' head(s)
+#' try({
+#'   # Monthly transaction counts and medians, nationally
+#'   s <- ukh_ppd_summary(2025, by = "month")
+#'   head(s)
+#' })
 #' options(op)
 #' }
 ukh_ppd_summary <- function(year = as.integer(format(Sys.Date(), "%Y")),
@@ -315,8 +319,10 @@ ukh_ppd_summary <- function(year = as.integer(format(Sys.Date(), "%Y")),
 #' @examples
 #' \donttest{
 #' op <- options(ukhousing.cache_dir = tempdir())
-#' tx <- ukh_ppd_transaction("{A4C5B0C6-4D5D-47E2-E053-6C04A8C07E7C}")
-#' tx
+#' try({
+#'   tx <- ukh_ppd_transaction("{A4C5B0C6-4D5D-47E2-E053-6C04A8C07E7C}")
+#'   tx
+#' })
 #' options(op)
 #' }
 ukh_ppd_transaction <- function(id) {
@@ -357,8 +363,10 @@ ukh_ppd_transaction <- function(id) {
 #' @examples
 #' \donttest{
 #' op <- options(ukhousing.cache_dir = tempdir())
-#' tx <- ukh_ppd_address("SW1A 1AA")
-#' head(tx)
+#' try({
+#'   tx <- ukh_ppd_address("SW1A 1AA")
+#'   head(tx)
+#' })
 #' options(op)
 #' }
 ukh_ppd_address <- function(postcode) {
@@ -400,9 +408,11 @@ ukh_ppd_address <- function(postcode) {
 #' @examples
 #' \donttest{
 #' op <- options(ukhousing.cache_dir = tempdir())
-#' five_year <- ukh_ppd_years(2020:2024, la = "Westminster",
-#'                            property_type = "flat")
-#' nrow(five_year)
+#' try({
+#'   five_year <- ukh_ppd_years(2020:2024, la = "Westminster",
+#'                              property_type = "flat")
+#'   nrow(five_year)
+#' })
 #' options(op)
 #' }
 ukh_ppd_years <- function(years, ...) {

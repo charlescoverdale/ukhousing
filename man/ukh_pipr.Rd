@@ -2,31 +2,53 @@
 % Please edit documentation in R/pipr.R
 \name{ukh_pipr}
 \alias{ukh_pipr}
-\title{ONS Index of Private Housing Rental Prices / Price Index of Private Rents}
+\title{ONS Price Index of Private Rents}
+\source{
+Office for National Statistics, Price Index of Private Rents,
+UK: monthly price statistics. Official statistics in development.
+\url{https://www.ons.gov.uk/economy/inflationandpriceindices/datasets/priceindexofprivaterentsukmonthlypricestatistics}
+}
 \usage{
-ukh_pipr(refresh = FALSE)
+ukh_pipr(property = "all", refresh = FALSE)
 }
 \arguments{
+\item{property}{Which series to return: \code{"all"} (default, all
+private rented property), a bedroom count (\code{"one bed"}, \code{"two bed"},
+\code{"three bed"}, \code{"four or more bed"}) or a property type
+(\code{"detached"}, \code{"semidetached"}, \code{"terraced"}, \code{"flat maisonette"}).}
+
 \item{refresh}{Logical. Re-download even if cached? Default \code{FALSE}.}
 }
 \value{
-A data frame with columns \code{date}, \code{region}, and \code{index}.
+A data frame with columns \code{date} (first of the month),
+\code{gss_code}, \code{region} (area name), \code{parent_region} (the region or
+country an area belongs to; \code{NA} for the UK and its countries),
+\code{index} (January 2023 = 100), \code{monthly_change_pct},
+\code{annual_change_pct} and \code{rental_price_gbp} (average monthly rent,
+rounded to the nearest pound). Values the ONS marks as unavailable
+or not applicable are \code{NA}. Requires the \pkg{readxl} package.
 }
 \description{
-Fetches the UK's official private-rental price index from the ONS
-Beta API. The dataset replaced the Index of Private Housing Rental
-Prices (IPHRP) with the Price Index of Private Rents (PIPR) in
-January 2024, but the same dataset slug covers both.
+Downloads the ONS Price Index of Private Rents (PIPR), UK: monthly
+price statistics. PIPR replaced the Index of Private Housing Rental
+Prices in 2024 and is published monthly from January 2015 for the UK,
+its countries, the English regions and local authorities (around 350
+areas in all), including average rents in pounds.
 }
 \details{
-Coverage: UK aggregate plus countries (England, Scotland, Wales,
-Northern Ireland) and English regions, monthly from January 2015.
+The ONS stopped updating the rental index on its Beta API at January
+2024, so this function reads the monthly workbook from the ONS website
+instead. The cached copy is refreshed once it is more than
+\code{getOption("ukhousing.cache_max_age", 7)} days old.
 }
 \examples{
 \donttest{
 op <- options(ukhousing.cache_dir = tempdir())
-rents <- ukh_pipr()
-head(rents)
+try({
+  rents <- ukh_pipr()
+  tail(rents[rents$region == "United Kingdom", ])
+  flats <- ukh_pipr(property = "flat maisonette")
+})
 options(op)
 }
 }

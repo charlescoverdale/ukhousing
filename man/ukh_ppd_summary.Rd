@@ -34,18 +34,20 @@ individual transactions.
 \examples{
 \donttest{
 op <- options(ukhousing.cache_dir = tempdir())
-# Monthly transaction counts and medians, nationally
-s <- ukh_ppd_summary(2025, by = "month")
-head(s)
+try({
+  # Monthly transaction counts and medians, nationally
+  s <- ukh_ppd_summary(2025, by = "month")
+  head(s)
+})
 options(op)
 }
 }
 \seealso{
-Other price paid data: 
-\code{\link{ukh_ppd}()},
-\code{\link{ukh_ppd_address}()},
-\code{\link{ukh_ppd_bulk}()},
-\code{\link{ukh_ppd_transaction}()},
-\code{\link{ukh_ppd_years}()}
+Other price paid data:
+\code{\link[=ukh_ppd]{ukh_ppd()}},
+\code{\link[=ukh_ppd_address]{ukh_ppd_address()}},
+\code{\link[=ukh_ppd_bulk]{ukh_ppd_bulk()}},
+\code{\link[=ukh_ppd_transaction]{ukh_ppd_transaction()}},
+\code{\link[=ukh_ppd_years]{ukh_ppd_years()}}
 }
 \concept{price paid data}

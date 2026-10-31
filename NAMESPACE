@@ -22,13 +22,19 @@ export(ukh_ppd_years)
 export(ukh_regions)
 export(ukh_sparql)
 export(ukh_transactions)
-importFrom(cli,cli_abort)
-importFrom(cli,cli_inform)
-importFrom(cli,cli_warn)
+importFrom(cli,
+  cli_abort,
+  cli_inform,
+  cli_warn
+)
 importFrom(jsonlite,fromJSON)
-importFrom(stats,median)
-importFrom(stats,setNames)
+importFrom(stats,
+  median,
+  setNames
+)
 importFrom(tools,R_user_dir)
-importFrom(utils,URLencode)
-importFrom(utils,read.csv)
-importFrom(utils,unzip)
+importFrom(utils,
+  URLencode,
+  read.csv,
+  unzip
+)

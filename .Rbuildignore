@@ -1,8 +1,10 @@
 ^.*\.Rproj$
-^\.Rproj\.user$
+^CRAN-SUBMISSION$
 ^LICENSE\.md$
 ^README\.md$
+^\.Rproj\.user$
 ^\.github$
+^_pkgdown\.yml$
 ^cran-comments\.md$
-^CRAN-SUBMISSION$
 ^data-raw$
+^llms.*\.txt$

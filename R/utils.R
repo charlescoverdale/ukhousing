@@ -12,6 +12,20 @@ ukh_cache_dir <- function() {
   d
 }
 
+# TRUE when a cached copy of a monthly series should be fetched again:
+# it is missing, a refresh was asked for, or it is older than the
+# ukhousing.cache_max_age option (days, default 7). Monthly releases would
+# otherwise never reach a user who had called the function once.
+ukh_cache_stale <- function(path, refresh = FALSE) {
+  if (refresh || !file.exists(path)) return(TRUE)
+  max_age <- getOption("ukhousing.cache_max_age", default = 7)
+  if (!is.numeric(max_age) || length(max_age) != 1L || is.na(max_age) || max_age < 0) {
+    cli_abort("Option {.code ukhousing.cache_max_age} must be a single non-negative number of days.")
+  }
+  age <- difftime(Sys.time(), file.info(path)$mtime, units = "days")
+  as.numeric(age) >= max_age
+}
+
 # Normalise a region name, GSS code, or slug into the canonical slug
 # used by the UK HPI endpoint (lowercase, hyphenated).
 ukh_region_slug <- function(region) {

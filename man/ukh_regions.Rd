@@ -35,7 +35,7 @@ ukh_regions(tier = "region")
 ukh_regions(tier = "country")
 }
 \seealso{
-Other helpers: 
-\code{\link{ukh_sparql}()}
+Other helpers:
+\code{\link[=ukh_sparql]{ukh_sparql()}}
 }
 \concept{helpers}

@@ -31,8 +31,8 @@ ukh_epc_set_key("you@example.com", "your_api_key_here")
 }
 }
 \seealso{
-Other configuration: 
-\code{\link{ukh_cache_info}()},
-\code{\link{ukh_clear_cache}()}
+Other configuration:
+\code{\link[=ukh_cache_info]{ukh_cache_info()}},
+\code{\link[=ukh_clear_cache]{ukh_clear_cache()}}
 }
 \concept{configuration}

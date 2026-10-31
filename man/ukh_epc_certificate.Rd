@@ -33,10 +33,10 @@ cert$recommendations
 }
 }
 \seealso{
-Other energy performance certificates: 
-\code{\link{ukh_epc_bulk}()},
-\code{\link{ukh_epc_recommendations_summary}()},
-\code{\link{ukh_epc_search}()},
-\code{\link{ukh_epc_summary}()}
+Other energy performance certificates:
+\code{\link[=ukh_epc_bulk]{ukh_epc_bulk()}},
+\code{\link[=ukh_epc_recommendations_summary]{ukh_epc_recommendations_summary()}},
+\code{\link[=ukh_epc_search]{ukh_epc_search()}},
+\code{\link[=ukh_epc_summary]{ukh_epc_summary()}}
 }
 \concept{energy performance certificates}

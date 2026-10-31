@@ -21,17 +21,19 @@ Registry linked data service by its transaction unique identifier.
 \examples{
 \donttest{
 op <- options(ukhousing.cache_dir = tempdir())
-tx <- ukh_ppd_transaction("{A4C5B0C6-4D5D-47E2-E053-6C04A8C07E7C}")
-tx
+try({
+  tx <- ukh_ppd_transaction("{A4C5B0C6-4D5D-47E2-E053-6C04A8C07E7C}")
+  tx
+})
 options(op)
 }
 }
 \seealso{
-Other price paid data: 
-\code{\link{ukh_ppd}()},
-\code{\link{ukh_ppd_address}()},
-\code{\link{ukh_ppd_bulk}()},
-\code{\link{ukh_ppd_summary}()},
-\code{\link{ukh_ppd_years}()}
+Other price paid data:
+\code{\link[=ukh_ppd]{ukh_ppd()}},
+\code{\link[=ukh_ppd_address]{ukh_ppd_address()}},
+\code{\link[=ukh_ppd_bulk]{ukh_ppd_bulk()}},
+\code{\link[=ukh_ppd_summary]{ukh_ppd_summary()}},
+\code{\link[=ukh_ppd_years]{ukh_ppd_years()}}
 }
 \concept{price paid data}
