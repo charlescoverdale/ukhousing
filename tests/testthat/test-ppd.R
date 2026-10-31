@@ -54,5 +54,15 @@ test_that("ukh_ppd live fetch and filter works", {
   df <- ukh_ppd(2024, la = "Westminster", property_type = "flat")
   expect_s3_class(df, "data.frame")
   expect_true(nrow(df) > 0)
-  expect_true(all(toupper(df$district) == "WESTMINSTER"))
+  expect_true(all(toupper(df$district) == "CITY OF WESTMINSTER"))
+})
+
+test_that(".ppd_district_key matches common names to Land Registry districts", {
+  key <- .ppd_district_key
+  expect_true(key("Westminster") %in% key("CITY OF WESTMINSTER"))
+  expect_true(key(" vale  of glamorgan ") %in% key("THE VALE OF GLAMORGAN"))
+  expect_true(key("Bristol") %in% key("CITY OF BRISTOL"))
+  expect_true(key("City of London") %in% key("CITY OF LONDON"))
+  expect_false(key("London") %in% key("CITY OF LONDON"))
+  expect_false(key("Barnet") %in% key("CITY OF WESTMINSTER"))
 })

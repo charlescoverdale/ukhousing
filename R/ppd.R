@@ -32,8 +32,11 @@
 #'
 #' @param year Integer. Year of transactions to fetch. Defaults to the
 #'   current calendar year.
-#' @param la Optional character. Local authority name (matched
-#'   case-insensitively against the `district` field).
+#' @param la Optional character. Local authority name, matched against
+#'   the `district` field ignoring case, spacing and a leading "City of"
+#'   or "The", so `"Westminster"` finds "CITY OF WESTMINSTER" and
+#'   `"Vale of Glamorgan"` finds "THE VALE OF GLAMORGAN". The City of
+#'   London keeps its prefix, so `"London"` does not match it.
 #' @param postcode Optional character. Postcode or postcode prefix.
 #' @param property_type Optional character. One of `"detached"`,
 #'   `"semi"`, `"terraced"`, `"flat"`, or `"other"`. Also accepts the
@@ -83,8 +86,17 @@ ukh_ppd <- function(year = as.integer(format(Sys.Date(), "%Y")),
 
   # Apply filters
   if (!is.null(la)) {
-    la_norm <- tolower(trimws(la))
-    df <- df[tolower(df$district) == la_norm, , drop = FALSE]
+    hit <- .ppd_district_key(df$district) %in% .ppd_district_key(la)
+    if (!any(hit)) {
+      near <- unique(df$district[agrepl(toupper(trimws(la[1L])), df$district,
+                                         max.distance = 0.2)])
+      cli_warn(c(
+        "No {year} Price Paid records for local authority {.val {la}}.",
+        "i" = if (length(near)) "Did you mean {.val {head(near, 5)}}?" else
+          "Land Registry names districts as on the register, e.g. {.val City of Westminster}."
+      ))
+    }
+    df <- df[hit, , drop = FALSE]
   }
   if (!is.null(postcode)) {
     pc <- toupper(gsub("[[:space:]]+", " ", trimws(postcode)))
@@ -431,4 +443,17 @@ ukh_ppd_years <- function(years, ...) {
   out <- do.call(rbind, dfs)
   rownames(out) <- NULL
   out
+}
+
+# Normalised local-authority key for matching user input against the Price
+# Paid `district` field. Land Registry prefixes some districts ("CITY OF
+# WESTMINSTER", "THE VALE OF GLAMORGAN") that users usually omit. The City
+# of London is left alone: stripping it would make "London" match the
+# Square Mile only, which is never what someone asking for London means.
+#' @noRd
+.ppd_district_key <- function(x) {
+  k <- toupper(gsub("[[:space:]]+", " ", trimws(x)))
+  strip <- k != "CITY OF LONDON"
+  k[strip] <- sub("^(CITY OF|THE) ", "", k[strip])
+  k
 }

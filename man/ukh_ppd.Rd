@@ -20,8 +20,11 @@ ukh_ppd(
 \item{year}{Integer. Year of transactions to fetch. Defaults to the
 current calendar year.}
 
-\item{la}{Optional character. Local authority name (matched
-case-insensitively against the \code{district} field).}
+\item{la}{Optional character. Local authority name, matched against
+the \code{district} field ignoring case, spacing and a leading "City of"
+or "The", so \code{"Westminster"} finds "CITY OF WESTMINSTER" and
+\code{"Vale of Glamorgan"} finds "THE VALE OF GLAMORGAN". The City of
+London keeps its prefix, so \code{"London"} does not match it.}
 
 \item{postcode}{Optional character. Postcode or postcode prefix.}
 

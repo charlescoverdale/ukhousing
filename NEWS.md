@@ -20,6 +20,17 @@ This is a richer source, and the output changes accordingly:
 * The index is on the ONS base, January 2023 = 100.
 * The workbook is read with \pkg{readxl}, now in Suggests.
 
+## `ukh_ppd(la = )` matches the names people use
+
+Land Registry records some districts with a prefix ("CITY OF
+WESTMINSTER", "CITY OF BRISTOL", "THE VALE OF GLAMORGAN"), and `la` had
+to match exactly, so the documented example `ukh_ppd(2024, la =
+"Westminster")` returned no rows. `la` now ignores a leading "City of" or
+"The" (except for the City of London, so `"London"` does not quietly
+return the Square Mile alone). When nothing matches, a warning suggests
+the closest district names. This also applies to `ukh_ppd_summary()` and
+`ukh_ppd_years()`.
+
 ## Monthly series no longer go stale in the cache
 
 `ukh_hpi()`, `ukh_transactions()` and `ukh_pipr()` reused a cached
