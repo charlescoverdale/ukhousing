@@ -1,4 +1,4 @@
-# ukhousing — full API reference
+# ukhousing: full API reference
 
 > Fetch UK housing data from official sources.
 
@@ -33,7 +33,9 @@ A list with elements `dir`, `n_files`, `size_bytes`, `size_human`, and `files` (
 
 ```r
 op <- options(ukhousing.cache_dir = tempdir())
-ukh_cache_info()
+try({
+  ukh_cache_info()
+})
 options(op)
 ```
 
@@ -59,7 +61,9 @@ Invisibly returns `NULL`.
 
 ```r
 op <- options(ukhousing.cache_dir = tempdir())
-ukh_clear_cache()
+try({
+  ukh_clear_cache()
+})
 options(op)
 ```
 
@@ -83,9 +87,9 @@ ukh_epc_bulk(
 
 **Arguments**
 
-- `la` — Character. Local authority GSS code (e.g. `"E09000033"`).
-- `refresh` — Logical. Re-download even if cached? Default `FALSE`.
-- `type` — Character. Register: `"domestic"` (default), `"non-domestic"`, or `"display"`.
+- `la`: Character. Local authority GSS code (e.g. `"E09000033"`).
+- `refresh`: Logical. Re-download even if cached? Default `FALSE`.
+- `type`: Character. Register: `"domestic"` (default), `"non-domestic"`, or `"display"`.
 
 **Returns**
 
@@ -114,8 +118,8 @@ ukh_epc_certificate(lmk_key, type = c("domestic", "non-domestic", "display"))
 
 **Arguments**
 
-- `lmk_key` — Character. The certificate's LMK key (found in the `lmk_key` column of `ukh_epc_search()` results).
-- `type` — Character. Register: `"domestic"` (default), `"non-domestic"`, or `"display"`.
+- `lmk_key`: Character. The certificate's LMK key (found in the `lmk_key` column of `ukh_epc_search()` results).
+- `type`: Character. Register: `"domestic"` (default), `"non-domestic"`, or `"display"`.
 
 **Returns**
 
@@ -149,9 +153,9 @@ ukh_epc_recommendations_summary(
 
 **Arguments**
 
-- `la` — Character. Local authority GSS code.
-- `type` — Character. `"domestic"` (default), `"non-domestic"`, or `"display"`.
-- `refresh` — Logical. Re-download bulk ZIP? Default `FALSE`.
+- `la`: Character. Local authority GSS code.
+- `type`: Character. `"domestic"` (default), `"non-domestic"`, or `"display"`.
+- `refresh`: Logical. Re-download bulk ZIP? Default `FALSE`.
 
 **Returns**
 
@@ -191,15 +195,15 @@ ukh_epc_search(
 
 **Arguments**
 
-- `postcode` — Optional character. Postcode or partial postcode.
-- `la` — Optional character. Local authority GSS code (e.g. `"E09000033"` for Westminster).
-- `property_type` — Optional character. `"House"`, `"Flat"`, `"Bungalow"`, `"Maisonette"`, `"Park home"`.
-- `rating` — Optional character. Current energy rating (`"A"` to `"G"`).
-- `built_form` — Optional character. `"Detached"`, `"Semi-Detached"`, `"End-Terrace"`, `"Mid-Terrace"`, `"Enclosed End-Terrace"`, `"Enclosed Mid-Terrace"`.
-- `from, to` — Optional. Lodgement date range (YYYY-MM-DD).
-- `size` — Integer. Results per page, max 5000. Default 1000.
-- `max_records` — Integer. Maximum total records to fetch across pages. Default 10000. Set higher for bulk analysis.
-- `type` — Character. Register to query: `"domestic"` (default, housing), `"non-domestic"` (commercial buildings), or `"display"` (DECs for public buildings).
+- `postcode`: Optional character. Postcode or partial postcode.
+- `la`: Optional character. Local authority GSS code (e.g. `"E09000033"` for Westminster).
+- `property_type`: Optional character. `"House"`, `"Flat"`, `"Bungalow"`, `"Maisonette"`, `"Park home"`.
+- `rating`: Optional character. Current energy rating (`"A"` to `"G"`).
+- `built_form`: Optional character. `"Detached"`, `"Semi-Detached"`, `"End-Terrace"`, `"Mid-Terrace"`, `"Enclosed End-Terrace"`, `"Enclosed Mid-Terrace"`.
+- `from, to`: Optional. Lodgement date range (YYYY-MM-DD).
+- `size`: Integer. Results per page, max 5000. Default 1000.
+- `max_records`: Integer. Maximum total records to fetch across pages. Default 10000. Set higher for bulk analysis.
+- `type`: Character. Register to query: `"domestic"` (default, housing), `"non-domestic"` (commercial buildings), or `"display"` (DECs for public buildings).
 
 **Returns**
 
@@ -235,8 +239,8 @@ ukh_epc_set_key(email, key)
 
 **Arguments**
 
-- `email` — Character. The email you registered with.
-- `key` — Character. The API key.
+- `email`: Character. The email you registered with.
+- `key`: Character. The API key.
 
 **Returns**
 
@@ -269,9 +273,9 @@ ukh_epc_summary(
 
 **Arguments**
 
-- `la` — Character. Local authority GSS code.
-- `from, to` — Optional. Lodgement date range.
-- `type` — Character. Register: `"domestic"` (default), `"non-domestic"`, or `"display"`.
+- `la`: Character. Local authority GSS code.
+- `from, to`: Optional. Lodgement date range.
+- `type`: Character. Register: `"domestic"` (default), `"non-domestic"`, or `"display"`.
 
 **Returns**
 
@@ -299,9 +303,9 @@ ukh_hpi(region, from = NULL, to = NULL, refresh = FALSE)
 
 **Arguments**
 
-- `region` — Character. Region slug, GSS code, or common name (e.g. `"westminster"`, `"Westminster"`, `"E09000033"`). See `ukh_regions()` for common options.
-- `from, to` — Optional character or Date. Start and end dates in ISO format (YYYY-MM-DD). Default returns the full available history.
-- `refresh` — Logical. Re-download even if cached? Default `FALSE`.
+- `region`: Character. Region slug, GSS code, or common name (e.g. `"westminster"`, `"Westminster"`, `"E09000033"`). See `ukh_regions()` for common options.
+- `from, to`: Optional character or Date. Start and end dates in ISO format (YYYY-MM-DD). Default returns the full available history.
+- `refresh`: Logical. Re-download even if cached? Default `FALSE`.
 
 **Returns**
 
@@ -311,15 +315,15 @@ A data frame with one row per month. Columns include `date`, `region`, `hpi`, `a
 
 ```r
 op <- options(ukhousing.cache_dir = tempdir())
+try({
+  # All UK average house prices
+  uk <- ukh_hpi("united-kingdom")
+  head(uk)
 
-# All UK average house prices
-uk <- ukh_hpi("united-kingdom")
-head(uk)
-
-# London, last 10 years
-london <- ukh_hpi("london", from = "2016-01-01")
-tail(london)
-
+  # London, last 10 years
+  london <- ukh_hpi("london", from = "2016-01-01")
+  tail(london)
+})
 options(op)
 ```
 
@@ -345,10 +349,10 @@ ukh_hpi_compare(
 
 **Arguments**
 
-- `regions` — Character vector of region slugs, GSS codes, or names.
-- `measure` — Character. Which measure to return. One of `"avg_price"`, `"hpi"`, `"pct_change_annual"`, `"pct_change_monthly"`, or `"sales_volume"`. Default `"avg_price"`.
-- `from, to` — Optional character or Date. Date range.
-- `refresh` — Logical. Re-download even if cached? Default `FALSE`.
+- `regions`: Character vector of region slugs, GSS codes, or names.
+- `measure`: Character. Which measure to return. One of `"avg_price"`, `"hpi"`, `"pct_change_annual"`, `"pct_change_monthly"`, or `"sales_volume"`. Default `"avg_price"`.
+- `from, to`: Optional character or Date. Date range.
+- `refresh`: Logical. Re-download even if cached? Default `FALSE`.
 
 **Returns**
 
@@ -358,14 +362,14 @@ A wide data frame with a `date` column and one column per region.
 
 ```r
 op <- options(ukhousing.cache_dir = tempdir())
-
-prices <- ukh_hpi_compare(
-  c("london", "manchester", "newcastle-upon-tyne"),
-  measure = "avg_price",
-  from = "2015-01-01"
-)
-head(prices)
-
+try({
+  prices <- ukh_hpi_compare(
+    c("london", "manchester", "newcastle-upon-tyne"),
+    measure = "avg_price",
+    from = "2015-01-01"
+  )
+  head(prices)
+})
 options(op)
 ```
 
@@ -373,30 +377,34 @@ options(op)
 
 ## `ukh_pipr()`
 
-**ONS Index of Private Housing Rental Prices / Price Index of Private Rents**
+**ONS Price Index of Private Rents**
 
-Fetches the UK's official private-rental price index from the ONS Beta API. The dataset replaced the Index of Private Housing Rental Prices (IPHRP) with the Price Index of Private Rents (PIPR) in January 2024, but the same dataset slug covers both.
+Downloads the ONS Price Index of Private Rents (PIPR), UK: monthly price statistics. PIPR replaced the Index of Private Housing Rental Prices in 2024 and is published monthly from January 2015 for the UK, its countries, the English regions and local authorities (around 350 areas in all), including average rents in pounds.
 
 **Usage**
 
 ```r
-ukh_pipr(refresh = FALSE)
+ukh_pipr(property = "all", refresh = FALSE)
 ```
 
 **Arguments**
 
-- `refresh` — Logical. Re-download even if cached? Default `FALSE`.
+- `property`: Which series to return: `"all"` (default, all private rented property), a bedroom count (`"one bed"`, `"two bed"`, `"three bed"`, `"four or more bed"`) or a property type (`"detached"`, `"semidetached"`, `"terraced"`, `"flat maisonette"`).
+- `refresh`: Logical. Re-download even if cached? Default `FALSE`.
 
 **Returns**
 
-A data frame with columns `date`, `region`, and `index`.
+A data frame with columns `date` (first of the month), `gss_code`, `region` (area name), `parent_region` (the region or country an area belongs to; `NA` for the UK and its countries), `index` (January 2023 = 100), `monthly_change_pct`, `annual_change_pct` and `rental_price_gbp` (average monthly rent, rounded to the nearest pound). Values the ONS marks as unavailable or not applicable are `NA`. Requires the readxl package.
 
 **Example**
 
 ```r
 op <- options(ukhousing.cache_dir = tempdir())
-rents <- ukh_pipr()
-head(rents)
+try({
+  rents <- ukh_pipr()
+  tail(rents[rents$region == "United Kingdom", ])
+  flats <- ukh_pipr(property = "flat maisonette")
+})
 options(op)
 ```
 
@@ -421,10 +429,10 @@ ukh_planning(
 
 **Arguments**
 
-- `dataset` — Character. Dataset slug. Common values: `"planning-application"`, `"brownfield-land"`, `"local-plan"`, `"conservation-area"`, `"listed-building"`, `"article-4-direction-area"`, `"tree-preservation-zone"`, `"flood-risk-zone"`. See `ukh_planning_datasets()` for the full list.
-- `la` — Optional character. Local authority name (matched case-insensitively against the `organisation` field).
-- `limit` — Integer. Maximum records to return. Default `1000`.
-- `format` — Character. Response format. `"data.frame"` (default) returns tidy data. `"raw"` returns the parsed JSON list.
+- `dataset`: Character. Dataset slug. Common values: `"planning-application"`, `"brownfield-land"`, `"local-plan"`, `"conservation-area"`, `"listed-building"`, `"article-4-direction-area"`, `"tree-preservation-zone"`, `"flood-risk-zone"`. See `ukh_planning_datasets()` for the full list.
+- `la`: Optional character. Local authority name (matched case-insensitively against the `organisation` field).
+- `limit`: Integer. Maximum records to return. Default `1000`.
+- `format`: Character. Response format. `"data.frame"` (default) returns tidy data. `"raw"` returns the parsed JSON list.
 
 **Returns**
 
@@ -434,8 +442,10 @@ A data frame (or list if `format = "raw"`).
 
 ```r
 op <- options(ukhousing.cache_dir = tempdir())
-bf <- ukh_planning("brownfield-land", limit = 100)
-head(bf)
+try({
+  bf <- ukh_planning("brownfield-land", limit = 100)
+  head(bf)
+})
 options(op)
 ```
 
@@ -461,8 +471,10 @@ A data frame with `slug`, `name`, `typology`, and `record_count`.
 
 ```r
 op <- options(ukhousing.cache_dir = tempdir())
-ds <- ukh_planning_datasets()
-head(ds)
+try({
+  ds <- ukh_planning_datasets()
+  head(ds)
+})
 options(op)
 ```
 
@@ -492,14 +504,14 @@ ukh_ppd(
 
 **Arguments**
 
-- `year` — Integer. Year of transactions to fetch. Defaults to the current calendar year.
-- `la` — Optional character. Local authority name (matched case-insensitively against the `district` field).
-- `postcode` — Optional character. Postcode or postcode prefix.
-- `property_type` — Optional character. One of `"detached"`, `"semi"`, `"terraced"`, `"flat"`, or `"other"`. Also accepts the single-letter codes `"D"`, `"S"`, `"T"`, `"F"`, `"O"`.
-- `new_build` — Optional logical. If `TRUE`, only newly built properties. If `FALSE`, only established properties.
-- `tenure` — Optional character. `"freehold"` or `"leasehold"`.
-- `from, to` — Optional character or Date. Date range within the year (YYYY-MM-DD).
-- `refresh` — Logical. Re-download the yearly file even if cached? Default `FALSE`.
+- `year`: Integer. Year of transactions to fetch. Defaults to the current calendar year.
+- `la`: Optional character. Local authority name, matched against the `district` field ignoring case, spacing and a leading "City of" or "The", so `"Westminster"` finds "CITY OF WESTMINSTER" and `"Vale of Glamorgan"` finds "THE VALE OF GLAMORGAN". The City of London keeps its prefix, so `"London"` does not match it.
+- `postcode`: Optional character. Postcode or postcode prefix.
+- `property_type`: Optional character. One of `"detached"`, `"semi"`, `"terraced"`, `"flat"`, or `"other"`. Also accepts the single-letter codes `"D"`, `"S"`, `"T"`, `"F"`, `"O"`.
+- `new_build`: Optional logical. If `TRUE`, only newly built properties. If `FALSE`, only established properties.
+- `tenure`: Optional character. `"freehold"` or `"leasehold"`.
+- `from, to`: Optional character or Date. Date range within the year (YYYY-MM-DD).
+- `refresh`: Logical. Re-download the yearly file even if cached? Default `FALSE`.
 
 **Returns**
 
@@ -509,11 +521,11 @@ A data frame of individual transactions with columns `transaction_id`, `price`, 
 
 ```r
 op <- options(ukhousing.cache_dir = tempdir())
-
-# Westminster flats sold in 2024
-wm <- ukh_ppd(2024, la = "Westminster", property_type = "flat")
-head(wm)
-
+try({
+  # Westminster flats sold in 2024
+  wm <- ukh_ppd(2024, la = "Westminster", property_type = "flat")
+  head(wm)
+})
 options(op)
 ```
 
@@ -533,7 +545,7 @@ ukh_ppd_address(postcode)
 
 **Arguments**
 
-- `postcode` — Character. Full UK postcode (e.g. `"SW1A 1AA"`).
+- `postcode`: Character. Full UK postcode (e.g. `"SW1A 1AA"`).
 
 **Returns**
 
@@ -543,8 +555,10 @@ A data frame of transactions at addresses matching the postcode.
 
 ```r
 op <- options(ukhousing.cache_dir = tempdir())
-tx <- ukh_ppd_address("SW1A 1AA")
-head(tx)
+try({
+  tx <- ukh_ppd_address("SW1A 1AA")
+  head(tx)
+})
 options(op)
 ```
 
@@ -568,9 +582,9 @@ ukh_ppd_bulk(
 
 **Arguments**
 
-- `year` — Integer. Year to download. Ignored when `full = TRUE`. Defaults to the current year.
-- `full` — Logical. If `TRUE`, download the complete file (`pp-complete.csv`, ~5.3 GB) instead of a single year. Default `FALSE`.
-- `refresh` — Logical. Re-download even if cached? Default `FALSE`.
+- `year`: Integer. Year to download. Ignored when `full = TRUE`. Defaults to the current year.
+- `full`: Logical. If `TRUE`, download the complete file (`pp-complete.csv`, ~5.3 GB) instead of a single year. Default `FALSE`.
+- `refresh`: Logical. Re-download even if cached? Default `FALSE`.
 
 **Returns**
 
@@ -580,7 +594,9 @@ Character. The path to the cached CSV file.
 
 ```r
 op <- options(ukhousing.cache_dir = tempdir())
-path <- ukh_ppd_bulk(2025)
+try({
+  path <- ukh_ppd_bulk(2025)
+})
 options(op)
 ```
 
@@ -605,10 +621,10 @@ ukh_ppd_summary(
 
 **Arguments**
 
-- `year` — Integer. Year to summarise.
-- `by` — Character. Aggregation dimension: `"month"`, `"property_type"`, or `"la"`. Default `"month"`.
-- `la` — Optional character. Restrict to one local authority.
-- `refresh` — Logical. Re-download even if cached? Default `FALSE`.
+- `year`: Integer. Year to summarise.
+- `by`: Character. Aggregation dimension: `"month"`, `"property_type"`, or `"la"`. Default `"month"`.
+- `la`: Optional character. Restrict to one local authority.
+- `refresh`: Logical. Re-download even if cached? Default `FALSE`.
 
 **Returns**
 
@@ -618,9 +634,11 @@ A data frame with one row per group and columns `n`, `median_price`, `mean_price
 
 ```r
 op <- options(ukhousing.cache_dir = tempdir())
-# Monthly transaction counts and medians, nationally
-s <- ukh_ppd_summary(2025, by = "month")
-head(s)
+try({
+  # Monthly transaction counts and medians, nationally
+  s <- ukh_ppd_summary(2025, by = "month")
+  head(s)
+})
 options(op)
 ```
 
@@ -640,7 +658,7 @@ ukh_ppd_transaction(id)
 
 **Arguments**
 
-- `id` — Character. A transaction unique identifier (GUID, with or without curly braces).
+- `id`: Character. A transaction unique identifier (GUID, with or without curly braces).
 
 **Returns**
 
@@ -650,8 +668,10 @@ A one-row data frame with the transaction fields, or an empty data frame if the 
 
 ```r
 op <- options(ukhousing.cache_dir = tempdir())
-tx <- ukh_ppd_transaction("{A4C5B0C6-4D5D-47E2-E053-6C04A8C07E7C}")
-tx
+try({
+  tx <- ukh_ppd_transaction("{A4C5B0C6-4D5D-47E2-E053-6C04A8C07E7C}")
+  tx
+})
 options(op)
 ```
 
@@ -671,8 +691,8 @@ ukh_ppd_years(years, ...)
 
 **Arguments**
 
-- `years` — Integer vector. Years to fetch.
-- `...` — Additional arguments passed to `ukh_ppd()` (e.g. `la`, `postcode`, `property_type`).
+- `years`: Integer vector. Years to fetch.
+- `...`: Additional arguments passed to `ukh_ppd()` (e.g. `la`, `postcode`, `property_type`).
 
 **Returns**
 
@@ -682,9 +702,11 @@ A single data frame combining transactions from all requested years.
 
 ```r
 op <- options(ukhousing.cache_dir = tempdir())
-five_year <- ukh_ppd_years(2020:2024, la = "Westminster",
-                           property_type = "flat")
-nrow(five_year)
+try({
+  five_year <- ukh_ppd_years(2020:2024, la = "Westminster",
+                             property_type = "flat")
+  nrow(five_year)
+})
 options(op)
 ```
 
@@ -704,7 +726,7 @@ ukh_regions(tier = c("all", "country", "region", "county", "la"))
 
 **Arguments**
 
-- `tier` — Character. Filter by tier: `"all"` (default), `"country"`, `"region"`, `"county"`, or `"la"`.
+- `tier`: Character. Filter by tier: `"all"` (default), `"country"`, `"region"`, `"county"`, or `"la"`.
 
 **Returns**
 
@@ -743,9 +765,9 @@ ukh_sparql(
 
 **Arguments**
 
-- `query` — Character. A SPARQL query string.
-- `endpoint` — Character. One of `"land-registry"` (default), `"opendatacommunities"`, or a full URL to any SPARQL endpoint.
-- `timeout` — Integer. Request timeout in seconds. Default `60`.
+- `query`: Character. A SPARQL query string.
+- `endpoint`: Character. One of `"land-registry"` (default), `"opendatacommunities"`, or a full URL to any SPARQL endpoint.
+- `timeout`: Integer. Request timeout in seconds. Default `60`.
 
 **Returns**
 
@@ -755,17 +777,17 @@ A data frame of bindings. Column names match the SELECT variables in the query.
 
 ```r
 op <- options(ukhousing.cache_dir = tempdir())
-
-# All HPI observations for Westminster in January 2020
-q <- '
-PREFIX ukhpi: <http://landregistry.data.gov.uk/def/ukhpi/>
-SELECT ?hpi ?avgPrice WHERE {
-  <http://landregistry.data.gov.uk/data/ukhpi/region/city-of-westminster/month/2020-01>
-    ukhpi:housePriceIndex ?hpi ;
-    ukhpi:averagePrice    ?avgPrice .
-}'
-ukh_sparql(q)
-
+try({
+  # All HPI observations for Westminster in January 2020
+  q <- '
+  PREFIX ukhpi: <http://landregistry.data.gov.uk/def/ukhpi/>
+  SELECT ?hpi ?avgPrice WHERE {
+    <http://landregistry.data.gov.uk/data/ukhpi/region/city-of-westminster/month/2020-01>
+      ukhpi:housePriceIndex ?hpi ;
+      ukhpi:averagePrice    ?avgPrice .
+  }'
+  ukh_sparql(q)
+})
 options(op)
 ```
 
@@ -785,9 +807,9 @@ ukh_transactions(region, from = NULL, to = NULL, refresh = FALSE)
 
 **Arguments**
 
-- `region` — Character. Region slug, GSS code, or common name.
-- `from, to` — Optional. Date range (YYYY-MM-DD).
-- `refresh` — Logical. Re-download? Default `FALSE`.
+- `region`: Character. Region slug, GSS code, or common name.
+- `from, to`: Optional. Date range (YYYY-MM-DD).
+- `refresh`: Logical. Re-download? Default `FALSE`.
 
 **Returns**
 
@@ -797,8 +819,10 @@ A data frame with `date`, `region`, and `sales_volume`.
 
 ```r
 op <- options(ukhousing.cache_dir = tempdir())
-tx <- ukh_transactions("england", from = "2020-01-01")
-head(tx)
+try({
+  tx <- ukh_transactions("england", from = "2020-01-01")
+  head(tx)
+})
 options(op)
 ```
 
