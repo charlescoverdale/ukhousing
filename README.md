@@ -56,9 +56,9 @@ library(ukhousing)
 # UK average house prices, monthly
 uk <- ukh_hpi("united-kingdom", from = "2020-01-01")
 head(uk)
-#>         date           region   hpi avg_price pct_change_monthly pct_change_annual
-#> 1 2020-01-01   united-kingdom 125.3    232000                0.3              2.1
-#> 2 2020-02-01   united-kingdom 125.8    232900                0.4              2.3
+#>        date         region  hpi avg_price pct_change_monthly pct_change_annual
+#>  2020-01-01 united-kingdom 81.9    213657                0.1               1.6
+#>  2020-02-01 united-kingdom 81.4    212429               -0.6               1.3
 #> ...
 
 # All Westminster flats sold in 2024

@@ -20,6 +20,18 @@ This is a richer source, and the output changes accordingly:
 * The index is on the ONS base, January 2023 = 100.
 * The workbook is read with \pkg{readxl}, now in Suggests.
 
+## `ukh_hpi()` percentage changes were always missing
+
+Land Registry now labels the change columns "Percentage change (monthly)
+All property types" and "Percentage change (yearly) All property types",
+which none of the package's column patterns matched, so
+`pct_change_monthly` and `pct_change_annual` were `NA` for every region
+and month, and `ukh_hpi_compare(measure = "pct_change_annual")` returned
+nothing but `NA`. First-time-buyer prices were missing for the same reason
+("First-time buyers" is now hyphenated). Both are mapped again. Cash,
+mortgage and buyer-type prices remain `NA` for `"united-kingdom"` because
+Land Registry does not publish those splits for the UK aggregate.
+
 ## `ukh_ppd(la = )` matches the names people use
 
 Land Registry records some districts with a prefix ("CITY OF

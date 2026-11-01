@@ -49,3 +49,14 @@ test_that("ukh_hpi_compare validates regions arg", {
   expect_error(ukh_hpi_compare(character(0)))
   expect_error(ukh_hpi_compare(NULL))
 })
+
+test_that("ukh_hpi maps the current percentage-change and buyer columns", {
+  skip_on_cran()
+  skip_if_offline()
+  x <- ukh_hpi("england", from = "2025-01-01")
+  # Land Registry relabelled these "Percentage change (monthly/yearly) All
+  # property types"; the old patterns left both columns entirely NA.
+  expect_false(all(is.na(x$pct_change_monthly)))
+  expect_false(all(is.na(x$pct_change_annual)))
+  expect_false(all(is.na(x$avg_price_first_time_buyer)))
+})
