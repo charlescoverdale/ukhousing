@@ -52,8 +52,7 @@ Planning decisions and private rented sector
 - [`ukh_planning_datasets()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_planning_datasets.md)
   : List available planning datasets
 - [`ukh_pipr()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_pipr.md)
-  : ONS Index of Private Housing Rental Prices / Price Index of Private
-  Rents
+  : ONS Price Index of Private Rents
 
 ## Utilities
 

@@ -42,9 +42,11 @@ Other house price index:
 ``` r
 # \donttest{
 op <- options(ukhousing.cache_dir = tempdir())
-tx <- ukh_transactions("england", from = "2020-01-01")
+try({
+  tx <- ukh_transactions("england", from = "2020-01-01")
+  head(tx)
+})
 #> ℹ Downloading UK HPI for "england"...
-head(tx)
 #>         date  region sales_volume
 #> 1 2020-01-01 england        56603
 #> 2 2020-02-01 england        56568

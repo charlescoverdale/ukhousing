@@ -41,15 +41,17 @@ Other price paid data:
 ``` r
 # \donttest{
 op <- options(ukhousing.cache_dir = tempdir())
-five_year <- ukh_ppd_years(2020:2024, la = "Westminster",
-                           property_type = "flat")
+try({
+  five_year <- ukh_ppd_years(2020:2024, la = "Westminster",
+                             property_type = "flat")
+  nrow(five_year)
+})
 #> ℹ Downloading pp-2020.csv from HM Land Registry...
 #> ℹ Downloading pp-2021.csv from HM Land Registry...
 #> ℹ Downloading pp-2022.csv from HM Land Registry...
 #> ℹ Downloading pp-2023.csv from HM Land Registry...
 #> ℹ Loading pp-2024.csv from cache.
-nrow(five_year)
-#> [1] 0
+#> [1] 13833
 options(op)
 # }
 ```

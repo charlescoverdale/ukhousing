@@ -54,8 +54,10 @@ Other planning:
 ``` r
 # \donttest{
 op <- options(ukhousing.cache_dir = tempdir())
-bf <- ukh_planning("brownfield-land", limit = 100)
-head(bf)
+try({
+  bf <- ukh_planning("brownfield-land", limit = 100)
+  head(bf)
+})
 #>   entry.date start.date   end.date  entity   name         dataset  typology
 #> 1 2024-12-16 2017-11-01            1700000 BFR001 brownfield-land geography
 #> 2 2024-12-16 2017-11-01            1700001 BFR002 brownfield-land geography

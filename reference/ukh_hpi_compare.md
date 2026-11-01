@@ -51,16 +51,17 @@ Other house price index:
 ``` r
 # \donttest{
 op <- options(ukhousing.cache_dir = tempdir())
-
-prices <- ukh_hpi_compare(
-  c("london", "manchester", "newcastle-upon-tyne"),
-  measure = "avg_price",
-  from = "2015-01-01"
-)
+try({
+  prices <- ukh_hpi_compare(
+    c("london", "manchester", "newcastle-upon-tyne"),
+    measure = "avg_price",
+    from = "2015-01-01"
+  )
+  head(prices)
+})
 #> ℹ Downloading UK HPI for "london"...
 #> ℹ Downloading UK HPI for "manchester"...
 #> ℹ Downloading UK HPI for "newcastle-upon-tyne"...
-head(prices)
 #>         date london manchester newcastle-upon-tyne
 #> 1 2015-01-01 431270     128873              142419
 #> 2 2015-02-01 433331     128736              143341
@@ -68,7 +69,6 @@ head(prices)
 #> 4 2015-04-01 439403     128869              147495
 #> 5 2015-05-01 445154     131114              148367
 #> 6 2015-06-01 449070     131653              150261
-
 options(op)
 # }
 ```

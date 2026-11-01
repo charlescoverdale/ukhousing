@@ -1,5 +1,67 @@
 # Changelog
 
+## ukhousing 0.2.0
+
+### `ukh_pipr()` returns data again, and current data
+
+[`ukh_pipr()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_pipr.md)
+returned an empty data frame with a warning. The ONS stopped offering a
+JSON download for the rental index on its Beta API, so the function fell
+back to a metadata link that holds no observations. That API copy of the
+series also stopped at January 2024.
+
+The function now reads the ONS monthly workbook, Price Index of Private
+Rents, UK: monthly price statistics, which runs to the latest month.
+This is a richer source, and the output changes accordingly:
+
+- About 350 areas (UK, countries, English regions and local authorities)
+  instead of 15.
+- New columns `gss_code`, `parent_region`, `monthly_change_pct`,
+  `annual_change_pct` and `rental_price_gbp` (average monthly rent).
+- A new `property` argument selects a bedroom count or property type. It
+  comes before `refresh`, so pass `refresh` by name.
+- The index is on the ONS base, January 2023 = 100.
+- The workbook is read with , now in Suggests.
+
+### `ukh_hpi()` percentage changes were always missing
+
+Land Registry now labels the change columns “Percentage change (monthly)
+All property types” and “Percentage change (yearly) All property types”,
+which none of the package’s column patterns matched, so
+`pct_change_monthly` and `pct_change_annual` were `NA` for every region
+and month, and `ukh_hpi_compare(measure = "pct_change_annual")` returned
+nothing but `NA`. First-time-buyer prices were missing for the same
+reason (“First-time buyers” is now hyphenated). Both are mapped again.
+Cash, mortgage and buyer-type prices remain `NA` for `"united-kingdom"`
+because Land Registry does not publish those splits for the UK
+aggregate.
+
+### `ukh_ppd(la = )` matches the names people use
+
+Land Registry records some districts with a prefix (“CITY OF
+WESTMINSTER”, “CITY OF BRISTOL”, “THE VALE OF GLAMORGAN”), and `la` had
+to match exactly, so the documented example
+`ukh_ppd(2024, la = "Westminster")` returned no rows. `la` now ignores a
+leading “City of” or “The” (except for the City of London, so `"London"`
+does not quietly return the Square Mile alone). When nothing matches, a
+warning suggests the closest district names. This also applies to
+[`ukh_ppd_summary()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_ppd_summary.md)
+and
+[`ukh_ppd_years()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_ppd_years.md).
+
+### Monthly series no longer go stale in the cache
+
+[`ukh_hpi()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_hpi.md),
+[`ukh_transactions()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_transactions.md)
+and
+[`ukh_pipr()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_pipr.md)
+reused a cached download indefinitely, so a user who had called them
+once never saw a later monthly release unless they passed
+`refresh = TRUE`. A cached copy is now fetched again once it is more
+than 7 days old; set `options(ukhousing.cache_max_age = <days>)` to
+change this. Bulk EPC and Price Paid downloads are unchanged and still
+only re-fetched on request.
+
 ## ukhousing 0.1.0
 
 CRAN release: 2026-04-21

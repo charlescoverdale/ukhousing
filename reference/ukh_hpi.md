@@ -57,80 +57,45 @@ Other house price index:
 ``` r
 # \donttest{
 op <- options(ukhousing.cache_dir = tempdir())
+try({
+  # All UK average house prices
+  uk <- ukh_hpi("united-kingdom")
+  head(uk)
 
-# All UK average house prices
-uk <- ukh_hpi("united-kingdom")
+  # London, last 10 years
+  london <- ukh_hpi("london", from = "2016-01-01")
+  tail(london)
+})
 #> ℹ Downloading UK HPI for "united-kingdom"...
-head(uk)
-#>         date         region   hpi avg_price pct_change_monthly
-#> 1 2025-04-01 united-kingdom  99.9    260615                 NA
-#> 2 2025-05-01 united-kingdom 101.2    263981                 NA
-#> 3 2025-06-01 united-kingdom 102.3    267004                 NA
-#> 4 2025-07-01 united-kingdom 103.2    269373                 NA
-#> 5 2025-08-01 united-kingdom 104.1    271690                 NA
-#> 6 2025-09-01 united-kingdom 103.8    270774                 NA
-#>   pct_change_annual sales_volume avg_price_detached avg_price_semi
-#> 1                NA        43449             429276         262652
-#> 2                NA        63511             431436         265852
-#> 3                NA        69621             434868         269348
-#> 4                NA        72184             438688         272360
-#> 5                NA        73443             443724         275866
-#> 6                NA        67197             444014         274387
-#>   avg_price_terraced avg_price_flat avg_price_cash avg_price_mortgage
-#> 1             216495         191988             NA                 NA
-#> 2             221867         193460             NA                 NA
-#> 3             224773         195615             NA                 NA
-#> 4             227505         195868             NA                 NA
-#> 5             229519         195619             NA                 NA
-#> 6             228689         194602             NA                 NA
-#>   avg_price_new_build avg_price_existing avg_price_first_time_buyer
-#> 1              342940             256522                         NA
-#> 2              341677             260191                         NA
-#> 3              339143             263580                         NA
-#> 4              344611             265762                         NA
-#> 5              350751             267847                         NA
-#> 6              347901             267049                         NA
-#>   avg_price_former_owner
-#> 1                     NA
-#> 2                     NA
-#> 3                     NA
-#> 4                     NA
-#> 5                     NA
-#> 6                     NA
-
-# London, last 10 years
-london <- ukh_hpi("london", from = "2016-01-01")
 #> ℹ Downloading UK HPI for "london"...
-tail(london)
-#>           date region hpi avg_price pct_change_monthly pct_change_annual
-#> 117 2025-09-01 london  NA        NA                 NA                NA
-#> 118 2025-10-01 london  NA        NA                 NA                NA
-#> 119 2025-11-01 london  NA        NA                 NA                NA
-#> 120 2025-12-01 london  NA        NA                 NA                NA
-#> 121 2026-01-01 london  NA        NA                 NA                NA
-#> 122 2026-02-01 london  NA        NA                 NA                NA
+#>           date region  hpi avg_price pct_change_monthly pct_change_annual
+#> 123 2026-03-01 london 95.7    546111               -0.1              -1.4
+#> 124 2026-04-01 london 97.1    554363                1.5              -1.8
+#> 125 2026-05-01 london 96.3    549535               -0.9              -2.8
+#> 126 2026-06-01 london 96.6    551440                0.3              -2.9
+#> 127 2026-07-01 london 96.4    550340               -0.2              -3.2
+#> 128 2026-08-01 london 97.1    554430                0.7              -2.2
 #>     sales_volume avg_price_detached avg_price_semi avg_price_terraced
-#> 117         6032                 NA             NA                 NA
-#> 118         6097                 NA             NA                 NA
-#> 119         4361                 NA             NA                 NA
-#> 120         4386                 NA             NA                 NA
-#> 121           NA                 NA             NA                 NA
-#> 122           NA                 NA             NA                 NA
+#> 123         5756            1141255         711909             636033
+#> 124         4994            1151715         715518             639025
+#> 125         4595            1143843         715020             635865
+#> 126         4309            1164245         719184             640835
+#> 127           NA            1165827         725964             643659
+#> 128           NA            1164439         730580             648650
 #>     avg_price_flat avg_price_cash avg_price_mortgage avg_price_new_build
-#> 117             NA             NA                 NA                  NA
-#> 118             NA             NA                 NA                  NA
-#> 119             NA             NA                 NA                  NA
-#> 120             NA             NA                 NA                  NA
-#> 121             NA             NA                 NA                  NA
-#> 122             NA             NA                 NA                  NA
+#> 123         423495         580263             539163              498050
+#> 124         433842         592969             546336              502524
+#> 125         428068         583879             542549              514075
+#> 126         427683         585517             544526              475340
+#> 127         423766         583899             543551                  NA
+#> 128         427310         583137             548866                  NA
 #>     avg_price_existing avg_price_first_time_buyer avg_price_former_owner
-#> 117                 NA                         NA                     NA
-#> 118                 NA                         NA                     NA
-#> 119                 NA                         NA                     NA
-#> 120                 NA                         NA                     NA
-#> 121                 NA                         NA                     NA
-#> 122                 NA                         NA                     NA
-
+#> 123             548268                     464865                 686945
+#> 124             556693                     471544                 697842
+#> 125             551118                     468822                 689699
+#> 126             554928                     469886                 692925
+#> 127                 NA                     467737                 693355
+#> 128                 NA                     473051                 695762
 options(op)
 # }
 ```

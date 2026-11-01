@@ -27,9 +27,11 @@ Other configuration:
 ``` r
 # \donttest{
 op <- options(ukhousing.cache_dir = tempdir())
-ukh_cache_info()
+try({
+  ukh_cache_info()
+})
 #> $dir
-#> [1] "/tmp/RtmpBGChOV"
+#> [1] "/tmp/RtmpgdHDz6"
 #> 
 #> $n_files
 #> [1] 2
@@ -42,8 +44,8 @@ ukh_cache_info()
 #> 
 #> $files
 #>                                     name size_bytes            modified
-#> 1 bslib-8a92d22979ec96a3105b4f8cbcdeeec5       4096 2026-05-04 19:17:25
-#> 2                                downlit       4096 2026-05-04 19:17:27
+#> 1 bslib-7db53ff92ec092c0dbca0588320fd109       4096 2026-11-01 14:07:14
+#> 2                                downlit       4096 2026-11-01 14:07:16
 #> 
 options(op)
 # }

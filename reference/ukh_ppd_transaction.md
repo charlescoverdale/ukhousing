@@ -35,9 +35,13 @@ Other price paid data:
 ``` r
 # \donttest{
 op <- options(ukhousing.cache_dir = tempdir())
-tx <- ukh_ppd_transaction("{A4C5B0C6-4D5D-47E2-E053-6C04A8C07E7C}")
-tx
-#> data frame with 0 columns and 0 rows
+try({
+  tx <- ukh_ppd_transaction("{A4C5B0C6-4D5D-47E2-E053-6C04A8C07E7C}")
+  tx
+})
+#> Error in value[[3L]](cond) : 
+#>   Failed to query the Land Registry API.
+#> ✖ HTTP 403 Forbidden.
 options(op)
 # }
 ```

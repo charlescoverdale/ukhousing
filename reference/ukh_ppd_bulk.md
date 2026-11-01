@@ -49,7 +49,9 @@ Other price paid data:
 ``` r
 # \donttest{
 op <- options(ukhousing.cache_dir = tempdir())
-path <- ukh_ppd_bulk(2025)
+try({
+  path <- ukh_ppd_bulk(2025)
+})
 #> ℹ Downloading pp-2025.csv from HM Land Registry...
 options(op)
 # }

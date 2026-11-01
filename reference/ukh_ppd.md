@@ -29,8 +29,11 @@ ukh_ppd(
 
 - la:
 
-  Optional character. Local authority name (matched case-insensitively
-  against the `district` field).
+  Optional character. Local authority name, matched against the
+  `district` field ignoring case, spacing and a leading "City of" or
+  "The", so `"Westminster"` finds "CITY OF WESTMINSTER" and
+  `"Vale of Glamorgan"` finds "THE VALE OF GLAMORGAN". The City of
+  London keeps its prefix, so `"London"` does not match it.
 
 - postcode:
 
@@ -94,17 +97,33 @@ Other price paid data:
 ``` r
 # \donttest{
 op <- options(ukhousing.cache_dir = tempdir())
-
-# Westminster flats sold in 2024
-wm <- ukh_ppd(2024, la = "Westminster", property_type = "flat")
+try({
+  # Westminster flats sold in 2024
+  wm <- ukh_ppd(2024, la = "Westminster", property_type = "flat")
+  head(wm)
+})
 #> ℹ Downloading pp-2024.csv from HM Land Registry...
-head(wm)
-#>  [1] transaction_id price          date           postcode       property_type 
-#>  [6] new_build      tenure         paon           saon           street        
-#> [11] locality       town           district       county         category      
-#> [16] record_status 
-#> <0 rows> (or 0-length row.names)
-
+#>                           transaction_id   price       date postcode
+#> 1 {1EAE3DF6-CA9C-9EB1-E063-4704A8C09D02} 1200000 2024-03-25   W2 2SN
+#> 2 {2131FCF5-ADC7-86E8-E063-4804A8C0372B}  600000 2024-07-12 SW1P 4RL
+#> 3 {2131FCF5-ADC8-86E8-E063-4804A8C0372B}  475000 2024-04-05   W2 5SX
+#> 4 {2131FCF5-ADCA-86E8-E063-4804A8C0372B}  700000 2024-07-31  NW6 5FZ
+#> 5 {2131FCF5-ADCC-86E8-E063-4804A8C0372B} 5300000 2024-03-27  W1G 9XE
+#> 6 {2131FCF5-ADCE-86E8-E063-4804A8C0372B}  585000 2024-03-08 SW1P 2BW
+#>   property_type new_build tenure               paon    saon             street
+#> 1             F         N      L                 17    <NA>      CLIFTON PLACE
+#> 2             F         N      L                 50  FLAT 3           MILLBANK
+#> 3             F         N      L PRINCETHORPE HOUSE FLAT 63 WOODCHESTER SQUARE
+#> 4             F         N      L   ST. DAVIDS HOUSE FLAT 13   TOLLGATE GARDENS
+#> 5             F         N      L  WELBECK HOUSE, 62 FLAT 12     WELBECK STREET
+#> 6             F         N      L    VESTRY COURT, 5  FLAT 9       MONCK STREET
+#>   locality   town            district         county category record_status
+#> 1     <NA> LONDON CITY OF WESTMINSTER GREATER LONDON        A             A
+#> 2     <NA> LONDON CITY OF WESTMINSTER GREATER LONDON        A             A
+#> 3     <NA> LONDON CITY OF WESTMINSTER GREATER LONDON        A             A
+#> 4     <NA> LONDON CITY OF WESTMINSTER GREATER LONDON        A             A
+#> 5     <NA> LONDON CITY OF WESTMINSTER GREATER LONDON        A             A
+#> 6     <NA> LONDON CITY OF WESTMINSTER GREATER LONDON        A             A
 options(op)
 # }
 ```

@@ -51,19 +51,19 @@ Other helpers:
 ``` r
 # \donttest{
 op <- options(ukhousing.cache_dir = tempdir())
-
-# All HPI observations for Westminster in January 2020
-q <- '
-PREFIX ukhpi: <http://landregistry.data.gov.uk/def/ukhpi/>
-SELECT ?hpi ?avgPrice WHERE {
-  <http://landregistry.data.gov.uk/data/ukhpi/region/city-of-westminster/month/2020-01>
-    ukhpi:housePriceIndex ?hpi ;
-    ukhpi:averagePrice    ?avgPrice .
-}'
-ukh_sparql(q)
+try({
+  # All HPI observations for Westminster in January 2020
+  q <- '
+  PREFIX ukhpi: <http://landregistry.data.gov.uk/def/ukhpi/>
+  SELECT ?hpi ?avgPrice WHERE {
+    <http://landregistry.data.gov.uk/data/ukhpi/region/city-of-westminster/month/2020-01>
+      ukhpi:housePriceIndex ?hpi ;
+      ukhpi:averagePrice    ?avgPrice .
+  }'
+  ukh_sparql(q)
+})
 #>     hpi avgPrice
 #> 1 87.50  1072220
-
 options(op)
 # }
 ```

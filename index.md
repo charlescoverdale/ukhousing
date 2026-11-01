@@ -25,7 +25,8 @@ institutions, each with its own format, access pattern, and quirks:
   90+ hyphenated fields per record
 - **planning.data.gov.uk** (Digital Land) has a clean REST API with JSON
   and GeoJSON output
-- **ONS** publishes rental price indices via the Beta API, but
+- **ONS** publishes the Price Index of Private Rents as a monthly
+  workbook (its Beta API copy stopped at January 2024), and
   affordability ratios only as Excel workbooks with multi-row headers
 - **DLUHC** publishes housing supply data as ODS live tables with
   hash-based URLs that change on every republication
@@ -74,9 +75,9 @@ library(ukhousing)
 # UK average house prices, monthly
 uk <- ukh_hpi("united-kingdom", from = "2020-01-01")
 head(uk)
-#>         date           region   hpi avg_price pct_change_monthly pct_change_annual
-#> 1 2020-01-01   united-kingdom 125.3    232000                0.3              2.1
-#> 2 2020-02-01   united-kingdom 125.8    232900                0.4              2.3
+#>        date         region  hpi avg_price pct_change_monthly pct_change_annual
+#>  2020-01-01 united-kingdom 81.9    213657                0.1               1.6
+#>  2020-02-01 united-kingdom 81.4    212429               -0.6               1.3
 #> ...
 
 # All Westminster flats sold in 2024
@@ -192,7 +193,7 @@ All EPC functions accept
 
 | Function | Description |
 |----|----|
-| [`ukh_pipr()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_pipr.md) | Price Index of Private Rents (monthly, UK and regions) |
+| [`ukh_pipr()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_pipr.md) | Price Index of Private Rents and average rents (monthly, UK, regions and local authorities, by bedrooms or property type) |
 
 ### Advanced
 
@@ -211,8 +212,15 @@ All EPC functions accept
 ## Caching
 
 Downloads are cached to `tools::R_user_dir("ukhousing", "cache")` by
-default. Subsequent calls are instant. Override the location with
-`options(ukhousing.cache_dir = "/path/to/dir")`. Use
+default. Subsequent calls are instant. The monthly series
+([`ukh_hpi()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_hpi.md),
+[`ukh_transactions()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_transactions.md),
+[`ukh_pipr()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_pipr.md))
+are fetched again once the cached copy is more than 7 days old, so new
+monthly releases come through; change this with
+`options(ukhousing.cache_max_age = <days>)`. Bulk downloads (EPC and
+Price Paid) are only re-fetched with `refresh = TRUE`. Override the
+location with `options(ukhousing.cache_dir = "/path/to/dir")`. Use
 [`ukh_clear_cache()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_clear_cache.md)
 to remove all cached files.
 

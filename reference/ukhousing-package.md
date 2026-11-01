@@ -15,6 +15,8 @@ data frames. Downloaded data is cached locally for subsequent calls.
 
 Useful links:
 
+- <https://charlescoverdale.github.io/ukhousing/>
+
 - <https://github.com/charlescoverdale/ukhousing>
 
 - Report bugs at <https://github.com/charlescoverdale/ukhousing/issues>
@@ -22,3 +24,7 @@ Useful links:
 ## Author
 
 **Maintainer**: Charles Coverdale <charlesfcoverdale@gmail.com>
+
+Authors:
+
+- Charles Coverdale <charlesfcoverdale@gmail.com>

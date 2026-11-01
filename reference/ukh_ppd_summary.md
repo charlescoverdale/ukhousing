@@ -54,17 +54,19 @@ Other price paid data:
 ``` r
 # \donttest{
 op <- options(ukhousing.cache_dir = tempdir())
-# Monthly transaction counts and medians, nationally
-s <- ukh_ppd_summary(2025, by = "month")
+try({
+  # Monthly transaction counts and medians, nationally
+  s <- ukh_ppd_summary(2025, by = "month")
+  head(s)
+})
 #> ℹ Loading pp-2025.csv from cache.
-head(s)
 #>     month      n median_price mean_price total_value
-#> 1 2025-01  68686       285000   404685.0 27796196252
-#> 2 2025-02  77084       285000   390436.1 30096374487
-#> 3 2025-03 142426       315000   392548.1 55909058592
-#> 4 2025-04  43265       244000   372206.2 16103501080
-#> 5 2025-05  63070       263000   367333.1 23167697849
-#> 6 2025-06  69356       275000   380548.7 26393334209
+#> 1 2025-01  69481       285000   407817.3 28335552464
+#> 2 2025-02  78000       285000   394563.9 30775987613
+#> 3 2025-03 145188       315000   395793.4 57464454597
+#> 4 2025-04  44714       245000   372326.7 16648215067
+#> 5 2025-05  66237       265000   370829.7 24562645645
+#> 6 2025-06  79133       280000   389748.2 30841943671
 options(op)
 # }
 ```

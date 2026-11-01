@@ -23,8 +23,10 @@ Other planning:
 ``` r
 # \donttest{
 op <- options(ukhousing.cache_dir = tempdir())
-ds <- ukh_planning_datasets()
-head(ds)
+try({
+  ds <- ukh_planning_datasets()
+  head(ds)
+})
 #>   entry.date start.date end.date                       collection
 #> 1                                                                
 #> 2 2024-06-26                     agricultural-land-classification
@@ -71,9 +73,9 @@ head(ds)
 #> 1       administrative            0                crown-copyright
 #> 2          environment          585   #00703c;0.2  natural-england
 #> 3          environment          498   #87823A;0.3            defra
-#> 4          environment        44373   #00703c;0.2  natural-england
+#> 4          environment        44375   #00703c;0.2  natural-england
 #> 5          environment            2                natural-england
-#> 6 environment;heritage          796  #b54405;0.35 historic-england
+#> 6 environment;heritage          851  #b54405;0.35 historic-england
 #>                                                                                                                                                                                                                                                                                                                       attribution.text
 #> 1                                                                                                                                                                                                                                                                                            © Crown copyright and database right 2026
 #> 2                                                                                                                                                                                                                                © Natural England copyright. Contains Ordnance Survey data © Crown copyright and database right 2026.
