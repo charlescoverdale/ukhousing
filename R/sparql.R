@@ -1,5 +1,4 @@
 .sparql_land_registry <- "http://landregistry.data.gov.uk/landregistry/query"
-.sparql_opendatacommunities <- "http://opendatacommunities.org/sparql"
 
 #' Run a SPARQL query
 #'
@@ -8,14 +7,14 @@
 #' covered by the dedicated helpers, including custom HPI aggregations
 #' and Price Paid Data lookups by postcode.
 #'
-#' Both endpoints are free and require no authentication. The Land
-#' Registry endpoint covers HPI and Price Paid Data; the Open Data
-#' Communities endpoint covers 300+ housing-market datasets published
-#' by MHCLG.
+#' The Land Registry endpoint is free, requires no authentication, and
+#' covers HPI and Price Paid Data. MHCLG's Open Data Communities
+#' endpoint was retired in 2026, so `endpoint = "opendatacommunities"`
+#' now stops with an error.
 #'
 #' @param query Character. A SPARQL query string.
-#' @param endpoint Character. One of `"land-registry"` (default),
-#'   `"opendatacommunities"`, or a full URL to any SPARQL endpoint.
+#' @param endpoint Character. `"land-registry"` (default), or a full URL
+#'   to any SPARQL endpoint.
 #' @param timeout Integer. Request timeout in seconds. Default `60`.
 #'
 #' @return A data frame of bindings. Column names match the SELECT
@@ -40,7 +39,7 @@
 #' options(op)
 #' }
 ukh_sparql <- function(query,
-                       endpoint = c("land-registry", "opendatacommunities"),
+                       endpoint = "land-registry",
                        timeout = 60L) {
   if (!is.character(query) || length(query) != 1L || !nzchar(query)) {
     cli_abort("{.arg query} must be a non-empty character string.")
@@ -50,11 +49,14 @@ ukh_sparql <- function(query,
       grepl("^https?://", endpoint)) {
     url <- endpoint
   } else {
-    endpoint <- match.arg(endpoint)
-    url <- switch(endpoint,
-      "land-registry" = .sparql_land_registry,
-      "opendatacommunities" = .sparql_opendatacommunities
-    )
+    if (identical(endpoint, "opendatacommunities")) {
+      cli_abort(c(
+        "The Open Data Communities SPARQL endpoint has been retired.",
+        "i" = "MHCLG replaced {.url https://opendatacommunities.org/} with a site that offers no SPARQL service."
+      ))
+    }
+    endpoint <- match.arg(endpoint, "land-registry")
+    url <- .sparql_land_registry
   }
 
   req <- ukh_request(url)

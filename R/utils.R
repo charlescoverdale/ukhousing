@@ -74,11 +74,8 @@ ukh_request <- function(url) {
 }
 
 # Download a URL to a file (streaming, with retry)
-ukh_download <- function(url, dest, progress = TRUE, auth = NULL) {
+ukh_download <- function(url, dest, progress = TRUE) {
   req <- ukh_request(url)
-  if (!is.null(auth)) {
-    req <- httr2::req_auth_basic(req, auth$user, auth$password)
-  }
   resp <- tryCatch(
     httr2::req_perform(req, path = dest),
     error = function(e) {

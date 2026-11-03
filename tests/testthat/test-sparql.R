@@ -25,3 +25,8 @@ test_that("ukh_sparql returns a data frame for a simple query", {
   df <- ukh_sparql(q)
   expect_s3_class(df, "data.frame")
 })
+
+test_that("ukh_sparql explains that Open Data Communities is retired", {
+  expect_error(ukh_sparql("ASK {}", endpoint = "opendatacommunities"), "retired")
+  expect_error(ukh_sparql("ASK {}", endpoint = "nonsense"))
+})

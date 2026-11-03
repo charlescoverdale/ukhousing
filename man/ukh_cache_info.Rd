@@ -26,7 +26,6 @@ options(op)
 }
 \seealso{
 Other configuration:
-\code{\link[=ukh_clear_cache]{ukh_clear_cache()}},
-\code{\link[=ukh_epc_set_key]{ukh_epc_set_key()}}
+\code{\link[=ukh_clear_cache]{ukh_clear_cache()}}
 }
 \concept{configuration}

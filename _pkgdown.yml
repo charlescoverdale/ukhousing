@@ -25,16 +25,6 @@ reference:
       - ukh_ppd_summary
       - ukh_ppd_years
 
-  - title: "EPC Ratings"
-    desc: "Energy Performance Certificates"
-    contents:
-      - ukh_epc_search
-      - ukh_epc_certificate
-      - ukh_epc_summary
-      - ukh_epc_recommendations_summary
-      - ukh_epc_bulk
-      - ukh_epc_set_key
-
   - title: "Planning and PIPR"
     desc: "Planning decisions and private rented sector"
     contents:

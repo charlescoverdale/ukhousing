@@ -17,8 +17,6 @@ jobs:
       NOT_CRAN: "true"
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       UKHOUSING_LIVE_TESTS: "true"
-      EPC_EMAIL: ${{ secrets.EPC_EMAIL }}
-      EPC_API_KEY: ${{ secrets.EPC_API_KEY }}
     steps:
       - uses: actions/checkout@v4
 
