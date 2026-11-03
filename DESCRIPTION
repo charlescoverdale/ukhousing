@@ -1,5 +1,5 @@
 Package: ukhousing
-Title: Access UK Housing Data from Land Registry, Planning, and ONS
+Title: Access UK Housing Data from Land Registry, Planning, and 'ONS'
 Version: 0.2.0
 Authors@R:
     person("Charles", "Coverdale", , "charlesfcoverdale@gmail.com", role = c("aut", "cre"))

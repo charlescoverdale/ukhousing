@@ -22,7 +22,13 @@ Details in NEWS.md.
 
 ## R CMD check results
 
-0 errors | 0 warnings | 0 notes (CRAN settings, R 4.5.2, macOS).
+0 errors | 0 warnings | 0 notes (`R CMD check --as-cran --run-donttest`
+with the incoming and remote URL checks, R 4.5.2, macOS).
+
+The local run also printed two notes about the check machine, not the
+package: "checking for future file timestamps ... unable to verify
+current time" (it could not reach the time server) and "Skipping
+checking HTML validation" (its HTML Tidy is too old).
 
 Tests that need the network are skipped on CRAN, and network examples
 are wrapped in `try()` inside `\donttest{}`.

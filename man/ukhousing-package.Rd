@@ -4,7 +4,7 @@
 \name{ukhousing-package}
 \alias{ukhousing}
 \alias{ukhousing-package}
-\title{ukhousing: Access UK Housing Data from Land Registry, Planning, and ONS}
+\title{ukhousing: Access UK Housing Data from Land Registry, Planning, and 'ONS'}
 \description{
 Fetch UK housing data from official sources. Access the UK House Price Index and Price Paid Data from 'HM Land Registry' \url{https://landregistry.data.gov.uk/}, planning application, brownfield land, and local plan data from 'planning.data.gov.uk' \url{https://www.planning.data.gov.uk/}, and the Price Index of Private Rents from the 'Office for National Statistics'. Data covers all 441 UK local authorities from 1995 to the present. Functions accept flexible filters (postcode, local authority, property type, date range) and return tidy data frames. Downloaded data is cached locally for subsequent calls.
 }
