@@ -4,14 +4,14 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Access UK Housing Data from Land Registry, EPC, and Planning • ukhousing</title>
+<title>Access UK Housing Data from Land Registry, Planning, and ONS • ukhousing</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Access UK Housing Data from Land Registry, EPC, and Planning">
-<meta name="description" content="Fetch UK housing data from official sources. Access the UK House Price Index and Price Paid Data from HM Land Registry &lt;https://landregistry.data.gov.uk/&gt;, domestic and non-domestic Energy Performance Certificates from the MHCLG Open Data service &lt;https://epc.opendatacommunities.org/&gt;, and planning application, brownfield land, and local plan data from planning.data.gov.uk &lt;https://www.planning.data.gov.uk/&gt;. Data covers all 441 UK local authorities from 1995 to the present. Functions accept flexible filters (postcode, local authority, property type, date range) and return tidy data frames. Downloaded data is cached locally for subsequent calls.">
-<meta property="og:description" content="Fetch UK housing data from official sources. Access the UK House Price Index and Price Paid Data from HM Land Registry &lt;https://landregistry.data.gov.uk/&gt;, domestic and non-domestic Energy Performance Certificates from the MHCLG Open Data service &lt;https://epc.opendatacommunities.org/&gt;, and planning application, brownfield land, and local plan data from planning.data.gov.uk &lt;https://www.planning.data.gov.uk/&gt;. Data covers all 441 UK local authorities from 1995 to the present. Functions accept flexible filters (postcode, local authority, property type, date range) and return tidy data frames. Downloaded data is cached locally for subsequent calls.">
+<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Access UK Housing Data from Land Registry, Planning, and ONS">
+<meta name="description" content="Fetch UK housing data from official sources. Access the UK House Price Index and Price Paid Data from HM Land Registry &lt;https://landregistry.data.gov.uk/&gt;, planning application, brownfield land, and local plan data from planning.data.gov.uk &lt;https://www.planning.data.gov.uk/&gt;, and the Price Index of Private Rents from the Office for National Statistics. Data covers all 441 UK local authorities from 1995 to the present. Functions accept flexible filters (postcode, local authority, property type, date range) and return tidy data frames. Downloaded data is cached locally for subsequent calls.">
+<meta property="og:description" content="Fetch UK housing data from official sources. Access the UK House Price Index and Price Paid Data from HM Land Registry &lt;https://landregistry.data.gov.uk/&gt;, planning application, brownfield land, and local plan data from planning.data.gov.uk &lt;https://www.planning.data.gov.uk/&gt;, and the Price Index of Private Rents from the Office for National Statistics. Data covers all 441 UK local authorities from 1995 to the present. Functions accept flexible filters (postcode, local authority, property type, date range) and return tidy data frames. Downloaded data is cached locally for subsequent calls.">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -50,17 +50,15 @@
 </h1></div>
 <!-- badges: start -->
 
-<p>Access UK housing data from official sources in R. House prices, individual property transactions, energy performance certificates, planning data, and rental price indices.</p>
+<p>Access UK housing data from official sources in R. House prices, individual property transactions, planning data, and rental price indices.</p>
 <div class="section level2">
 <h2 id="the-uk-has-world-class-housing-data-it-is-also-a-mess">The UK has world-class housing data. It is also a mess.<a class="anchor" aria-label="anchor" href="#the-uk-has-world-class-housing-data-it-is-also-a-mess"></a>
 </h2>
-<p>The UK publishes some of the richest housing data anywhere in the world. Every residential transaction in England and Wales since 1995 is public. Every Energy Performance Certificate since 2008 is queryable by postcode. Planning applications, brownfield land registers, affordability ratios, rental price indices, and stamp duty receipts are all available at no cost, with long back-series, and at local authority resolution.</p>
+<p>The UK publishes some of the richest housing data anywhere in the world. Every residential transaction in England and Wales since 1995 is public. Planning applications, brownfield land registers, affordability ratios, rental price indices, and stamp duty receipts are all available at no cost, with long back-series, and at local authority resolution.</p>
 <p>The catch is that this data is scattered across roughly ten institutions, each with its own format, access pattern, and quirks:</p>
 <ul>
 <li>
 <strong>HM Land Registry</strong> publishes the UK House Price Index via a linked-data SPARQL endpoint plus a REST API, and Price Paid Data as multi-gigabyte bulk CSVs with no header row</li>
-<li>
-<strong>MHCLG’s EPC Open Data service</strong> requires a free registered API key with HTTP Basic Auth, paginates using <code>search-after</code> tokens, and has 90+ hyphenated fields per record</li>
 <li>
 <strong>planning.data.gov.uk</strong> (Digital Land) has a clean REST API with JSON and GeoJSON output</li>
 <li>
@@ -74,7 +72,7 @@
 <li>
 <strong>Registers of Scotland</strong> and <strong>NI Land &amp; Property Services</strong> hold equivalent data for those jurisdictions in different formats</li>
 </ul>
-<p><code>ukhousing</code> wraps the four stable API-based sources (Land Registry HPI, Land Registry Price Paid, EPC, planning.data.gov.uk) plus ONS PIPR rental prices, and exposes them through a consistent R interface. The flaky Excel/ODS scraping sources are deliberately out of scope: they change format too often to maintain reliably.</p>
+<p><code>ukhousing</code> wraps the three stable API-based sources (Land Registry HPI, Land Registry Price Paid, planning.data.gov.uk) plus ONS PIPR rental prices, and exposes them through a consistent R interface. The flaky Excel/ODS scraping sources are deliberately out of scope: they change format too often to maintain reliably.</p>
 </div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -104,10 +102,6 @@
 <td>UK HPI (441+ regions) + Price Paid Data (28M+ transactions since 1995)</td>
 </tr>
 <tr>
-<td><a href="https://epc.opendatacommunities.org/" class="external-link">MHCLG EPC Open Data</a></td>
-<td>25M+ domestic certificates, plus non-domestic and display certificates</td>
-</tr>
-<tr>
 <td><a href="https://www.planning.data.gov.uk/" class="external-link">planning.data.gov.uk</a></td>
 <td>100+ datasets: planning applications, brownfield land, local plans, listed buildings, conservation areas, flood risk zones</td>
 </tr>
@@ -117,7 +111,7 @@
 </tr>
 </tbody>
 </table>
-<p>All sources are free. EPC requires a free registration for an API key. A SPARQL escape hatch (<code><a href="reference/ukh_sparql.html">ukh_sparql()</a></code>) is provided for queries the dedicated helpers don’t cover.</p>
+<p>All sources are free and need no registration. A SPARQL escape hatch (<code><a href="reference/ukh_sparql.html">ukh_sparql()</a></code>) is provided for queries the dedicated helpers don’t cover.</p>
 </div>
 <div class="section level2">
 <h2 id="quick-start">Quick start<a class="anchor" aria-label="anchor" href="#quick-start"></a>
@@ -135,11 +129,7 @@
 <span></span>
 <span><span class="co"># All Westminster flats sold in 2024</span></span>
 <span><span class="va">wm</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ukh_ppd.html">ukh_ppd</a></span><span class="op">(</span><span class="fl">2024</span>, la <span class="op">=</span> <span class="st">"Westminster"</span>, property_type <span class="op">=</span> <span class="st">"flat"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">wm</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Energy rating distribution for Westminster</span></span>
-<span><span class="fu"><a href="reference/ukh_epc_set_key.html">ukh_epc_set_key</a></span><span class="op">(</span><span class="st">"you@example.com"</span>, <span class="st">"your_api_key"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="reference/ukh_epc_summary.html">ukh_epc_summary</a></span><span class="op">(</span>la <span class="op">=</span> <span class="st">"E09000033"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">wm</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="house-price-index">House Price Index<a class="anchor" aria-label="anchor" href="#house-price-index"></a>
@@ -171,31 +161,6 @@
 <span><span class="co"># Monthly transaction counts nationally</span></span>
 <span><span class="va">summary</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ukh_ppd_summary.html">ukh_ppd_summary</a></span><span class="op">(</span><span class="fl">2024</span>, by <span class="op">=</span> <span class="st">"month"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">summary</span><span class="op">$</span><span class="va">month</span>, <span class="st">"-01"</span><span class="op">)</span><span class="op">)</span>, <span class="va">summary</span><span class="op">$</span><span class="va">n</span>, type <span class="op">=</span> <span class="st">"l"</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level2">
-<h2 id="energy-performance-certificates">Energy Performance Certificates<a class="anchor" aria-label="anchor" href="#energy-performance-certificates"></a>
-</h2>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Search EPCs</span></span>
-<span><span class="va">epcs</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ukh_epc_search.html">ukh_epc_search</a></span><span class="op">(</span>postcode <span class="op">=</span> <span class="st">"SW1A 1AA"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">epcs</span><span class="op">$</span><span class="va">current_energy_rating</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Summary for a whole local authority</span></span>
-<span><span class="fu"><a href="reference/ukh_epc_summary.html">ukh_epc_summary</a></span><span class="op">(</span>la <span class="op">=</span> <span class="st">"E09000033"</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   rating count percentage mean_floor_area mean_co2_emissions</span></span>
-<span><span class="co">#&gt; 1      A    12        0.1            85.3               2.1</span></span>
-<span><span class="co">#&gt; 2      B  1523       13.2            82.6               3.8</span></span>
-<span><span class="co">#&gt; ...</span></span></code></pre></div>
-</div>
-<div class="section level2">
-<h2 id="planning-data">Planning data<a class="anchor" aria-label="anchor" href="#planning-data"></a>
-</h2>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Brownfield land register</span></span>
-<span><span class="va">bf</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ukh_planning.html">ukh_planning</a></span><span class="op">(</span><span class="st">"brownfield-land"</span>, limit <span class="op">=</span> <span class="fl">500</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># All available datasets</span></span>
-<span><span class="va">datasets</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ukh_planning_datasets.html">ukh_planning_datasets</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="functions">Functions<a class="anchor" aria-label="anchor" href="#functions"></a>
@@ -244,47 +209,6 @@
 <tr>
 <td><code><a href="reference/ukh_ppd_address.html">ukh_ppd_address()</a></code></td>
 <td>Look up transactions by postcode</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="section level3">
-<h3 id="epc">EPC<a class="anchor" aria-label="anchor" href="#epc"></a>
-</h3>
-<p>All EPC functions accept <code>type = c("domestic", "non-domestic", "display")</code>.</p>
-<table class="table">
-<colgroup>
-<col width="50%">
-<col width="50%">
-</colgroup>
-<thead><tr>
-<th>Function</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td><code><a href="reference/ukh_epc_set_key.html">ukh_epc_set_key()</a></code></td>
-<td>Set API credentials</td>
-</tr>
-<tr>
-<td><code><a href="reference/ukh_epc_search.html">ukh_epc_search()</a></code></td>
-<td>Search certificates with filters</td>
-</tr>
-<tr>
-<td><code><a href="reference/ukh_epc_certificate.html">ukh_epc_certificate()</a></code></td>
-<td>Fetch a single certificate</td>
-</tr>
-<tr>
-<td><code><a href="reference/ukh_epc_summary.html">ukh_epc_summary()</a></code></td>
-<td>Rating distribution for an LA</td>
-</tr>
-<tr>
-<td><code><a href="reference/ukh_epc_bulk.html">ukh_epc_bulk()</a></code></td>
-<td>Download bulk ZIP for an LA</td>
-</tr>
-<tr>
-<td><code><a href="reference/ukh_epc_recommendations_summary.html">ukh_epc_recommendations_summary()</a></code></td>
-<td>Most common improvement recommendations</td>
 </tr>
 </tbody>
 </table>
@@ -345,7 +269,7 @@
 </tr></thead>
 <tbody><tr>
 <td><code><a href="reference/ukh_sparql.html">ukh_sparql()</a></code></td>
-<td>Raw SPARQL query against Land Registry or Open Data Communities</td>
+<td>Raw SPARQL query against Land Registry or any SPARQL endpoint</td>
 </tr></tbody>
 </table>
 </div>
@@ -377,18 +301,7 @@
 <div class="section level2">
 <h2 id="caching">Caching<a class="anchor" aria-label="anchor" href="#caching"></a>
 </h2>
-<p>Downloads are cached to <code>tools::R_user_dir("ukhousing", "cache")</code> by default. Subsequent calls are instant. The monthly series (<code><a href="reference/ukh_hpi.html">ukh_hpi()</a></code>, <code><a href="reference/ukh_transactions.html">ukh_transactions()</a></code>, <code><a href="reference/ukh_pipr.html">ukh_pipr()</a></code>) are fetched again once the cached copy is more than 7 days old, so new monthly releases come through; change this with <code>options(ukhousing.cache_max_age = &lt;days&gt;)</code>. Bulk downloads (EPC and Price Paid) are only re-fetched with <code>refresh = TRUE</code>. Override the location with <code>options(ukhousing.cache_dir = "/path/to/dir")</code>. Use <code><a href="reference/ukh_clear_cache.html">ukh_clear_cache()</a></code> to remove all cached files.</p>
-</div>
-<div class="section level2">
-<h2 id="epc-api-registration">EPC API registration<a class="anchor" aria-label="anchor" href="#epc-api-registration"></a>
-</h2>
-<p>The Energy Performance Certificate service requires a free API key. Register at <a href="https://epc.opendatacommunities.org/" class="external-link">https://epc.opendatacommunities.org/</a> and then:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/ukh_epc_set_key.html">ukh_epc_set_key</a></span><span class="op">(</span><span class="st">"you@example.com"</span>, <span class="st">"your_api_key"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Or set env vars in .Renviron:</span></span>
-<span><span class="co"># EPC_EMAIL=you@example.com</span></span>
-<span><span class="co"># EPC_API_KEY=your_api_key</span></span></code></pre></div>
+<p>Downloads are cached to <code>tools::R_user_dir("ukhousing", "cache")</code> by default. Subsequent calls are instant. The monthly series (<code><a href="reference/ukh_hpi.html">ukh_hpi()</a></code>, <code><a href="reference/ukh_transactions.html">ukh_transactions()</a></code>, <code><a href="reference/ukh_pipr.html">ukh_pipr()</a></code>) are fetched again once the cached copy is more than 7 days old, so new monthly releases come through; change this with <code>options(ukhousing.cache_max_age = &lt;days&gt;)</code>. Price Paid bulk downloads are only re-fetched with <code>refresh = TRUE</code>. Override the location with <code>options(ukhousing.cache_dir = "/path/to/dir")</code>. Use <code><a href="reference/ukh_clear_cache.html">ukh_clear_cache()</a></code> to remove all cached files.</p>
 </div>
 <div class="section level2">
 <h2 id="data-coverage">Data coverage<a class="anchor" aria-label="anchor" href="#data-coverage"></a>
@@ -396,7 +309,6 @@
 <ul>
 <li>UK HPI: 441+ areas, from January 1995 (E&amp;W), 2004 (Scotland), 2005 (Northern Ireland)</li>
 <li>Price Paid Data: every residential sale in England and Wales since 1995 (~28 million records)</li>
-<li>EPC: ~25 million domestic certificates, 2008 onwards (England and Wales)</li>
 <li>Planning: 100+ datasets covering the full England planning system</li>
 </ul>
 </div>
@@ -452,7 +364,7 @@
 <div class="section level2">
 <h2 id="keywords">Keywords<a class="anchor" aria-label="anchor" href="#keywords"></a>
 </h2>
-<p>UK housing, land registry, price paid data, UK HPI, EPC, energy performance certificate, planning, brownfield land, MHCLG, housing data, house prices, property, real estate</p>
+<p>UK housing, land registry, price paid data, UK HPI, planning, brownfield land, MHCLG, housing data, house prices, property, real estate</p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">

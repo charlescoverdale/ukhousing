@@ -16,8 +16,7 @@ Invisibly returns `NULL`.
 ## See also
 
 Other configuration:
-[`ukh_cache_info()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_cache_info.md),
-[`ukh_epc_set_key()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_epc_set_key.md)
+[`ukh_cache_info()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_cache_info.md)
 
 ## Examples
 
@@ -27,7 +26,7 @@ op <- options(ukhousing.cache_dir = tempdir())
 try({
   ukh_clear_cache()
 })
-#> Removed 2 cached files from /tmp/RtmpgdHDz6.
+#> Removed 2 cached files from /tmp/RtmpSgvCiC.
 options(op)
 # }
 ```

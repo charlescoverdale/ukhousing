@@ -26,23 +26,6 @@ Individual property transactions
 - [`ukh_ppd_years()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_ppd_years.md)
   : Price Paid Data across multiple years
 
-## EPC Ratings
-
-Energy Performance Certificates
-
-- [`ukh_epc_search()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_epc_search.md)
-  : Search domestic Energy Performance Certificates
-- [`ukh_epc_certificate()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_epc_certificate.md)
-  : Fetch a single EPC by LMK key
-- [`ukh_epc_summary()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_epc_summary.md)
-  : EPC rating distribution for a local authority
-- [`ukh_epc_recommendations_summary()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_epc_recommendations_summary.md)
-  : Summarise EPC improvement recommendations for a local authority
-- [`ukh_epc_bulk()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_epc_bulk.md)
-  : Download a bulk EPC ZIP for a local authority
-- [`ukh_epc_set_key()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_epc_set_key.md)
-  : Set EPC API credentials
-
 ## Planning and PIPR
 
 Planning decisions and private rented sector
@@ -73,5 +56,5 @@ Regions, SPARQL, and cache
 
 - [`ukhousing`](https://charlescoverdale.github.io/ukhousing/reference/ukhousing-package.md)
   [`ukhousing-package`](https://charlescoverdale.github.io/ukhousing/reference/ukhousing-package.md)
-  : ukhousing: Access UK Housing Data from Land Registry, EPC, and
-  Planning
+  : ukhousing: Access UK Housing Data from Land Registry, Planning, and
+  ONS

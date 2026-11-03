@@ -2,6 +2,36 @@
 
 ## ukhousing 0.2.0
 
+### Energy Performance Certificate functions are defunct
+
+MHCLG retired the EPC Open Data service (`epc.opendatacommunities.org`)
+that
+[`ukh_epc_search()`](https://charlescoverdale.github.io/ukhousing/reference/ukhousing-defunct.md),
+[`ukh_epc_certificate()`](https://charlescoverdale.github.io/ukhousing/reference/ukhousing-defunct.md),
+[`ukh_epc_summary()`](https://charlescoverdale.github.io/ukhousing/reference/ukhousing-defunct.md),
+[`ukh_epc_bulk()`](https://charlescoverdale.github.io/ukhousing/reference/ukhousing-defunct.md),
+[`ukh_epc_recommendations_summary()`](https://charlescoverdale.github.io/ukhousing/reference/ukhousing-defunct.md)
+and
+[`ukh_epc_set_key()`](https://charlescoverdale.github.io/ukhousing/reference/ukhousing-defunct.md)
+used. Its API and bulk downloads now redirect to the home page of the
+replacement, the Get energy performance of buildings data service, so
+every one of these functions failed in 0.1.0.
+
+The replacement is not a drop-in: it needs a GOV.UK One Login account
+and a bearer token, offers no per-local-authority bulk files and no
+property type or built form filters, and returns far fewer fields from a
+search. Rather than ship a thinner, credential-bound version, the six
+functions now stop with an error that points to the new service:
+<https://get-energy-performance-data.communities.gov.uk/>.
+
+### `ukh_sparql()` no longer offers the Open Data Communities endpoint
+
+MHCLG also retired Open Data Communities. `opendatacommunities.org` now
+redirects to a site with no SPARQL service, so
+`ukh_sparql(endpoint = "opendatacommunities")` returned an error. It now
+says the endpoint has been retired. The Land Registry endpoint and
+custom endpoint URLs work as before.
+
 ### `ukh_pipr()` returns data again, and current data
 
 [`ukh_pipr()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_pipr.md)
@@ -59,8 +89,8 @@ reused a cached download indefinitely, so a user who had called them
 once never saw a later monthly release unless they passed
 `refresh = TRUE`. A cached copy is now fetched again once it is more
 than 7 days old; set `options(ukhousing.cache_max_age = <days>)` to
-change this. Bulk EPC and Price Paid downloads are unchanged and still
-only re-fetched on request.
+change this. Price Paid bulk downloads are unchanged and still only
+re-fetched on request.
 
 ## ukhousing 0.1.0
 
@@ -103,22 +133,22 @@ CRAN release: 2026-04-21
 
 ### Energy Performance Certificates (MHCLG)
 
-- [`ukh_epc_set_key()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_epc_set_key.md)
+- [`ukh_epc_set_key()`](https://charlescoverdale.github.io/ukhousing/reference/ukhousing-defunct.md)
   stores EPC API credentials for the session.
-- [`ukh_epc_search()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_epc_search.md)
+- [`ukh_epc_search()`](https://charlescoverdale.github.io/ukhousing/reference/ukhousing-defunct.md)
   queries certificates with filters (postcode, local authority, property
   type, energy rating, built form, date range). Pagination handled
   automatically via `search-after` tokens. Supports `type = "domestic"`
   (default), `"non-domestic"`, and `"display"`.
-- [`ukh_epc_certificate()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_epc_certificate.md)
+- [`ukh_epc_certificate()`](https://charlescoverdale.github.io/ukhousing/reference/ukhousing-defunct.md)
   fetches a single certificate with all 90+ fields plus improvement
   recommendations.
-- [`ukh_epc_summary()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_epc_summary.md)
+- [`ukh_epc_summary()`](https://charlescoverdale.github.io/ukhousing/reference/ukhousing-defunct.md)
   returns the distribution of energy ratings (A-G) for a local
   authority.
-- [`ukh_epc_bulk()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_epc_bulk.md)
+- [`ukh_epc_bulk()`](https://charlescoverdale.github.io/ukhousing/reference/ukhousing-defunct.md)
   downloads and extracts the per-LA bulk ZIP.
-- [`ukh_epc_recommendations_summary()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_epc_recommendations_summary.md)
+- [`ukh_epc_recommendations_summary()`](https://charlescoverdale.github.io/ukhousing/reference/ukhousing-defunct.md)
   aggregates improvement recommendations across a local authority.
 
 ### Planning data (Digital Land)

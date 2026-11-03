@@ -19,8 +19,7 @@ A list with elements `dir`, `n_files`, `size_bytes`, `size_human`, and
 ## See also
 
 Other configuration:
-[`ukh_clear_cache()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_clear_cache.md),
-[`ukh_epc_set_key()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_epc_set_key.md)
+[`ukh_clear_cache()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_clear_cache.md)
 
 ## Examples
 
@@ -31,7 +30,7 @@ try({
   ukh_cache_info()
 })
 #> $dir
-#> [1] "/tmp/RtmpgdHDz6"
+#> [1] "/tmp/RtmpSgvCiC"
 #> 
 #> $n_files
 #> [1] 2
@@ -44,8 +43,8 @@ try({
 #> 
 #> $files
 #>                                     name size_bytes            modified
-#> 1 bslib-7db53ff92ec092c0dbca0588320fd109       4096 2026-11-01 14:07:14
-#> 2                                downlit       4096 2026-11-01 14:07:16
+#> 1 bslib-7db53ff92ec092c0dbca0588320fd109       4096 2026-11-03 08:23:59
+#> 2                                downlit       4096 2026-11-03 08:24:01
 #> 
 options(op)
 # }

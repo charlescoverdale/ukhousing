@@ -8,11 +8,7 @@ Data lookups by postcode.
 ## Usage
 
 ``` r
-ukh_sparql(
-  query,
-  endpoint = c("land-registry", "opendatacommunities"),
-  timeout = 60L
-)
+ukh_sparql(query, endpoint = "land-registry", timeout = 60L)
 ```
 
 ## Arguments
@@ -23,8 +19,8 @@ ukh_sparql(
 
 - endpoint:
 
-  Character. One of `"land-registry"` (default),
-  `"opendatacommunities"`, or a full URL to any SPARQL endpoint.
+  Character. `"land-registry"` (default), or a full URL to any SPARQL
+  endpoint.
 
 - timeout:
 
@@ -37,9 +33,10 @@ query.
 
 ## Details
 
-Both endpoints are free and require no authentication. The Land Registry
-endpoint covers HPI and Price Paid Data; the Open Data Communities
-endpoint covers 300+ housing-market datasets published by MHCLG.
+The Land Registry endpoint is free, requires no authentication, and
+covers HPI and Price Paid Data. MHCLG's Open Data Communities endpoint
+was retired in 2026, so `endpoint = "opendatacommunities"` now stops
+with an error.
 
 ## See also
 

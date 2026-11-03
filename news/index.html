@@ -35,6 +35,16 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2.0" id="ukhousing-020">ukhousing 0.2.0<a class="anchor" aria-label="anchor" href="#ukhousing-020"></a></h2>
 <div class="section level3">
+<h3 id="energy-performance-certificate-functions-are-defunct-0-2-0">Energy Performance Certificate functions are defunct<a class="anchor" aria-label="anchor" href="#energy-performance-certificate-functions-are-defunct-0-2-0"></a></h3>
+<p>MHCLG retired the EPC Open Data service (<code>epc.opendatacommunities.org</code>) that <code><a href="../reference/ukhousing-defunct.html">ukh_epc_search()</a></code>, <code><a href="../reference/ukhousing-defunct.html">ukh_epc_certificate()</a></code>, <code><a href="../reference/ukhousing-defunct.html">ukh_epc_summary()</a></code>, <code><a href="../reference/ukhousing-defunct.html">ukh_epc_bulk()</a></code>, <code><a href="../reference/ukhousing-defunct.html">ukh_epc_recommendations_summary()</a></code> and <code><a href="../reference/ukhousing-defunct.html">ukh_epc_set_key()</a></code> used. Its API and bulk downloads now redirect to the home page of the replacement, the Get energy performance of buildings data service, so every one of these functions failed in 0.1.0.</p>
+<p>The replacement is not a drop-in: it needs a GOV.UK One Login account and a bearer token, offers no per-local-authority bulk files and no property type or built form filters, and returns far fewer fields from a search. Rather than ship a thinner, credential-bound version, the six functions now stop with an error that points to the new service: <a href="https://get-energy-performance-data.communities.gov.uk/" class="external-link uri">https://get-energy-performance-data.communities.gov.uk/</a>.</p>
+</div>
+<div class="section level3">
+<h3 id="ukh_sparql-no-longer-offers-the-open-data-communities-endpoint-0-2-0">
+<code>ukh_sparql()</code> no longer offers the Open Data Communities endpoint<a class="anchor" aria-label="anchor" href="#ukh_sparql-no-longer-offers-the-open-data-communities-endpoint-0-2-0"></a></h3>
+<p>MHCLG also retired Open Data Communities. <code>opendatacommunities.org</code> now redirects to a site with no SPARQL service, so <code>ukh_sparql(endpoint = "opendatacommunities")</code> returned an error. It now says the endpoint has been retired. The Land Registry endpoint and custom endpoint URLs work as before.</p>
+</div>
+<div class="section level3">
 <h3 id="ukh_pipr-returns-data-again-and-current-data-0-2-0">
 <code>ukh_pipr()</code> returns data again, and current data<a class="anchor" aria-label="anchor" href="#ukh_pipr-returns-data-again-and-current-data-0-2-0"></a></h3>
 <p><code><a href="../reference/ukh_pipr.html">ukh_pipr()</a></code> returned an empty data frame with a warning. The ONS stopped offering a JSON download for the rental index on its Beta API, so the function fell back to a metadata link that holds no observations. That API copy of the series also stopped at January 2024.</p>
@@ -57,7 +67,7 @@
 </div>
 <div class="section level3">
 <h3 id="monthly-series-no-longer-go-stale-in-the-cache-0-2-0">Monthly series no longer go stale in the cache<a class="anchor" aria-label="anchor" href="#monthly-series-no-longer-go-stale-in-the-cache-0-2-0"></a></h3>
-<p><code><a href="../reference/ukh_hpi.html">ukh_hpi()</a></code>, <code><a href="../reference/ukh_transactions.html">ukh_transactions()</a></code> and <code><a href="../reference/ukh_pipr.html">ukh_pipr()</a></code> reused a cached download indefinitely, so a user who had called them once never saw a later monthly release unless they passed <code>refresh = TRUE</code>. A cached copy is now fetched again once it is more than 7 days old; set <code>options(ukhousing.cache_max_age = &lt;days&gt;)</code> to change this. Bulk EPC and Price Paid downloads are unchanged and still only re-fetched on request.</p>
+<p><code><a href="../reference/ukh_hpi.html">ukh_hpi()</a></code>, <code><a href="../reference/ukh_transactions.html">ukh_transactions()</a></code> and <code><a href="../reference/ukh_pipr.html">ukh_pipr()</a></code> reused a cached download indefinitely, so a user who had called them once never saw a later monthly release unless they passed <code>refresh = TRUE</code>. A cached copy is now fetched again once it is more than 7 days old; set <code>options(ukhousing.cache_max_age = &lt;days&gt;)</code> to change this. Price Paid bulk downloads are unchanged and still only re-fetched on request.</p>
 </div>
 </div>
     <div class="section level2">
@@ -87,17 +97,17 @@
 <div class="section level3">
 <h3 id="energy-performance-certificates-mhclg-0-1-0">Energy Performance Certificates (MHCLG)<a class="anchor" aria-label="anchor" href="#energy-performance-certificates-mhclg-0-1-0"></a></h3>
 <ul><li>
-<code><a href="../reference/ukh_epc_set_key.html">ukh_epc_set_key()</a></code> stores EPC API credentials for the session.</li>
+<code><a href="../reference/ukhousing-defunct.html">ukh_epc_set_key()</a></code> stores EPC API credentials for the session.</li>
 <li>
-<code><a href="../reference/ukh_epc_search.html">ukh_epc_search()</a></code> queries certificates with filters (postcode, local authority, property type, energy rating, built form, date range). Pagination handled automatically via <code>search-after</code> tokens. Supports <code>type = "domestic"</code> (default), <code>"non-domestic"</code>, and <code>"display"</code>.</li>
+<code><a href="../reference/ukhousing-defunct.html">ukh_epc_search()</a></code> queries certificates with filters (postcode, local authority, property type, energy rating, built form, date range). Pagination handled automatically via <code>search-after</code> tokens. Supports <code>type = "domestic"</code> (default), <code>"non-domestic"</code>, and <code>"display"</code>.</li>
 <li>
-<code><a href="../reference/ukh_epc_certificate.html">ukh_epc_certificate()</a></code> fetches a single certificate with all 90+ fields plus improvement recommendations.</li>
+<code><a href="../reference/ukhousing-defunct.html">ukh_epc_certificate()</a></code> fetches a single certificate with all 90+ fields plus improvement recommendations.</li>
 <li>
-<code><a href="../reference/ukh_epc_summary.html">ukh_epc_summary()</a></code> returns the distribution of energy ratings (A-G) for a local authority.</li>
+<code><a href="../reference/ukhousing-defunct.html">ukh_epc_summary()</a></code> returns the distribution of energy ratings (A-G) for a local authority.</li>
 <li>
-<code><a href="../reference/ukh_epc_bulk.html">ukh_epc_bulk()</a></code> downloads and extracts the per-LA bulk ZIP.</li>
+<code><a href="../reference/ukhousing-defunct.html">ukh_epc_bulk()</a></code> downloads and extracts the per-LA bulk ZIP.</li>
 <li>
-<code><a href="../reference/ukh_epc_recommendations_summary.html">ukh_epc_recommendations_summary()</a></code> aggregates improvement recommendations across a local authority.</li>
+<code><a href="../reference/ukhousing-defunct.html">ukh_epc_recommendations_summary()</a></code> aggregates improvement recommendations across a local authority.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="planning-data-digital-land-0-1-0">Planning data (Digital Land)<a class="anchor" aria-label="anchor" href="#planning-data-digital-land-0-1-0"></a></h3>
