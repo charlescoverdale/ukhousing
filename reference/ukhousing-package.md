@@ -1,4 +1,4 @@
-# ukhousing: Access UK Housing Data from Land Registry, Planning, and ONS
+# ukhousing: Access UK Housing Data from Land Registry, Planning, and 'ONS'
 
 Fetch UK housing data from official sources. Access the UK House Price
 Index and Price Paid Data from 'HM Land Registry'

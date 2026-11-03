@@ -26,7 +26,7 @@ op <- options(ukhousing.cache_dir = tempdir())
 try({
   ukh_clear_cache()
 })
-#> Removed 2 cached files from /tmp/RtmpSgvCiC.
+#> Removed 2 cached files from /tmp/RtmpvSBJid.
 options(op)
 # }
 ```
