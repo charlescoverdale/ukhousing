@@ -30,7 +30,7 @@ try({
   ukh_cache_info()
 })
 #> $dir
-#> [1] "/tmp/RtmpvSBJid"
+#> [1] "/tmp/RtmpzWaomZ"
 #> 
 #> $n_files
 #> [1] 2
@@ -43,8 +43,8 @@ try({
 #> 
 #> $files
 #>                                     name size_bytes            modified
-#> 1 bslib-7db53ff92ec092c0dbca0588320fd109       4096 2026-11-03 08:39:36
-#> 2                                downlit       4096 2026-11-03 08:39:38
+#> 1 bslib-7db53ff92ec092c0dbca0588320fd109       4096 2026-11-09 17:41:48
+#> 2                                downlit       4096 2026-11-09 17:41:50
 #> 
 options(op)
 # }

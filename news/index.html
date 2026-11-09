@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ukhousing</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,7 +33,11 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.2.0" id="ukhousing-020">ukhousing 0.2.0<a class="anchor" aria-label="anchor" href="#ukhousing-020"></a></h2>
+<h2 class="pkg-version" data-toc-text="development version" id="ukhousing-development-version">ukhousing (development version)<a class="anchor" aria-label="anchor" href="#ukhousing-development-version"></a></h2>
+<ul><li>A failed download no longer leaves an error page in the cache. httr2 writes the response body to disk even on HTTP errors, so a 403 or 503 from Land Registry used to leave a file that the next call read as data, which made <code><a href="../reference/ukh_hpi_compare.html">ukh_hpi_compare()</a></code> fail with “Could not find a date column” for the full cache lifetime. <code>ukh_download()</code> now downloads to a temporary file and moves it into the cache only on success.</li>
+</ul></div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.2.0" id="ukhousing-020">ukhousing 0.2.0<a class="anchor" aria-label="anchor" href="#ukhousing-020"></a></h2><p class="text-muted">CRAN release: 2026-11-03</p>
 <div class="section level3">
 <h3 id="energy-performance-certificate-functions-are-defunct-0-2-0">Energy Performance Certificate functions are defunct<a class="anchor" aria-label="anchor" href="#energy-performance-certificate-functions-are-defunct-0-2-0"></a></h3>
 <p>MHCLG retired the EPC Open Data service (<code>epc.opendatacommunities.org</code>) that <code><a href="../reference/ukhousing-defunct.html">ukh_epc_search()</a></code>, <code><a href="../reference/ukhousing-defunct.html">ukh_epc_certificate()</a></code>, <code><a href="../reference/ukhousing-defunct.html">ukh_epc_summary()</a></code>, <code><a href="../reference/ukhousing-defunct.html">ukh_epc_bulk()</a></code>, <code><a href="../reference/ukhousing-defunct.html">ukh_epc_recommendations_summary()</a></code> and <code><a href="../reference/ukhousing-defunct.html">ukh_epc_set_key()</a></code> used. Its API and bulk downloads now redirect to the home page of the replacement, the Get energy performance of buildings data service, so every one of these functions failed in 0.1.0.</p>

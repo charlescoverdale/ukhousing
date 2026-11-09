@@ -9,7 +9,7 @@ with their slugs, names, and descriptions."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">ukhousing</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -64,90 +64,11 @@ with their slugs, names, and descriptions.</p>
 <span class="r-in"><span>  <span class="va">ds</span> <span class="op">&lt;-</span> <span class="fu">ukh_planning_datasets</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ds</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   entry.date start.date end.date                       collection</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 2024-06-26                     agricultural-land-classification</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 2025-01-31                          air-quality-management-area</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                                ancient-woodland</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                ancient-woodland</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 2025-02-04                         archaeological-priority-area</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                            dataset</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1                          address</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 agricultural-land-classification</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3      air-quality-management-area</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                 ancient-woodland</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5          ancient-woodland-status</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6     archaeological-priority-area</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                         description</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                                                                                  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                                   land graded by its quality for agricultural use</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                Areas where air pollution levels have exceeded the national air quality objectives</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                                    An area that’s been wooded continuously since at least 1600 AD</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                                                                                  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 Areas of Greater London where there is significant known archaeological interest or potential for new discoveries</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                               name                            plural prefix</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1                          Address                         addresses   uprn</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 Agricultural land classification Agricultural land classifications       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3      Air quality management area      Air quality management areas       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                 Ancient woodland                 Ancient woodlands       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5          Ancient woodland status          Ancient woodlands status       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6     Archaeological priority area     Archaeological priority areas       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                                                                                                                                                                                                                                                                                                                                                                                         text</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                                                                                                                                                                                                                                                                                                                                                                                                                                           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                                                                                                                                                                                                                                                                                                                                                                                                                                           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                                                                                                                                                                                                                                                                                                          An area designated by DEFRA.\n\nThese areas are taken into consideration in both plan-making and development management decisions</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                                                                                                                                                                                                               An area designated as ancient woodland by Natural England.\n\nNatural England and Forestry Commission [Guidance](https://www.gov.uk/guidance/ancient-woodland-and-veteran-trees-protection-surveys-licences)  is used in planning decisions.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                                                                                                                                                                                                                                                                                                                                        The status assigned to an area of [ancient woodland](/dataset/ancient-woodland) by Natural England.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 The Greater London Archaeological Priority Areas (APAs) are areas in London that have significant archaeological interest or potential for new discoveries\n\nThe APAs are based on evidence in the Greater London Historic Environment Record (GLHER)\nThey were created in the 1970s and 1980s by boroughs and local museums\nThey are being updated using new evidence and standards\nThe new system assigns all land to one of four tiers based on archaeological risk</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    typology wikidata                        wikipedia entities</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 geography                                                   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 geography          Agricultural_Land_Classification         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 geography                                                   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 geography Q3078732                 Ancient_woodland         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  category                          Ancient_woodland         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 geography                                                   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                 themes entity.count paint.options      attribution</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1       administrative            0                crown-copyright</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2          environment          585   #00703c;0.2  natural-england</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3          environment          498   #87823A;0.3            defra</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4          environment        44375   #00703c;0.2  natural-england</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5          environment            2                natural-england</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 environment;heritage          851  #b54405;0.35 historic-england</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                                                                                                                                                                                                                                       attribution.text</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                                                                                                                                                                                                                                                            © Crown copyright and database right 2026</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                                                                                                                                                                                                © Natural England copyright. Contains Ordnance Survey data © Crown copyright and database right 2026.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                                                                                                                                                       © Crown copyright and database rights 2026 licenced under Defra's Public Sector Mapping Agreement with Ordnance Survey (licence No. 100022861)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                                                                                                                                                                                                                © Natural England copyright. Contains Ordnance Survey data © Crown copyright and database right 2026.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                                                                                                                                                                                                © Natural England copyright. Contains Ordnance Survey data © Crown copyright and database right 2026.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 © Historic England 2026. Contains Ordnance Survey data © Crown copyright and database right 2026.\nThe Historic England GIS Data contained in this material was obtained on [date].\nThe most publicly available up to date Historic England GIS Data can be obtained from [HistoricEngland.org.uk](https://historicengland.org.uk).</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   licence</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1    ogl3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2    ogl3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3    ogl3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4    ogl3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5    ogl3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6    ogl3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                                      licence.text</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 Licensed under the [Open Government Licence v.3.0](https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/).</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 Licensed under the [Open Government Licence v.3.0](https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/).</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 Licensed under the [Open Government Licence v.3.0](https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/).</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 Licensed under the [Open Government Licence v.3.0](https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/).</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 Licensed under the [Open Government Licence v.3.0](https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/).</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 Licensed under the [Open Government Licence v.3.0](https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/).</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                  consideration github.discussion entity.minimum</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                                         1e+13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2             agricultural-land-classification                67          32000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3                 air-quality-management-areas                55          35000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                            ancient-woodlands                32      110000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5                            ancient-woodlands                32       29100000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 greater-london-archaeological-priority-areas                89          40000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   entity.maximum phase   realm replacement.dataset version</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 19999999999999 alpha dataset                            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2          34999 alpha dataset                            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3          39999  live dataset                            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4      129999999  live dataset                            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5       30099999  beta dataset                            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6          59999  live dataset                            </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Waiting 2s for retry backoff <span style="color: #00BB00;">■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  </span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Waiting 4s for retry backoff <span style="color: #00BB00;">■■■■■■■■■■■■■■■■■               </span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Waiting 4s for retry backoff <span style="color: #00BB00;">■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Error in value[[3L]](cond) : Failed to query planning.data.gov.uk.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">✖</span> HTTP 503 Service Unavailable.</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span><span class="va">op</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>

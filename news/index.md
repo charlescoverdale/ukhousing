@@ -1,6 +1,19 @@
 # Changelog
 
+## ukhousing (development version)
+
+- A failed download no longer leaves an error page in the cache. httr2
+  writes the response body to disk even on HTTP errors, so a 403 or 503
+  from Land Registry used to leave a file that the next call read as
+  data, which made
+  [`ukh_hpi_compare()`](https://charlescoverdale.github.io/ukhousing/reference/ukh_hpi_compare.md)
+  fail with “Could not find a date column” for the full cache lifetime.
+  `ukh_download()` now downloads to a temporary file and moves it into
+  the cache only on success.
+
 ## ukhousing 0.2.0
+
+CRAN release: 2026-11-03
 
 ### Energy Performance Certificate functions are defunct
 

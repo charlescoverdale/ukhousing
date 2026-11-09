@@ -59,8 +59,6 @@ try({
   }'
   ukh_sparql(q)
 })
-#> Waiting 2s for retry backoff ■■■■■■■■■■■■■■■                 
-#> Waiting 2s for retry backoff ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  
 #>     hpi avgPrice
 #> 1 87.50  1072220
 options(op)
