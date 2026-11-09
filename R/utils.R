@@ -73,11 +73,19 @@ ukh_request <- function(url) {
   req
 }
 
-# Download a URL to a file (streaming, with retry)
+# Download a URL to a file (streaming, with retry).
+#
+# httr2 writes the response body to `path` even when the request fails, so
+# downloading straight into the cache would leave an error page (HTML or
+# empty) at `dest` that later calls read as fresh data. Download to a
+# temporary file beside `dest` and only move it into place on success.
 ukh_download <- function(url, dest, progress = TRUE) {
+  tmp <- tempfile(pattern = "ukh_dl_", tmpdir = dirname(dest))
+  on.exit(unlink(tmp), add = TRUE)
+
   req <- ukh_request(url)
   resp <- tryCatch(
-    httr2::req_perform(req, path = dest),
+    httr2::req_perform(req, path = tmp),
     error = function(e) {
       cli_abort(c(
         "Failed to download {.url {url}}.",
@@ -88,6 +96,17 @@ ukh_download <- function(url, dest, progress = TRUE) {
   status <- httr2::resp_status(resp)
   if (status >= 400L) {
     cli_abort("Download failed with HTTP {status}: {.url {url}}")
+  }
+
+  # Mocked or in-memory responses carry the body rather than a file path.
+  if (!file.exists(tmp)) {
+    writeBin(httr2::resp_body_raw(resp), tmp)
+  }
+
+  if (!file.rename(tmp, dest)) {
+    if (!file.copy(tmp, dest, overwrite = TRUE)) {
+      cli_abort("Could not write downloaded file to {.path {dest}}.")
+    }
   }
   dest
 }

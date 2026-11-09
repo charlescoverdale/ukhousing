@@ -69,3 +69,32 @@ test_that("ukh_cache_dir creates directory", {
   d <- ukh_cache_dir()
   expect_true(dir.exists(d))
 })
+
+test_that("ukh_download leaves no cache file behind when the request fails", {
+  dest <- tempfile(fileext = ".csv")
+  on.exit(unlink(dest), add = TRUE)
+  httr2::local_mocked_responses(function(req) {
+    httr2::response(
+      403,
+      headers = list("content-type" = "text/html"),
+      body = charToRaw("<html>Forbidden</html>")
+    )
+  })
+  expect_error(ukh_download("https://example.test/data.csv", dest))
+  expect_false(file.exists(dest))
+  expect_length(list.files(dirname(dest), pattern = "^ukh_dl_"), 0L)
+})
+
+test_that("ukh_download moves a successful download into place", {
+  dest <- tempfile(fileext = ".csv")
+  on.exit(unlink(dest), add = TRUE)
+  httr2::local_mocked_responses(function(req) {
+    httr2::response(
+      200,
+      headers = list("content-type" = "text/csv"),
+      body = charToRaw("Date,Value\n2020-01-01,1\n")
+    )
+  })
+  expect_equal(ukh_download("https://example.test/data.csv", dest), dest)
+  expect_true(file.exists(dest))
+})
